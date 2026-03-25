@@ -4,8 +4,14 @@
     "zoom": 8,
     "minZoom": 7,
     "maxZoom": 18,
+    "maxBoundsViscosity": 0.72,
     "fitPadding": 20,
-    "maxBoundsPadding": 0.14,
+    "maxBoundsPadding": {
+      "north": 0.34,
+      "south": 0.34,
+      "east": 0.24,
+      "west": 0.24
+    },
     "tileLayer": {
       "url": "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
       "subdomains": "abcd",

@@ -34,6 +34,7 @@ Fornecer um site estático, leve e publicável no GitHub Pages para visualizar e
 - dados do IBGE incorporados como GeoJSON pronto para reduzir tempo de carregamento no cliente
 - runtime em JavaScript clássico para ampliar compatibilidade nos navegadores atuais
 - comportamento touch, resize e orientação tratado no cliente para navegação mais estável
+- limites de pan do estado configuráveis em `app-config.json`, com margem extra para recentralizar o ES sem perder o foco visual
 
 ## Estratégia de expansão
 

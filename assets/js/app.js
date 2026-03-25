@@ -174,6 +174,43 @@
     });
   }
 
+  function normalizeBoundsPadding(padding) {
+    if (typeof padding === "number") {
+      return {
+        north: padding,
+        south: padding,
+        east: padding,
+        west: padding,
+      };
+    }
+
+    return {
+      north: padding && padding.north != null ? Number(padding.north) : 0,
+      south: padding && padding.south != null ? Number(padding.south) : 0,
+      east: padding && padding.east != null ? Number(padding.east) : 0,
+      west: padding && padding.west != null ? Number(padding.west) : 0,
+    };
+  }
+
+  function expandBounds(bounds, padding) {
+    var normalized = normalizeBoundsPadding(padding);
+    var southWest = bounds.getSouthWest();
+    var northEast = bounds.getNorthEast();
+    var latSpan = Math.max(Math.abs(northEast.lat - southWest.lat), 0.01);
+    var lngSpan = Math.max(Math.abs(northEast.lng - southWest.lng), 0.01);
+
+    return L.latLngBounds(
+      [
+        southWest.lat - latSpan * normalized.south,
+        southWest.lng - lngSpan * normalized.west,
+      ],
+      [
+        northEast.lat + latSpan * normalized.north,
+        northEast.lng + lngSpan * normalized.east,
+      ]
+    );
+  }
+
   function shouldUseBottomControls() {
     var compactScreen = matchesMedia("(max-width: 760px)", window.innerWidth <= 760);
     var coarsePointer = matchesMedia("(pointer: coarse)", false);
@@ -414,7 +451,8 @@
       zoomControl: false,
       minZoom: config.map.minZoom,
       maxZoom: config.map.maxZoom,
-      maxBoundsViscosity: 1,
+      maxBoundsViscosity:
+        config.map.maxBoundsViscosity == null ? 0.72 : config.map.maxBoundsViscosity,
       preferCanvas: true,
       worldCopyJump: false,
       zoomSnap: 0.5,
@@ -869,8 +907,11 @@
 
             if (stateFrame.bounds && stateFrame.bounds.isValid()) {
               map.setMaxBounds(
-                stateFrame.bounds.pad(
-                  config.map.maxBoundsPadding == null ? 0.14 : config.map.maxBoundsPadding
+                expandBounds(
+                  stateFrame.bounds,
+                  config.map.maxBoundsPadding == null
+                    ? { north: 0.34, south: 0.34, east: 0.24, west: 0.24 }
+                    : config.map.maxBoundsPadding
                 )
               );
               map.fitBounds(stateFrame.bounds, {
