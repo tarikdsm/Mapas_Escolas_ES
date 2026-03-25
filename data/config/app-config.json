@@ -26,6 +26,7 @@
   },
   "stateBoundary": {
     "dataPath": "data/boundaries/es_state.geojson",
+    "bufferDegrees": 0.012,
     "borderColor": "#0f3551",
     "borderWeight": 5,
     "maskColor": "#dbe7f0",

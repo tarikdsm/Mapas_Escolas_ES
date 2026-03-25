@@ -49,6 +49,8 @@ python scripts/build_state_boundary.py \
 
 Esse passo corrige trechos costeiros em que um poligono estadual simplificado pode deixar escolas visualmente fora da area util do mapa.
 
+Se houver escolas muito proximas da costa ou da divisa ainda encostando na borda visual, ajuste `stateBoundary.bufferDegrees` em `data/config/app-config.json`.
+
 ## Checklist antes do commit
 
 1. Validar se o GeoJSON abre sem erro.

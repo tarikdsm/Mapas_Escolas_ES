@@ -592,6 +592,94 @@
     });
   }
 
+  function getGeometryBounds(geometry) {
+    var minLng = Infinity;
+    var maxLng = -Infinity;
+    var minLat = Infinity;
+    var maxLat = -Infinity;
+
+    function visit(coordinates) {
+      if (!coordinates || !coordinates.length) {
+        return;
+      }
+
+      if (typeof coordinates[0] === "number" && typeof coordinates[1] === "number") {
+        minLng = Math.min(minLng, coordinates[0]);
+        maxLng = Math.max(maxLng, coordinates[0]);
+        minLat = Math.min(minLat, coordinates[1]);
+        maxLat = Math.max(maxLat, coordinates[1]);
+        return;
+      }
+
+      coordinates.forEach(visit);
+    }
+
+    visit(geometry && geometry.coordinates);
+
+    return {
+      minLng: minLng,
+      maxLng: maxLng,
+      minLat: minLat,
+      maxLat: maxLat,
+    };
+  }
+
+  function inflateRing(ring, bufferDegrees, center) {
+    var points = ring.slice(0, -1).map(function (coordinate) {
+      var dx = coordinate[0] - center.lng;
+      var dy = coordinate[1] - center.lat;
+      var length = Math.sqrt(dx * dx + dy * dy) || 1;
+      return [
+        center.lng + dx * ((length + bufferDegrees) / length),
+        center.lat + dy * ((length + bufferDegrees) / length),
+      ];
+    });
+
+    if (!points.length) {
+      return ring;
+    }
+
+    points.push(points[0].slice());
+    return points;
+  }
+
+  function inflateGeometry(geometry, bufferDegrees) {
+    var bounds;
+    var center;
+
+    if (!bufferDegrees || !geometry) {
+      return geometry;
+    }
+
+    bounds = getGeometryBounds(geometry);
+    center = {
+      lng: (bounds.minLng + bounds.maxLng) / 2,
+      lat: (bounds.minLat + bounds.maxLat) / 2,
+    };
+
+    if (geometry.type === "Polygon") {
+      return {
+        type: "Polygon",
+        coordinates: geometry.coordinates.map(function (ring, index) {
+          return index === 0 ? inflateRing(ring, bufferDegrees, center) : ring;
+        }),
+      };
+    }
+
+    if (geometry.type === "MultiPolygon") {
+      return {
+        type: "MultiPolygon",
+        coordinates: geometry.coordinates.map(function (polygon) {
+          return polygon.map(function (ring, index) {
+            return index === 0 ? inflateRing(ring, bufferDegrees, center) : ring;
+          });
+        }),
+      };
+    }
+
+    return geometry;
+  }
+
   function extractStateHoles(geometry) {
     if (!geometry) {
       return [];
@@ -613,7 +701,19 @@
   function createStateFrame(map, stateConfig) {
     return fetchJson(stateConfig.dataPath).then(function (geojson) {
       var feature = geojson.features[0];
-      var outlineLayer = L.geoJSON(geojson, {
+      var visualFeature = {
+        type: "Feature",
+        properties: feature.properties || {},
+        geometry: inflateGeometry(
+          feature && feature.geometry,
+          stateConfig.bufferDegrees == null ? 0.012 : stateConfig.bufferDegrees
+        ),
+      };
+      var visualGeojson = {
+        type: "FeatureCollection",
+        features: [visualFeature],
+      };
+      var outlineLayer = L.geoJSON(visualGeojson, {
         pane: "stateOutlinePane",
         interactive: false,
         style: {
@@ -625,7 +725,7 @@
         },
       });
 
-      var maskHoles = extractStateHoles(feature && feature.geometry);
+      var maskHoles = extractStateHoles(visualFeature && visualFeature.geometry);
       var maskLayer = null;
       if (maskHoles.length > 0) {
         maskLayer = L.polygon(
@@ -648,7 +748,7 @@
       }
 
       return {
-        source: geojson,
+        source: visualGeojson,
         outlineLayer: outlineLayer,
         maskLayer: maskLayer,
         bounds: outlineLayer.getBounds(),
