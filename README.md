@@ -24,6 +24,22 @@ Site estático para GitHub Pages com mapa interativo do Espírito Santo, prepara
 
 O repositório já inclui workflow para GitHub Pages em `.github/workflows/deploy-pages.yml`.
 
+## Primeiro deploy
+
+Na primeira publicação, o repositório precisa estar com GitHub Pages habilitado.
+
+Sem segredo adicional:
+
+1. Abra `Settings > Pages`.
+2. Em `Build and deployment`, selecione `GitHub Actions`.
+3. Salve e rode o workflow novamente.
+
+Com automação de enablement:
+
+- crie um secret de repositório chamado `PAGES_PAT`
+- use um Personal Access Token com permissão para administração/pages do repositório
+- o workflow tentará habilitar o Pages automaticamente
+
 ## Atualização das escolas estaduais
 
 ```bash
@@ -48,4 +64,3 @@ python scripts/build_density_layer.py \
 - `docs/ATUALIZACAO_DE_DADOS.md`
 - `docs/FONTES_OFICIAIS.md`
 - `docs/DEPLOY_GITHUB_PAGES.md`
-
