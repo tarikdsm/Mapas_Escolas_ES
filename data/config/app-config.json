@@ -1,0 +1,60 @@
+{
+  "map": {
+    "center": [-19.55, -40.62],
+    "zoom": 8,
+    "minZoom": 7,
+    "maxZoom": 18,
+    "tileLayer": {
+      "url": "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
+      "subdomains": "abcd",
+      "attribution": "&copy; OpenStreetMap contributors &copy; CARTO"
+    }
+  },
+  "schoolLayers": [
+    {
+      "id": "municipais",
+      "label": "E. Municipais",
+      "description": "Camada reservada para a futura base oficial da rede municipal.",
+      "status": "disabled",
+      "defaultVisible": false,
+      "color": "#2f9d57",
+      "dataPath": "data/schools/municipais.geojson"
+    },
+    {
+      "id": "estaduais",
+      "label": "E. Estaduais",
+      "description": "Base estadual do Espírito Santo com ícones azuis e clusterização responsiva.",
+      "status": "ready",
+      "defaultVisible": true,
+      "color": "#2563eb",
+      "dataPath": "data/schools/estaduais.geojson"
+    },
+    {
+      "id": "federais",
+      "label": "E. Federais",
+      "description": "Camada preparada para receber a futura base oficial da rede federal.",
+      "status": "disabled",
+      "defaultVisible": false,
+      "color": "#d9485f",
+      "dataPath": "data/schools/federais.geojson"
+    },
+    {
+      "id": "particulares",
+      "label": "E. Particulares",
+      "description": "Camada preparada para receber a futura base oficial da rede particular.",
+      "status": "disabled",
+      "defaultVisible": false,
+      "color": "#7c3aed",
+      "dataPath": "data/schools/particulares.geojson"
+    }
+  ],
+  "densityLayer": {
+    "id": "densidade",
+    "label": "Densidade Populacional",
+    "description": "Choropleth municipal com densidade demográfica oficial do IBGE para o Espírito Santo.",
+    "status": "ready",
+    "defaultVisible": false,
+    "dataPath": "data/density/es_municipios_density.geojson"
+  }
+}
+

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Mapa das Escolas do Espírito Santo</title>
+    <meta
+      name="description"
+      content="Mapa interativo das escolas do Espírito Santo com camadas por rede e densidade populacional oficial."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Source+Sans+3:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css"
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <button
+        class="panel-toggle"
+        id="panel-toggle"
+        type="button"
+        aria-controls="sidebar"
+        aria-expanded="false"
+      >
+        Camadas
+      </button>
+
+      <aside class="sidebar" id="sidebar" aria-label="Painel de camadas">
+        <div class="sidebar__header">
+          <p class="eyebrow">GitHub Pages</p>
+          <h1>Escolas do Espírito Santo</h1>
+          <p class="lede">
+            Mapa interativo com camadas por rede de ensino e uma visualização
+            oficial de densidade populacional por município.
+          </p>
+        </div>
+
+        <section class="sidebar__stats" aria-label="Resumo">
+          <article class="stat-card">
+            <span class="stat-card__label">Escolas em exibição</span>
+            <strong class="stat-card__value" id="visible-school-count">0</strong>
+          </article>
+          <article class="stat-card">
+            <span class="stat-card__label">Camadas ativas</span>
+            <strong class="stat-card__value" id="active-layer-count">0</strong>
+          </article>
+          <article class="stat-card stat-card--accent">
+            <span class="stat-card__label">Cobertura atual</span>
+            <strong class="stat-card__value">Rede estadual</strong>
+          </article>
+        </section>
+
+        <section class="panel-section">
+          <div class="panel-section__heading">
+            <h2>Camadas</h2>
+            <p>Ligue e desligue as bases conforme a análise.</p>
+          </div>
+          <div id="layer-controls" class="layer-controls" role="group"></div>
+        </section>
+
+        <section class="panel-section" id="active-layer-summary">
+          <div class="panel-section__heading">
+            <h2>Visão Atual</h2>
+            <p>Resumo do que está ativo no mapa neste momento.</p>
+          </div>
+          <div class="active-layer-summary__chips" id="active-layer-chips"></div>
+          <div class="active-layer-summary__details" id="active-layer-details"></div>
+        </section>
+
+        <section class="panel-section panel-section--legend" id="density-legend" hidden>
+          <div class="panel-section__heading">
+            <h2>Densidade Populacional</h2>
+            <p>IBGE, por município do ES.</p>
+          </div>
+          <div id="density-legend-scale" class="density-legend-scale"></div>
+          <p class="density-legend__caption" id="density-legend-caption"></p>
+        </section>
+
+        <section class="panel-section">
+          <div class="panel-section__heading">
+            <h2>Atualizações</h2>
+            <p>
+              A aplicação lê arquivos versionados em
+              <code>data/schools/</code> e <code>data/density/</code>.
+            </p>
+          </div>
+          <ul class="info-list">
+            <li>Adicione novas redes sem alterar a interface principal.</li>
+            <li>Regenere a densidade municipal com o script do IBGE.</li>
+            <li>Publique no GitHub e o Pages recompõe o site automaticamente.</li>
+          </ul>
+        </section>
+
+        <section class="panel-section">
+          <div class="panel-section__heading">
+            <h2>Fontes Oficiais</h2>
+            <p>Base escolar estadual e densidade municipal do IBGE.</p>
+          </div>
+          <ul class="source-list">
+            <li>
+              <a
+                href="https://dados.es.gov.br/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Governo do ES
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.ibge.gov.br/cidades-e-estados/es/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                IBGE Cidades e Estados
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://servicodados.ibge.gov.br/api/docs/malhas?versao=3"
+                target="_blank"
+                rel="noreferrer"
+              >
+                API de Malhas do IBGE
+              </a>
+            </li>
+          </ul>
+        </section>
+      </aside>
+
+      <main class="map-stage">
+        <div class="map-topbar">
+          <div class="map-topbar__title">
+            <span class="map-topbar__eyebrow">Visualização geográfica</span>
+            <strong>Espírito Santo</strong>
+          </div>
+          <div class="map-topbar__status" id="map-status">
+            Carregando camadas...
+          </div>
+        </div>
+        <div id="map" aria-label="Mapa interativo do Espírito Santo"></div>
+      </main>
+    </div>
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+    <script type="module" src="assets/js/app.js"></script>
+  </body>
+</html>
