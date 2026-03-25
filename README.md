@@ -1,6 +1,6 @@
 # Mapas das Escolas do Espírito Santo
 
-Site estático para GitHub Pages com mapa interativo do Espírito Santo, preparado para receber múltiplas redes de ensino e uma camada oficial de densidade populacional municipal.
+Site estático para GitHub Pages com foco visual exclusivo no território do Espírito Santo, preparado para receber múltiplas redes de ensino e uma camada oficial de densidade populacional municipal.
 
 ## O que este repositório entrega
 

@@ -4,11 +4,20 @@
     "zoom": 8,
     "minZoom": 7,
     "maxZoom": 18,
+    "fitPadding": 20,
+    "maxBoundsPadding": 0.14,
     "tileLayer": {
       "url": "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
       "subdomains": "abcd",
       "attribution": "&copy; OpenStreetMap contributors &copy; CARTO"
     }
+  },
+  "stateBoundary": {
+    "dataPath": "data/boundaries/es_state.geojson",
+    "borderColor": "#0f3551",
+    "borderWeight": 5,
+    "maskColor": "#dbe7f0",
+    "maskOpacity": 0.9
   },
   "schoolLayers": [
     {
@@ -57,4 +66,3 @@
     "dataPath": "data/density/es_municipios_density.geojson"
   }
 }
-

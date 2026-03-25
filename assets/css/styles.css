@@ -380,6 +380,10 @@ code {
   min-height: calc(100dvh - 36px);
 }
 
+.leaflet-container {
+  background: #dbe7f0;
+}
+
 .panel-toggle {
   position: fixed;
   right: 18px;
@@ -400,33 +404,34 @@ code {
 }
 
 .school-marker {
-  width: 34px;
-  height: 34px;
+  width: 28px;
+  height: 28px;
   display: grid;
   place-items: center;
 }
 
 .school-marker svg {
-  width: 34px;
-  height: 34px;
-  filter: drop-shadow(0 10px 12px rgba(0, 0, 0, 0.16));
+  width: 28px;
+  height: 28px;
+  filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.14));
 }
 
 .school-cluster {
   display: grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
-  background:
-    radial-gradient(circle at center, #ffffff 0 48%, transparent 49%),
-    var(--cluster-color, var(--blue));
-  border: 3px solid rgba(255, 255, 255, 0.88);
-  box-shadow: 0 12px 28px rgba(15, 53, 81, 0.22);
+  background: var(--cluster-color, var(--blue));
+  box-shadow: 0 10px 24px rgba(15, 53, 81, 0.2);
   font-family: "Space Grotesk", sans-serif;
-  font-size: 0.92rem;
+  font-size: 0.82rem;
   font-weight: 700;
-  color: #133143;
+  color: #ffffff;
+}
+
+.school-cluster span {
+  transform: translateY(-0.5px);
 }
 
 .school-popup {

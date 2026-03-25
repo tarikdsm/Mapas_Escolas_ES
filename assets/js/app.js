@@ -1,4 +1,4 @@
-import { createDensityLayer, createSchoolLayer } from "./map-layers.js";
+import { createDensityLayer, createSchoolLayer, createStateFrame } from "./map-layers.js";
 import {
   attachPanelToggle,
   hideDensityLegend,
@@ -16,17 +16,24 @@ function createMap(config) {
     zoomControl: false,
     minZoom: config.map.minZoom,
     maxZoom: config.map.maxZoom,
-    maxBoundsViscosity: 0.8,
+    maxBoundsViscosity: 1,
     preferCanvas: true,
   });
 
+  map.createPane("stateMaskPane");
+  map.getPane("stateMaskPane").style.zIndex = 350;
+
   map.createPane("densityPane");
   map.getPane("densityPane").style.zIndex = 410;
+
+  map.createPane("stateOutlinePane");
+  map.getPane("stateOutlinePane").style.zIndex = 500;
 
   L.tileLayer(config.map.tileLayer.url, {
     attribution: config.map.tileLayer.attribution,
     subdomains: config.map.tileLayer.subdomains,
     maxZoom: config.map.maxZoom,
+    noWrap: true,
   }).addTo(map);
 
   L.control.zoom({ position: "topright" }).addTo(map);
@@ -189,6 +196,19 @@ async function bootstrap() {
 
   const config = await response.json();
   const map = createMap(config);
+  const stateFrame = await createStateFrame(map, config.stateBoundary);
+  if (stateFrame.maskLayer) {
+    stateFrame.maskLayer.addTo(map);
+  }
+  stateFrame.outlineLayer.addTo(map);
+  if (stateFrame.bounds?.isValid()) {
+    map.setMaxBounds(stateFrame.bounds.pad(config.map.maxBoundsPadding ?? 0.14));
+    map.fitBounds(stateFrame.bounds, {
+      animate: false,
+      padding: [config.map.fitPadding ?? 20, config.map.fitPadding ?? 20],
+    });
+  }
+
   const sidebar = document.getElementById("sidebar");
   const panelToggle = document.getElementById("panel-toggle");
   attachPanelToggle(panelToggle, sidebar);
@@ -243,7 +263,7 @@ async function bootstrap() {
       config,
       layerId: layerConfig.id,
       enabled: true,
-      fitOnFirstLoad: true,
+      fitOnFirstLoad: false,
     });
   }
 
