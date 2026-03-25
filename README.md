@@ -6,6 +6,7 @@ Site estático para GitHub Pages com foco visual exclusivo no território do Esp
 
 - mapa interativo em tela cheia com navegação estilo web map
 - camada operacional da rede estadual com clusterização responsiva
+- frontend ajustado para desktop, tablet e celular com foco em compatibilidade nos navegadores atuais
 - estrutura pronta para redes municipais, federais e particulares
 - choropleth de densidade populacional por município do ES com fonte oficial do IBGE
 - documentação operacional para atualizar dados e publicar no GitHub Pages
@@ -14,6 +15,7 @@ Site estático para GitHub Pages com foco visual exclusivo no território do Esp
 
 - `index.html`: shell principal do site
 - `assets/`: CSS e JavaScript do frontend
+- `assets/js/app.js`: bundle principal carregado com `defer` para fortalecer compatibilidade e comportamento responsivo
 - `data/config/app-config.json`: configuração das camadas e do mapa
 - `data/schools/`: camadas GeoJSON por rede de ensino
 - `data/density/`: camada de densidade populacional oficial

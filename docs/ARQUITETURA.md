@@ -11,9 +11,8 @@ Fornecer um site estático, leve e publicável no GitHub Pages para visualizar e
 - `index.html`
 - `assets/css/styles.css`
 - `assets/js/app.js`
-- `assets/js/map-layers.js`
-- `assets/js/ui.js`
-- `assets/js/utils.js`
+- bundle único carregado com `defer`, sem dependência de módulos ES no navegador
+- layout responsivo com ajustes específicos para desktop, tablet e celular
 
 ### Dados versionados
 
@@ -33,6 +32,8 @@ Fornecer um site estático, leve e publicável no GitHub Pages para visualizar e
 - MarkerCluster para legibilidade em múltiplos níveis de zoom
 - configuração de camadas externalizada em JSON
 - dados do IBGE incorporados como GeoJSON pronto para reduzir tempo de carregamento no cliente
+- runtime em JavaScript clássico para ampliar compatibilidade nos navegadores atuais
+- comportamento touch, resize e orientação tratado no cliente para navegação mais estável
 
 ## Estratégia de expansão
 
@@ -41,4 +42,3 @@ As redes municipais, federais e particulares usam o mesmo contrato de `data/scho
 1. normalizar o arquivo com o script correspondente
 2. atualizar o `app-config.json` para trocar `status` de `disabled` para `ready`
 3. fazer commit e publicar
-
