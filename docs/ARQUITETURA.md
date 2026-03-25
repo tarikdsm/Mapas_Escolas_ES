@@ -36,6 +36,7 @@ Fornecer um site estático, leve e publicável no GitHub Pages para visualizar e
 - comportamento touch, resize e orientação tratado no cliente para navegação mais estável
 - limites de pan do estado configuráveis em `app-config.json`, com margem extra para recentralizar o ES sem perder o foco visual
 - enquadramento inicial configurável com padding assimétrico, permitindo corrigir o centro visual do estado sem distorcer os níveis de zoom
+- contenção do pan ajustada dinamicamente ao zoom e ao tamanho da viewport para evitar efeito de mola quando o estado inteiro está visível
 
 ## Estratégia de expansão
 

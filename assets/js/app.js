@@ -243,6 +243,55 @@
     };
   }
 
+  function getBoundsSpan(bounds) {
+    var southWest = bounds.getSouthWest();
+    var northEast = bounds.getNorthEast();
+    return {
+      lat: Math.abs(northEast.lat - southWest.lat),
+      lng: Math.abs(northEast.lng - southWest.lng),
+    };
+  }
+
+  function buildStateConstraintBounds(map, stateBounds, config) {
+    var baseBounds = expandBounds(
+      stateBounds,
+      config.map.maxBoundsPadding == null
+        ? { north: 0.24, south: 0.58, east: 0.24, west: 0.24 }
+        : config.map.maxBoundsPadding
+    );
+    var viewBounds = typeof map.getBounds === "function" ? map.getBounds() : null;
+    var slackFactor =
+      config.map.maxBoundsViewportSlack == null ? 1.08 : config.map.maxBoundsViewportSlack;
+
+    if (!viewBounds || !viewBounds.isValid()) {
+      return baseBounds;
+    }
+
+    var baseSpan = getBoundsSpan(baseBounds);
+    var viewSpan = getBoundsSpan(viewBounds);
+    var requiredLatSpan = Math.max(baseSpan.lat, viewSpan.lat * slackFactor);
+    var requiredLngSpan = Math.max(baseSpan.lng, viewSpan.lng * slackFactor);
+    var extraLat = requiredLatSpan - baseSpan.lat;
+    var extraLng = requiredLngSpan - baseSpan.lng;
+    var southWest = baseBounds.getSouthWest();
+    var northEast = baseBounds.getNorthEast();
+
+    return L.latLngBounds(
+      [southWest.lat - extraLat / 2, southWest.lng - extraLng / 2],
+      [northEast.lat + extraLat / 2, northEast.lng + extraLng / 2]
+    );
+  }
+
+  function applyStateConstraintBounds(map, stateBounds, config) {
+    if (!stateBounds || !stateBounds.isValid()) {
+      return null;
+    }
+
+    var constraintBounds = buildStateConstraintBounds(map, stateBounds, config);
+    map.setMaxBounds(constraintBounds);
+    return constraintBounds;
+  }
+
   function shouldUseBottomControls() {
     var compactScreen = matchesMedia("(max-width: 760px)", window.innerWidth <= 760);
     var coarsePointer = matchesMedia("(pointer: coarse)", false);
@@ -914,6 +963,7 @@
         var map = createMap(config);
         var sidebar = document.getElementById("sidebar");
         var panelToggle = document.getElementById("panel-toggle");
+        var syncStateConstraintBounds = function () {};
         var appState = {
           loadedSchoolLayers: {},
           activeSchoolLayerIds: {},
@@ -938,17 +988,16 @@
             stateFrame.outlineLayer.addTo(map);
 
             if (stateFrame.bounds && stateFrame.bounds.isValid()) {
-              map.setMaxBounds(
-                expandBounds(
-                  stateFrame.bounds,
-                  config.map.maxBoundsPadding == null
-                    ? { north: 0.24, south: 0.58, east: 0.24, west: 0.24 }
-                    : config.map.maxBoundsPadding
-                )
-              );
               map.fitBounds(stateFrame.bounds, getFitBoundsOptions(map, config));
+              syncStateConstraintBounds = function () {
+                applyStateConstraintBounds(map, stateFrame.bounds, config);
+              };
+              syncStateConstraintBounds();
+              map.on("zoomend", syncStateConstraintBounds);
+              map.on("resize", syncStateConstraintBounds);
             }
             scheduleMapResize(map);
+            window.setTimeout(syncStateConstraintBounds, 260);
           })
           .catch(function (error) {
             console.error(error);

@@ -5,6 +5,7 @@
     "minZoom": 7,
     "maxZoom": 18,
     "maxBoundsViscosity": 0.35,
+    "maxBoundsViewportSlack": 1.08,
     "fitPadding": {
       "top": 20,
       "right": 20,
