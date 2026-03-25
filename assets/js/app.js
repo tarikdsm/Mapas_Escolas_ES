@@ -161,10 +161,10 @@
     }
 
     requestFrame(function () {
-      map.invalidateSize(false);
+      map.invalidateSize({ pan: false, debounceMoveend: true });
     });
     window.setTimeout(function () {
-      map.invalidateSize(false);
+      map.invalidateSize({ pan: false, debounceMoveend: true });
     }, 220);
   }
 
@@ -209,6 +209,38 @@
         northEast.lng + lngSpan * normalized.east,
       ]
     );
+  }
+
+  function normalizeViewportPadding(padding, fallback) {
+    if (typeof padding === "number") {
+      return {
+        top: padding,
+        right: padding,
+        bottom: padding,
+        left: padding,
+      };
+    }
+
+    return {
+      top: padding && padding.top != null ? Number(padding.top) : fallback,
+      right: padding && padding.right != null ? Number(padding.right) : fallback,
+      bottom: padding && padding.bottom != null ? Number(padding.bottom) : fallback,
+      left: padding && padding.left != null ? Number(padding.left) : fallback,
+    };
+  }
+
+  function getFitBoundsOptions(map, config) {
+    var padding = normalizeViewportPadding(config.map.fitPadding, 20);
+    var mapSize = typeof map.getSize === "function" ? map.getSize() : { x: 0, y: 0 };
+    var extraBottom = shouldUseBottomControls()
+      ? Math.round(mapSize.y * 0.04)
+      : Math.round(mapSize.y * 0.11);
+
+    return {
+      animate: false,
+      paddingTopLeft: [padding.left, padding.top],
+      paddingBottomRight: [padding.right, padding.bottom + extraBottom],
+    };
   }
 
   function shouldUseBottomControls() {
@@ -452,7 +484,7 @@
       minZoom: config.map.minZoom,
       maxZoom: config.map.maxZoom,
       maxBoundsViscosity:
-        config.map.maxBoundsViscosity == null ? 0.72 : config.map.maxBoundsViscosity,
+        config.map.maxBoundsViscosity == null ? 0.35 : config.map.maxBoundsViscosity,
       preferCanvas: true,
       worldCopyJump: false,
       zoomSnap: 0.5,
@@ -910,17 +942,11 @@
                 expandBounds(
                   stateFrame.bounds,
                   config.map.maxBoundsPadding == null
-                    ? { north: 0.34, south: 0.34, east: 0.24, west: 0.24 }
+                    ? { north: 0.24, south: 0.58, east: 0.24, west: 0.24 }
                     : config.map.maxBoundsPadding
                 )
               );
-              map.fitBounds(stateFrame.bounds, {
-                animate: false,
-                padding: [
-                  config.map.fitPadding == null ? 20 : config.map.fitPadding,
-                  config.map.fitPadding == null ? 20 : config.map.fitPadding,
-                ],
-              });
+              map.fitBounds(stateFrame.bounds, getFitBoundsOptions(map, config));
             }
             scheduleMapResize(map);
           })

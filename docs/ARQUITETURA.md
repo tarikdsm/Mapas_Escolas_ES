@@ -35,6 +35,7 @@ Fornecer um site estático, leve e publicável no GitHub Pages para visualizar e
 - runtime em JavaScript clássico para ampliar compatibilidade nos navegadores atuais
 - comportamento touch, resize e orientação tratado no cliente para navegação mais estável
 - limites de pan do estado configuráveis em `app-config.json`, com margem extra para recentralizar o ES sem perder o foco visual
+- enquadramento inicial configurável com padding assimétrico, permitindo corrigir o centro visual do estado sem distorcer os níveis de zoom
 
 ## Estratégia de expansão
 

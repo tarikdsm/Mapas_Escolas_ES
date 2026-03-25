@@ -4,11 +4,16 @@
     "zoom": 8,
     "minZoom": 7,
     "maxZoom": 18,
-    "maxBoundsViscosity": 0.72,
-    "fitPadding": 20,
+    "maxBoundsViscosity": 0.35,
+    "fitPadding": {
+      "top": 20,
+      "right": 20,
+      "bottom": 20,
+      "left": 20
+    },
     "maxBoundsPadding": {
-      "north": 0.34,
-      "south": 0.34,
+      "north": 0.24,
+      "south": 0.58,
       "east": 0.24,
       "west": 0.24
     },
