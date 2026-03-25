@@ -37,6 +37,18 @@ python scripts/build_density_layer.py \
   --output "data/density/es_municipios_density.geojson"
 ```
 
+## Fluxo para o contorno do estado
+
+Use a malha oficial dos municipios do ES para recompor o contorno externo do estado:
+
+```bash
+python scripts/build_state_boundary.py \
+  --input "/caminho/para/ibge_municipios_es.geojson" \
+  --output "data/boundaries/es_state.geojson"
+```
+
+Esse passo corrige trechos costeiros em que um poligono estadual simplificado pode deixar escolas visualmente fora da area util do mapa.
+
 ## Checklist antes do commit
 
 1. Validar se o GeoJSON abre sem erro.
@@ -44,4 +56,3 @@ python scripts/build_density_layer.py \
 3. Confirmar que `app-config.json` aponta para os arquivos corretos.
 4. Abrir o site localmente e testar os toggles.
 5. Commitar os artefatos gerados junto com a atualização da documentação, se houver mudança de fonte ou contrato.
-

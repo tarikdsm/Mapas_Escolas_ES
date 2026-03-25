@@ -32,6 +32,7 @@ Fornecer um site estático, leve e publicável no GitHub Pages para visualizar e
 - MarkerCluster para legibilidade em múltiplos níveis de zoom
 - configuração de camadas externalizada em JSON
 - dados do IBGE incorporados como GeoJSON pronto para reduzir tempo de carregamento no cliente
+- contorno estadual derivado da malha municipal oficial do IBGE para preservar melhor a costa e reduzir cortes visuais
 - runtime em JavaScript clássico para ampliar compatibilidade nos navegadores atuais
 - comportamento touch, resize e orientação tratado no cliente para navegação mais estável
 - limites de pan do estado configuráveis em `app-config.json`, com margem extra para recentralizar o ES sem perder o foco visual

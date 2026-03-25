@@ -17,6 +17,7 @@ Site estático para GitHub Pages com foco visual exclusivo no território do Esp
 - `assets/`: CSS e JavaScript do frontend
 - `assets/js/app.js`: bundle principal carregado com `defer` para fortalecer compatibilidade e comportamento responsivo
 - `data/config/app-config.json`: configuração das camadas e do mapa
+- `data/boundaries/`: contorno do estado usado para enquadramento, máscara e borda visual
 - `data/schools/`: camadas GeoJSON por rede de ensino
 - `data/density/`: camada de densidade populacional oficial
 - `scripts/`: utilitários para regenerar as camadas
@@ -58,6 +59,14 @@ python scripts/build_school_layer.py \
 ```bash
 python scripts/build_density_layer.py \
   --output "data/density/es_municipios_density.geojson"
+```
+
+## Atualização do contorno do estado
+
+```bash
+python scripts/build_state_boundary.py \
+  --input "/caminho/para/ibge_municipios_es.geojson" \
+  --output "data/boundaries/es_state.geojson"
 ```
 
 ## Documentação recomendada
