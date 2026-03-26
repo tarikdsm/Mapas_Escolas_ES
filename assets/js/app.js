@@ -84,6 +84,45 @@
     return Number(lat).toFixed(5) + ", " + Number(lng).toFixed(5);
   }
 
+  function normalizeTeacherCount(value) {
+    if (isMissingNumber(value)) {
+      return null;
+    }
+    return Math.round(Number(value));
+  }
+
+  function buildTeacherCountLabel(value) {
+    var count = normalizeTeacherCount(value);
+    if (count === null) {
+      return "";
+    }
+    return count + " " + (count === 1 ? "professor" : "professores");
+  }
+
+  function buildTeacherCountMarkup(value, className) {
+    var label = buildTeacherCountLabel(value);
+    if (!label) {
+      return "";
+    }
+    return '<span class="' + className + '">(' + escapeHtml(label) + ")</span>";
+  }
+
+  function buildSchoolNameMarkup(properties, fallbackName, teacherClassName) {
+    var baseName =
+      (properties && (properties.name_original || properties.name)) || fallbackName || "";
+    var teacherMarkup = buildTeacherCountMarkup(
+      properties ? properties.teacher_count : null,
+      teacherClassName
+    );
+
+    return (
+      '<span class="school-name__text">' +
+      escapeHtml(baseName) +
+      "</span>" +
+      (teacherMarkup ? " " + teacherMarkup : "")
+    );
+  }
+
   function escapeHtml(value) {
     return String(value == null ? "" : value)
       .replace(/&/g, "&amp;")
@@ -800,7 +839,7 @@
       '<article class="school-popup">' +
       '<header class="school-popup__heading">' +
       "<h3>" +
-      escapeHtml(properties.name) +
+      buildSchoolNameMarkup(properties, layerConfig.label, "school-popup__teacher-count") +
       "</h3>" +
       '<div class="school-popup__badges">' +
       '<span class="popup-badge">' +
@@ -865,10 +904,18 @@
             maxWidth: popupMaxWidth,
           });
           if (allowTooltip) {
-            marker.bindTooltip(escapeHtml(properties.name || layerConfig.label), {
-              direction: "top",
-              offset: [0, -18],
-            });
+            marker.bindTooltip(
+              buildSchoolNameMarkup(
+                properties,
+                layerConfig.label,
+                "school-tooltip__teacher-count"
+              ),
+              {
+                direction: "top",
+                offset: [0, -18],
+                className: "school-tooltip",
+              }
+            );
           }
         },
       });

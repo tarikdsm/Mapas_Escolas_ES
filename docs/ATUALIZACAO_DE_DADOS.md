@@ -23,6 +23,8 @@ python scripts/build_school_layer.py \
   --color "#2563eb"
 ```
 
+Se o GeoJSON de origem ja trouxer `numero_professores`, `nome_escola_original` ou `nome_escola_mapa_html`, o script preserva esses campos no contrato do site e o frontend passa a exibir o numero de professores ao lado do nome da escola quando houver valor.
+
 ### 3. Ativar a camada no mapa
 
 Edite `data/config/app-config.json`:

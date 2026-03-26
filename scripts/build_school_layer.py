@@ -13,6 +13,8 @@ OUTPUT_FIELDS = {
     "id_interno": "id",
     "codigo_inep": "inep_code",
     "nome_escola": "name",
+    "nome_escola_original": "name_original",
+    "nome_escola_mapa_html": "name_html",
     "municipio": "municipio",
     "uf": "uf",
     "dependencia_administrativa": "administrative_dependency",
@@ -32,6 +34,7 @@ OUTPUT_FIELDS = {
     "fonte_validacao": "source_validation",
     "latitude": "latitude",
     "longitude": "longitude",
+    "numero_professores": "teacher_count",
 }
 
 
@@ -41,6 +44,25 @@ def clean_bom_key(properties: dict[str, object]) -> dict[str, object]:
         normalized_key = key.lstrip("\ufeff").replace("ï»¿", "")
         cleaned[normalized_key] = value
     return cleaned
+
+
+def clean_optional_text(value: object) -> str:
+    if value is None:
+        return ""
+    text = str(value).strip()
+    if not text or text.lower() == "nan":
+        return ""
+    return text
+
+
+def normalize_teacher_count(value: object) -> int | str:
+    text = clean_optional_text(value)
+    if not text:
+        return ""
+    try:
+        return int(round(float(text)))
+    except ValueError:
+        return ""
 
 
 def normalize_feature(
@@ -62,6 +84,19 @@ def normalize_feature(
         target_key: properties.get(source_key, "")
         for source_key, target_key in OUTPUT_FIELDS.items()
     }
+    output_properties["name"] = (
+        clean_optional_text(properties.get("nome_escola_original"))
+        or clean_optional_text(properties.get("nome_escola"))
+        or clean_optional_text(output_properties.get("name"))
+    )
+    output_properties["name_original"] = (
+        clean_optional_text(properties.get("nome_escola_original"))
+        or output_properties["name"]
+    )
+    output_properties["name_html"] = clean_optional_text(properties.get("nome_escola_mapa_html"))
+    output_properties["teacher_count"] = normalize_teacher_count(
+        properties.get("numero_professores")
+    )
     output_properties.update(
         {
             "layer_id": layer_id,
@@ -128,4 +163,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

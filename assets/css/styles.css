@@ -477,9 +477,23 @@ code {
 
 .school-popup__heading h3 {
   margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  align-items: baseline;
   font-family: "Space Grotesk", sans-serif;
   font-size: 1rem;
   line-height: 1.2;
+}
+
+.school-popup__teacher-count,
+.school-tooltip__teacher-count {
+  color: #c00000;
+  font-weight: 700;
+}
+
+.school-popup__teacher-count {
+  font-size: 0.92em;
 }
 
 .school-popup__badges {
@@ -531,6 +545,10 @@ code {
 }
 
 .density-tooltip {
+  font-family: "Source Sans 3", serif;
+}
+
+.school-tooltip {
   font-family: "Source Sans 3", serif;
 }
 
