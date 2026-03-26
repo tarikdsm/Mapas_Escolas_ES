@@ -1130,6 +1130,9 @@
       properties.status && String(properties.status).toLowerCase() === "em atividade";
     var statusClass = activeStatus ? "" : " is-inactive";
     var teacherCount = normalizeTeacherCount(properties.teacher_count);
+    var studentCount = normalizeTeacherCount(properties.student_count);
+    var displayType = properties.display_type || properties.type || layerConfig.label;
+    var estimateNote = properties.estimate_note || "Sem componente estimado";
 
     return (
       '<article class="school-popup">' +
@@ -1149,6 +1152,9 @@
       "</div>" +
       "</header>" +
       '<div class="school-popup__grid">' +
+      '<div class="school-popup__row"><span class="school-popup__label">Tipo</span><span class="school-popup__value">' +
+      escapeHtml(displayType || "n/d") +
+      "</span></div>" +
       '<div class="school-popup__row"><span class="school-popup__label">Municipio</span><span class="school-popup__value">' +
       escapeHtml(properties.municipio || "n/d") +
       "</span></div>" +
@@ -1159,50 +1165,21 @@
           : formatNumber(teacherCount) + " " + (teacherCount === 1 ? "professor" : "professores")
       ) +
       "</span></div>" +
+      '<div class="school-popup__row"><span class="school-popup__label">Alunos</span><span class="school-popup__value">' +
+      escapeHtml(
+        studentCount === null
+          ? "n/d"
+          : formatNumber(studentCount) + " " + (studentCount === 1 ? "aluno" : "alunos")
+      ) +
+      "</span></div>" +
       '<div class="school-popup__row"><span class="school-popup__label">Endereco</span><span class="school-popup__value">' +
       escapeHtml(buildAddress(properties) || "n/d") +
       "</span></div>" +
-      '<div class="school-popup__row"><span class="school-popup__label">Contato</span><span class="school-popup__value">' +
-      escapeHtml(properties.phone_primary || properties.email || "n/d") +
+      '<div class="school-popup__row"><span class="school-popup__label">Instituicao</span><span class="school-popup__value">' +
+      escapeHtml(properties.institution || properties.acronym || "n/d") +
       "</span></div>" +
-      "</div>" +
-      "</article>"
-    );
-
-    return (
-      '<article class="school-popup">' +
-      '<header class="school-popup__heading">' +
-      "<h3>" +
-      buildSchoolNameMarkup(properties, layerConfig.label, "school-popup__teacher-count") +
-      "</h3>" +
-      '<div class="school-popup__badges">' +
-      '<span class="popup-badge">' +
-      escapeHtml(layerConfig.label) +
-      "</span>" +
-      '<span class="popup-badge popup-badge--status' +
-      statusClass +
-      '">' +
-      escapeHtml(properties.status || "Sem status") +
-      "</span>" +
-      "</div>" +
-      "</header>" +
-      '<div class="school-popup__grid">' +
-      '<div class="school-popup__row"><span class="school-popup__label">Município</span><span class="school-popup__value">' +
-      escapeHtml(properties.municipio || "n/d") +
-      "</span></div>" +
-      '<div class="school-popup__row"><span class="school-popup__label">Endereço</span><span class="school-popup__value">' +
-      escapeHtml(buildAddress(properties) || "n/d") +
-      "</span></div>" +
-      '<div class="school-popup__row"><span class="school-popup__label">Georreferenciamento</span><span class="school-popup__value">' +
-      escapeHtml(buildGeorefLabel(properties) || "n/d") +
-      " · " +
-      escapeHtml(properties.georef_source || "n/d") +
-      "</span></div>" +
-      '<div class="school-popup__row"><span class="school-popup__label">Coordenadas</span><span class="school-popup__value">' +
-      escapeHtml(formatCoordinates(properties.latitude, properties.longitude)) +
-      "</span></div>" +
-      '<div class="school-popup__row"><span class="school-popup__label">Contato</span><span class="school-popup__value">' +
-      escapeHtml(properties.phone_primary || properties.email || "n/d") +
+      '<div class="school-popup__row"><span class="school-popup__label">Estimativa</span><span class="school-popup__value">' +
+      escapeHtml(estimateNote) +
       "</span></div>" +
       "</div>" +
       "</article>"

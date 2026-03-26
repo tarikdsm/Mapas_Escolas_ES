@@ -55,11 +55,11 @@
     {
       "id": "federais",
       "label": "E. Federais",
-      "description": "Camada preparada para receber a futura base oficial da rede federal.",
-      "status": "disabled",
-      "defaultVisible": false,
+      "description": "Base federal do Espirito Santo com campi, centros de referencia, unidade militar educacional e educacao basica federal.",
+      "status": "ready",
+      "defaultVisible": true,
       "color": "#d9485f",
-      "dataPath": "data/schools/federais.geojson"
+      "dataPath": "data/schools/federais/index.json"
     },
     {
       "id": "particulares",

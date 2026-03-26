@@ -29,6 +29,7 @@ class SchoolRecord:
     longitude: float
     latitude: float
     teacher_count: int | None
+    student_count: int | None
     detail: dict[str, object]
 
 
@@ -183,6 +184,11 @@ def load_features(input_path: Path) -> list[SchoolRecord]:
             if properties.get("numero_professores") is not None
             else properties.get("teacher_count")
         )
+        student_count = clean_int(
+            properties.get("numero_alunos")
+            if properties.get("numero_alunos") is not None
+            else properties.get("student_count")
+        )
 
         detail = compact_dict(
             {
@@ -210,10 +216,18 @@ def load_features(input_path: Path) -> list[SchoolRecord]:
                     "classificacao_georef",
                     "classification",
                 ),
+                "display_type": first_text(properties, "display_type", "tipo_registro", "record_type"),
+                "institution": first_text(properties, "instituicao_mae", "institution"),
+                "acronym": first_text(properties, "sigla", "acronym"),
                 "georef_source": first_text(properties, "fonte_georef", "georef_source"),
                 "phone_primary": first_text(properties, "telefone_1", "phone_primary"),
                 "email": clean_text(properties.get("email")),
                 "teacher_count": teacher_count,
+                "student_count": student_count,
+                "teacher_estimated": first_text(properties, "teacher_estimated"),
+                "student_estimated": first_text(properties, "student_estimated"),
+                "estimate_note": first_text(properties, "estimate_note"),
+                "notes": first_text(properties, "observacoes", "notes"),
             }
         )
 
@@ -227,6 +241,7 @@ def load_features(input_path: Path) -> list[SchoolRecord]:
                 longitude=longitude,
                 latitude=latitude,
                 teacher_count=teacher_count,
+                student_count=student_count,
                 detail=detail,
             )
         )

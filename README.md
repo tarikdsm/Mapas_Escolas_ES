@@ -22,6 +22,7 @@ Este frontend consome artefatos gerados no backend local em:
 
 - `D:\Escolas ES\backend\projects\escolas_estaduais_es\data\frontend_exports\`
 - `D:\Escolas ES\backend\projects\escolas_municipais_es\data\frontend_exports\`
+- `D:\Escolas ES\backend\projects\escolas_federais_es\data\frontend_exports\`
 
 O fluxo esperado e:
 
@@ -51,6 +52,18 @@ python .\scripts\build_school_tiles.py `
   --layer-id "municipais" `
   --label "E. Municipais" `
   --color "#2f9d57"
+```
+
+## Atualizacao da camada federal
+
+```powershell
+cd D:\Escolas ES\frontend\Mapa_Escolas_ES
+python .\scripts\build_school_tiles.py `
+  --input "..\..\backend\projects\escolas_federais_es\data\frontend_exports\escolas_federais_es_georef.geojson" `
+  --output-dir "public\data\schools\federais" `
+  --layer-id "federais" `
+  --label "E. Federais" `
+  --color "#d9485f"
 ```
 
 ## Arquitetura de desempenho
