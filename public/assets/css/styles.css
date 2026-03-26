@@ -66,6 +66,8 @@ code {
 }
 
 .app-shell {
+  height: 100vh;
+  height: 100dvh;
   min-height: 100vh;
   min-height: 100dvh;
   display: grid;
@@ -80,8 +82,14 @@ code {
 
 .sidebar,
 .map-stage {
+  height: calc(100vh - 36px);
+  height: calc(100dvh - 36px);
+  max-height: calc(100vh - 36px);
+  max-height: calc(100dvh - 36px);
   min-height: calc(100vh - 36px);
   min-height: calc(100dvh - 36px);
+  min-width: 0;
+  min-height: 0;
   border-radius: var(--radius-xl);
   overflow: hidden;
   box-shadow: var(--map-shadow);
@@ -99,6 +107,7 @@ code {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
+  scrollbar-gutter: stable;
 }
 
 .sidebar__header {
@@ -719,6 +728,8 @@ code {
 
   .sidebar,
   .map-stage {
+    height: auto;
+    max-height: none;
     min-height: auto;
   }
 
