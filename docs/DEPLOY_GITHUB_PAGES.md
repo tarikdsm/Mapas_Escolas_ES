@@ -1,8 +1,8 @@
 # Deploy no GitHub Pages
 
-## Estratégia adotada
+## Estrategia adotada
 
-O repositório publica a própria raiz como artefato do GitHub Pages usando GitHub Actions.
+O repositorio publica somente o diretorio `public/` como artefato do GitHub Pages.
 
 Arquivo-chave:
 
@@ -11,25 +11,19 @@ Arquivo-chave:
 ## Como funciona
 
 1. Push em `main`.
-2. O workflow instala o ambiente do Pages.
-3. O conteúdo do repositório é enviado como artefato.
-4. O GitHub Pages publica a aplicação.
+2. O workflow faz checkout do repositorio do frontend.
+3. O artefato enviado ao Pages e apenas `public/`.
+4. O GitHub Pages publica o site.
 
-## Observação importante do primeiro deploy
+## Primeiro deploy
 
-Se o repositório ainda não tiver Pages habilitado, o passo `configure-pages` falha com erro equivalente a `Get Pages site failed`.
+Se o Pages ainda nao estiver habilitado:
 
-Há duas formas suportadas:
+1. Abra `Settings > Pages`.
+2. Em `Build and deployment`, selecione `GitHub Actions`.
+3. Rode o workflow novamente.
 
-1. Habilitar manualmente em `Settings > Pages > Build and deployment > GitHub Actions`.
-2. Criar o secret `PAGES_PAT` e deixar o workflow tentar a habilitação automática.
+## Resultado esperado
 
-O secret é opcional. Sem ele, a habilitação manual inicial continua sendo o caminho mais simples.
-
-## Configuração esperada no repositório
-
-Na interface do GitHub:
-
-1. Abrir `Settings`.
-2. Ir em `Pages`.
-3. Selecionar `GitHub Actions` como fonte de deploy, se o repositório ainda não estiver configurado.
+- scripts, docs e experimentos permanecem no repositorio
+- somente o site final fica publico

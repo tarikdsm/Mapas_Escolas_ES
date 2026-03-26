@@ -1,79 +1,69 @@
-# Mapas das Escolas do Espírito Santo
+# Mapas das Escolas do Espirito Santo
 
-Site estático para GitHub Pages com foco visual exclusivo no território do Espírito Santo, preparado para receber múltiplas redes de ensino e uma camada oficial de densidade populacional municipal.
+Repositorio do frontend do mapa, preparado para GitHub Pages.
 
-## O que este repositório entrega
+## Regra de publicacao
 
-- mapa interativo em tela cheia com navegação estilo web map
-- camada operacional da rede estadual com clusterização responsiva
-- frontend ajustado para desktop, tablet e celular com foco em compatibilidade nos navegadores atuais
-- popup e tooltip preparados para exibir numero de professores ao lado do nome da escola quando o dado existir
-- rótulos no mapa mostram nome da escola com numero de professores em zoom próximo, preservando legibilidade nos demais níveis
-- estrutura pronta para redes municipais, federais e particulares
-- choropleth de densidade populacional por município do ES com fonte oficial do IBGE
-- documentação operacional para atualizar dados e publicar no GitHub Pages
+Somente `public/` vai para o Pages. Scripts, docs e experimentos ficam no repositorio, mas nao entram no artefato publicado.
 
 ## Estrutura
 
-- `index.html`: shell principal do site
-- `assets/`: CSS e JavaScript do frontend
-- `assets/js/app.js`: bundle principal carregado com `defer` para fortalecer compatibilidade e comportamento responsivo
-- `data/config/app-config.json`: configuração das camadas e do mapa
-- `data/boundaries/`: contorno do estado usado para enquadramento, máscara e borda visual
-- `data/schools/`: camadas GeoJSON por rede de ensino
-- `data/density/`: camada de densidade populacional oficial
-- `scripts/`: utilitários para regenerar as camadas
-- `docs/`: arquitetura, atualização de dados, fontes e deploy
+- `public/`: site publicado
+- `public/index.html`: shell principal do mapa
+- `public/assets/`: CSS e JavaScript
+- `public/data/`: camadas e configuracao consumidas pelo site
+- `scripts/`: geradores de camada e utilitarios do frontend
+- `docs/`: arquitetura, deploy e atualizacao
+- `experiments/`: prototipos e HTMLs locais
 
-## Publicação
+## Relacao com o backend
 
-O repositório já inclui workflow para GitHub Pages em `.github/workflows/deploy-pages.yml`.
+Este frontend consome artefatos gerados no backend local em:
 
-## Primeiro deploy
+- `D:\Escolas ES\backend\projects\escolas_estaduais_es\data\frontend_exports\`
+- `D:\Escolas ES\backend\projects\escolas_municipais_es\data\frontend_exports\`
 
-Na primeira publicação, o repositório precisa estar com GitHub Pages habilitado.
+O fluxo esperado e:
 
-Sem segredo adicional:
+1. backend gera um GeoJSON ou CSV pronto para handoff
+2. frontend normaliza esse arquivo para `public/data/...`
+3. frontend sobe somente `public/` no GitHub Pages
 
-1. Abra `Settings > Pages`.
-2. Em `Build and deployment`, selecione `GitHub Actions`.
-3. Salve e rode o workflow novamente.
+## Atualizacao da camada estadual
 
-Com automação de enablement:
-
-- crie um secret de repositório chamado `PAGES_PAT`
-- use um Personal Access Token com permissão para administração/pages do repositório
-- o workflow tentará habilitar o Pages automaticamente
-
-## Atualização das escolas estaduais
-
-```bash
-python scripts/build_school_layer.py \
-  --input "/caminho/para/escolas_estaduais_es_georef.geojson" \
-  --output "data/schools/estaduais.geojson" \
-  --layer-id "estaduais" \
-  --label "E. Estaduais" \
+```powershell
+cd D:\Escolas ES\frontend\Mapa_Escolas_ES
+python .\scripts\build_school_layer.py `
+  --input "..\..\backend\projects\escolas_estaduais_es\data\frontend_exports\escolas_estaduais_es_georef.geojson" `
+  --output "public\data\schools\estaduais.geojson" `
+  --layer-id "estaduais" `
+  --label "E. Estaduais" `
   --color "#2563eb"
 ```
 
-## Atualização da densidade populacional
+## Atualizacao da camada municipal
 
-```bash
-python scripts/build_density_layer.py \
-  --output "data/density/es_municipios_density.geojson"
+```powershell
+cd D:\Escolas ES\frontend\Mapa_Escolas_ES
+python .\scripts\build_school_layer.py `
+  --input "..\..\backend\projects\escolas_municipais_es\data\frontend_exports\escolas_municipais_es_georef.geojson" `
+  --output "public\data\schools\municipais.geojson" `
+  --layer-id "municipais" `
+  --label "E. Municipais" `
+  --color "#2f9d57"
 ```
 
-## Atualização do contorno do estado
+## Atualizacao da densidade populacional
 
-```bash
-python scripts/build_state_boundary.py \
-  --input "/caminho/para/ibge_municipios_es.geojson" \
-  --output "data/boundaries/es_state.geojson"
+```powershell
+python .\scripts\build_density_layer.py `
+  --output "public\data\density\es_municipios_density.geojson"
 ```
 
-## Documentação recomendada
+## Atualizacao do contorno do estado
 
-- `docs/ARQUITETURA.md`
-- `docs/ATUALIZACAO_DE_DADOS.md`
-- `docs/FONTES_OFICIAIS.md`
-- `docs/DEPLOY_GITHUB_PAGES.md`
+```powershell
+python .\scripts\build_state_boundary.py `
+  --input "..\..\backend\projects\escolas_estaduais_es\data\raw\geodata\ibge_municipios_es.geojson" `
+  --output "public\data\boundaries\es_state.geojson"
+```

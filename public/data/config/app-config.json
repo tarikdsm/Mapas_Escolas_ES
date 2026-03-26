@@ -37,9 +37,9 @@
     {
       "id": "municipais",
       "label": "E. Municipais",
-      "description": "Camada reservada para a futura base oficial da rede municipal.",
-      "status": "disabled",
-      "defaultVisible": false,
+      "description": "Base municipal do Espírito Santo com georreferenciamento consolidado e clusterização responsiva.",
+      "status": "ready",
+      "defaultVisible": true,
       "color": "#2f9d57",
       "dataPath": "data/schools/municipais.geojson"
     },

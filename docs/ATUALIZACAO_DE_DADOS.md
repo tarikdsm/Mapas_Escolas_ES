@@ -1,63 +1,88 @@
-# Atualização de Dados
+# Atualizacao de Dados
 
-## Visão geral
+## Visao geral
 
-O site foi estruturado para aceitar novas bases sem mudanças profundas na interface. As camadas do mapa são controladas por `data/config/app-config.json`, enquanto os dados são mantidos em `data/schools/` e `data/density/`.
+O frontend recebe dados prontos do backend local e os converte para o contrato do site dentro de `public/data/`.
+
+Backend atual de referencia:
+
+- `D:\Escolas ES\backend\projects\escolas_estaduais_es`
+- `D:\Escolas ES\backend\projects\escolas_municipais_es`
 
 ## Fluxo para escolas
 
-### 1. Obter a base bruta
+### 1. Obter o export do backend
 
-Use o GeoJSON consolidado e georreferenciado da rede correspondente.
+Use o GeoJSON entregue em:
+
+- `..\..\backend\projects\escolas_estaduais_es\data\frontend_exports\escolas_estaduais_es_georef.geojson`
 
 ### 2. Normalizar para o contrato do site
 
-Exemplo para a rede estadual:
-
-```bash
-python scripts/build_school_layer.py \
-  --input "/caminho/origem/escolas_estaduais_es_georef.geojson" \
-  --output "data/schools/estaduais.geojson" \
-  --layer-id "estaduais" \
-  --label "E. Estaduais" \
+```powershell
+python .\scripts\build_school_layer.py `
+  --input "..\..\backend\projects\escolas_estaduais_es\data\frontend_exports\escolas_estaduais_es_georef.geojson" `
+  --output "public\data\schools\estaduais.geojson" `
+  --layer-id "estaduais" `
+  --label "E. Estaduais" `
   --color "#2563eb"
 ```
 
-Se o GeoJSON de origem ja trouxer `numero_professores`, `nome_escola_original` ou `nome_escola_mapa_html`, o script preserva esses campos no contrato do site e o frontend passa a exibir o numero de professores ao lado do nome da escola quando houver valor.
-No mapa, esse rotulo fica visivel em zoom proximo; nos demais niveis o dado continua acessivel por popup e hover.
+### Fluxo para escolas municipais
 
-### 3. Ativar a camada no mapa
+### 1. Obter o export do backend
 
-Edite `data/config/app-config.json`:
+Use o GeoJSON entregue em:
 
-- troque `status` para `ready`
-- ajuste `defaultVisible` conforme a estratégia de publicação
+- `..\..\backend\projects\escolas_municipais_es\data\frontend_exports\escolas_municipais_es_georef.geojson`
+
+### 2. Normalizar para o contrato do site
+
+```powershell
+python .\scripts\build_school_layer.py `
+  --input "..\..\backend\projects\escolas_municipais_es\data\frontend_exports\escolas_municipais_es_georef.geojson" `
+  --output "public\data\schools\municipais.geojson" `
+  --layer-id "municipais" `
+  --label "E. Municipais" `
+  --color "#2f9d57"
+```
+
+### 3. Ativar quando a camada estiver pronta
+
+Edite:
+
+- `public/data/config/app-config.json`
+
+### 3. Ativar ou revisar a camada
+
+Edite:
+
+- `public/data/config/app-config.json`
+
+Campos mais comuns:
+
+- `status`
+- `defaultVisible`
+- `dataPath`
 
 ## Fluxo para densidade populacional
 
-```bash
-python scripts/build_density_layer.py \
-  --output "data/density/es_municipios_density.geojson"
+```powershell
+python .\scripts\build_density_layer.py `
+  --output "public\data\density\es_municipios_density.geojson"
 ```
 
 ## Fluxo para o contorno do estado
 
-Use a malha oficial dos municipios do ES para recompor o contorno externo do estado:
-
-```bash
-python scripts/build_state_boundary.py \
-  --input "/caminho/para/ibge_municipios_es.geojson" \
-  --output "data/boundaries/es_state.geojson"
+```powershell
+python .\scripts\build_state_boundary.py `
+  --input "..\..\backend\projects\escolas_estaduais_es\data\raw\geodata\ibge_municipios_es.geojson" `
+  --output "public\data\boundaries\es_state.geojson"
 ```
 
-Esse passo corrige trechos costeiros em que um poligono estadual simplificado pode deixar escolas visualmente fora da area util do mapa.
+## Checklist antes do push
 
-Se houver escolas muito proximas da costa ou da divisa ainda encostando na borda visual, ajuste `stateBoundary.bufferDegrees` em `data/config/app-config.json`.
-
-## Checklist antes do commit
-
-1. Validar se o GeoJSON abre sem erro.
-2. Confirmar contagem de registros da camada.
-3. Confirmar que `app-config.json` aponta para os arquivos corretos.
-4. Abrir o site localmente e testar os toggles.
-5. Commitar os artefatos gerados junto com a atualização da documentação, se houver mudança de fonte ou contrato.
+1. Validar o arquivo em `public/data/...`.
+2. Conferir `public/data/config/app-config.json`.
+3. Abrir `public/index.html` localmente e testar as camadas.
+4. Fazer commit apenas no repositorio do frontend.

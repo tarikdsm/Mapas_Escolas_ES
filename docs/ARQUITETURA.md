@@ -2,49 +2,42 @@
 
 ## Objetivo
 
-Fornecer um site estático, leve e publicável no GitHub Pages para visualizar escolas do Espírito Santo por rede de ensino e cruzar essa visão com densidade populacional municipal.
+Fornecer um frontend estatico, leve e publicavel no GitHub Pages para visualizar redes de ensino no Espirito Santo.
 
-## Camadas do sistema
+## Separacao interna
 
-### Frontend
+### `public/`
 
-- `index.html`
-- `assets/css/styles.css`
-- `assets/js/app.js`
-- bundle único carregado com `defer`, sem dependência de módulos ES no navegador
-- layout responsivo com ajustes específicos para desktop, tablet e celular
+Diretorio publicado.
 
-### Dados versionados
+- `public/index.html`
+- `public/assets/css/styles.css`
+- `public/assets/js/app.js`
+- `public/data/config/app-config.json`
+- `public/data/schools/*.geojson`
+- `public/data/density/*.geojson`
+- `public/data/boundaries/*.geojson`
 
-- `data/config/app-config.json`
-- `data/schools/*.geojson`
-- `data/density/*.geojson`
+### `scripts/`
 
-### Scripts de geração
+Ferramentas para transformar os exports do backend no contrato do site.
 
-- `scripts/build_school_layer.py`
-- `scripts/build_density_layer.py`
+### `docs/`
 
-## Decisões técnicas
+Documentacao operacional do frontend.
 
-- aplicação 100% estática para simplificar o deploy em GitHub Pages
-- Leaflet para navegação madura, leve e responsiva
-- MarkerCluster para legibilidade em múltiplos níveis de zoom
-- configuração de camadas externalizada em JSON
-- dados do IBGE incorporados como GeoJSON pronto para reduzir tempo de carregamento no cliente
-- contorno estadual derivado da malha municipal oficial do IBGE para preservar melhor a costa e reduzir cortes visuais
-- runtime em JavaScript clássico para ampliar compatibilidade nos navegadores atuais
-- comportamento touch, resize e orientação tratado no cliente para navegação mais estável
-- limites de pan do estado configuráveis em `app-config.json`, com margem extra para recentralizar o ES sem perder o foco visual
-- enquadramento inicial configurável com padding assimétrico, permitindo corrigir o centro visual do estado sem distorcer os níveis de zoom
-- contenção do pan ajustada dinamicamente ao zoom e ao tamanho da viewport para evitar efeito de mola quando o estado inteiro está visível
-- contorno visual do estado com tolerância configurável para absorver pequenas imprecisões de geocodificação em escolas costeiras e de divisa
-- rótulos permanentes de escolas com número de professores ativados apenas em zoom próximo para equilibrar informação e legibilidade
+### `experiments/`
 
-## Estratégia de expansão
+Material local de apoio que nao deve ir ao ar.
 
-As redes municipais, federais e particulares usam o mesmo contrato de `data/schools/*.geojson`. Quando novos bancos chegarem, basta:
+## Relacao com o backend
 
-1. normalizar o arquivo com o script correspondente
-2. atualizar o `app-config.json` para trocar `status` de `disabled` para `ready`
-3. fazer commit e publicar
+O frontend nao pesquisa fontes oficiais por conta propria.
+
+Ele consome handoffs prontos do backend local, hoje em:
+
+- `D:\Escolas ES\backend\projects\escolas_estaduais_es\data\frontend_exports\`
+
+## Publicacao
+
+O GitHub Pages publica apenas `public/`. Isso evita expor scripts, docs e experimentos no site final.
