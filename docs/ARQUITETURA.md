@@ -39,6 +39,14 @@ Ele consome handoffs prontos do backend local, hoje em:
 - `D:\Escolas ES\backend\projects\escolas_estaduais_es\data\frontend_exports\`
 - `D:\Escolas ES\backend\projects\escolas_municipais_es\data\frontend_exports\`
 - `D:\Escolas ES\backend\projects\escolas_federais_es\data\frontend_exports\`
+- `D:\Escolas ES\backend\projects\escolas_particulares_es\data\frontend_exports\`
+
+## Camadas atuais do mapa
+
+- municipais: `public/data/schools/municipais/`
+- estaduais: `public/data/schools/estaduais/`
+- federais: `public/data/schools/federais/`
+- particulares: `public/data/schools/particulares/`
 
 ## Publicacao
 

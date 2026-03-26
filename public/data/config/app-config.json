@@ -64,11 +64,11 @@
     {
       "id": "particulares",
       "label": "E. Particulares",
-      "description": "Camada preparada para receber a futura base oficial da rede particular.",
-      "status": "disabled",
-      "defaultVisible": false,
-      "color": "#7c3aed",
-      "dataPath": "data/schools/particulares.geojson"
+      "description": "Base privada do Espirito Santo com educacao basica, tecnica, educacao especial e IES/campi privados com presenca geografica propria.",
+      "status": "ready",
+      "defaultVisible": true,
+      "color": "#f59e0b",
+      "dataPath": "data/schools/particulares/index.json"
     }
   ],
   "densityLayer": {
