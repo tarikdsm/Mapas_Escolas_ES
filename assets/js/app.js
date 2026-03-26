@@ -123,6 +123,56 @@
     );
   }
 
+  function buildSchoolHoverTooltipOptions() {
+    return {
+      direction: "top",
+      offset: [0, -18],
+      className: "school-tooltip",
+    };
+  }
+
+  function buildSchoolLabelTooltipOptions() {
+    return {
+      permanent: true,
+      direction: "right",
+      offset: [16, -2],
+      opacity: 1,
+      className: "school-label",
+    };
+  }
+
+  function setMarkerTooltipMode(marker, mode) {
+    if (marker._schoolTooltipMode === mode) {
+      return;
+    }
+
+    if (marker.getTooltip()) {
+      marker.unbindTooltip();
+    }
+
+    if (mode === "permanent" && marker._schoolLabelContent) {
+      marker.bindTooltip(marker._schoolLabelContent, buildSchoolLabelTooltipOptions());
+    } else if (mode === "hover" && marker._schoolHoverContent) {
+      marker.bindTooltip(marker._schoolHoverContent, buildSchoolHoverTooltipOptions());
+    }
+
+    marker._schoolTooltipMode = mode;
+  }
+
+  function syncMarkerLabelVisibility(marker, currentZoom, labelMinZoom, allowHover) {
+    if (marker._hasTeacherCount && currentZoom >= labelMinZoom) {
+      setMarkerTooltipMode(marker, "permanent");
+      return;
+    }
+
+    if (allowHover && marker._schoolHoverContent) {
+      setMarkerTooltipMode(marker, "hover");
+      return;
+    }
+
+    setMarkerTooltipMode(marker, "none");
+  }
+
   function escapeHtml(value) {
     return String(value == null ? "" : value)
       .replace(/&/g, "&amp;")
@@ -573,6 +623,7 @@
       maxZoom: config.map.maxZoom,
       maxBoundsViscosity:
         config.map.maxBoundsViscosity == null ? 0.35 : config.map.maxBoundsViscosity,
+      schoolLabelMinZoom: config.map.schoolLabelMinZoom == null ? 15 : config.map.schoolLabelMinZoom,
       preferCanvas: true,
       worldCopyJump: false,
       zoomSnap: 0.5,
@@ -880,6 +931,11 @@
       var features = Array.isArray(geojson.features) ? geojson.features : [];
       var icon = buildSchoolMarkerIcon(layerConfig);
       var allowTooltip = supportsHover();
+      var labelMinZoom =
+        layerConfig.labelMinZoom == null
+          ? (map.options && map.options.schoolLabelMinZoom) || 15
+          : Number(layerConfig.labelMinZoom);
+      var markers = [];
       var popupMaxWidth = isCompactLayout() ? 280 : 320;
       var clusterGroup = L.markerClusterGroup({
         showCoverageOnHover: false,
@@ -900,27 +956,41 @@
         },
         onEachFeature: function (feature, marker) {
           var properties = feature.properties || {};
+          var hoverContent = buildSchoolNameMarkup(
+            properties,
+            layerConfig.label,
+            "school-tooltip__teacher-count"
+          );
+          var labelContent = buildSchoolNameMarkup(
+            properties,
+            layerConfig.label,
+            "school-label__teacher-count"
+          );
           marker.bindPopup(buildPopupMarkup(properties, layerConfig), {
             maxWidth: popupMaxWidth,
           });
-          if (allowTooltip) {
-            marker.bindTooltip(
-              buildSchoolNameMarkup(
-                properties,
-                layerConfig.label,
-                "school-tooltip__teacher-count"
-              ),
-              {
-                direction: "top",
-                offset: [0, -18],
-                className: "school-tooltip",
-              }
-            );
-          }
+          marker._schoolHoverContent = hoverContent;
+          marker._schoolLabelContent =
+            normalizeTeacherCount(properties.teacher_count) === null ? "" : labelContent;
+          marker._hasTeacherCount = Boolean(marker._schoolLabelContent);
+          marker._schoolTooltipMode = "";
+          syncMarkerLabelVisibility(marker, map.getZoom(), labelMinZoom, allowTooltip);
+          markers.push(marker);
         },
       });
 
       clusterGroup.addLayer(featureLayer);
+
+      function syncLabelVisibility() {
+        var currentZoom = map.getZoom();
+        markers.forEach(function (marker) {
+          syncMarkerLabelVisibility(marker, currentZoom, labelMinZoom, allowTooltip);
+        });
+      }
+
+      map.on("zoomend", syncLabelVisibility);
+      map.on("layeradd", syncLabelVisibility);
+
       return {
         id: layerConfig.id,
         label: layerConfig.label,
@@ -928,6 +998,7 @@
         layer: clusterGroup,
         featureCount: features.length,
         bounds: featureLayer.getBounds(),
+        syncLabelVisibility: syncLabelVisibility,
       };
     });
   }
@@ -1040,6 +1111,9 @@
         if (!options.map.hasLayer(loadedInstance.layer)) {
           loadedInstance.layer.addTo(options.map);
         }
+        if (typeof loadedInstance.syncLabelVisibility === "function") {
+          loadedInstance.syncLabelVisibility();
+        }
         options.appState.activeSchoolLayerIds[options.layerId] = true;
         refreshSummary(options.appState, options.config);
         setStatus(layerConfig.label + " ativa.");
@@ -1051,6 +1125,9 @@
         options.appState.loadedSchoolLayers[options.layerId] = instance;
         options.appState.activeSchoolLayerIds[options.layerId] = true;
         instance.layer.addTo(options.map);
+        if (typeof instance.syncLabelVisibility === "function") {
+          instance.syncLabelVisibility();
+        }
         refreshSummary(options.appState, options.config);
         setStatus(layerConfig.label + " ativa.");
       });

@@ -39,6 +39,7 @@ Fornecer um site estático, leve e publicável no GitHub Pages para visualizar e
 - enquadramento inicial configurável com padding assimétrico, permitindo corrigir o centro visual do estado sem distorcer os níveis de zoom
 - contenção do pan ajustada dinamicamente ao zoom e ao tamanho da viewport para evitar efeito de mola quando o estado inteiro está visível
 - contorno visual do estado com tolerância configurável para absorver pequenas imprecisões de geocodificação em escolas costeiras e de divisa
+- rótulos permanentes de escolas com número de professores ativados apenas em zoom próximo para equilibrar informação e legibilidade
 
 ## Estratégia de expansão
 

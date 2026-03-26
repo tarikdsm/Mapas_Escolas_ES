@@ -8,6 +8,7 @@ Site estático para GitHub Pages com foco visual exclusivo no território do Esp
 - camada operacional da rede estadual com clusterização responsiva
 - frontend ajustado para desktop, tablet e celular com foco em compatibilidade nos navegadores atuais
 - popup e tooltip preparados para exibir numero de professores ao lado do nome da escola quando o dado existir
+- rótulos no mapa mostram nome da escola com numero de professores em zoom próximo, preservando legibilidade nos demais níveis
 - estrutura pronta para redes municipais, federais e particulares
 - choropleth de densidade populacional por município do ES com fonte oficial do IBGE
 - documentação operacional para atualizar dados e publicar no GitHub Pages

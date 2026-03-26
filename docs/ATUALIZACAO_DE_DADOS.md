@@ -24,6 +24,7 @@ python scripts/build_school_layer.py \
 ```
 
 Se o GeoJSON de origem ja trouxer `numero_professores`, `nome_escola_original` ou `nome_escola_mapa_html`, o script preserva esses campos no contrato do site e o frontend passa a exibir o numero de professores ao lado do nome da escola quando houver valor.
+No mapa, esse rotulo fica visivel em zoom proximo; nos demais niveis o dado continua acessivel por popup e hover.
 
 ### 3. Ativar a camada no mapa
 

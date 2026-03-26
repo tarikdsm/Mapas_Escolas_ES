@@ -496,6 +496,11 @@ code {
   font-size: 0.92em;
 }
 
+.school-label__teacher-count {
+  color: #c00000;
+  font-weight: 700;
+}
+
 .school-popup__badges {
   display: flex;
   flex-wrap: wrap;
@@ -550,6 +555,24 @@ code {
 
 .school-tooltip {
   font-family: "Source Sans 3", serif;
+}
+
+.school-label {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(15, 53, 81, 0.12);
+  border-radius: 999px;
+  box-shadow: 0 10px 24px rgba(15, 53, 81, 0.16);
+  color: var(--text);
+  font-family: "Source Sans 3", serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 6px 10px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.school-label::before {
+  border-right-color: rgba(255, 255, 255, 0.92) !important;
 }
 
 .leaflet-control-zoom {
