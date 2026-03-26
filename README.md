@@ -26,16 +26,16 @@ Este frontend consome artefatos gerados no backend local em:
 O fluxo esperado e:
 
 1. backend gera um GeoJSON ou CSV pronto para handoff
-2. frontend normaliza esse arquivo para `public/data/...`
+2. frontend gera uma camada otimizada em tiles, com shards de detalhes por municipio
 3. frontend sobe somente `public/` no GitHub Pages
 
 ## Atualizacao da camada estadual
 
 ```powershell
 cd D:\Escolas ES\frontend\Mapa_Escolas_ES
-python .\scripts\build_school_layer.py `
+python .\scripts\build_school_tiles.py `
   --input "..\..\backend\projects\escolas_estaduais_es\data\frontend_exports\escolas_estaduais_es_georef.geojson" `
-  --output "public\data\schools\estaduais.geojson" `
+  --output-dir "public\data\schools\estaduais" `
   --layer-id "estaduais" `
   --label "E. Estaduais" `
   --color "#2563eb"
@@ -45,13 +45,20 @@ python .\scripts\build_school_layer.py `
 
 ```powershell
 cd D:\Escolas ES\frontend\Mapa_Escolas_ES
-python .\scripts\build_school_layer.py `
+python .\scripts\build_school_tiles.py `
   --input "..\..\backend\projects\escolas_municipais_es\data\frontend_exports\escolas_municipais_es_georef.geojson" `
-  --output "public\data\schools\municipais.geojson" `
+  --output-dir "public\data\schools\municipais" `
   --layer-id "municipais" `
   --label "E. Municipais" `
   --color "#2f9d57"
 ```
+
+## Arquitetura de desempenho
+
+- `public/data/schools/<camada>/index.json`: manifesto leve da camada
+- `public/data/schools/<camada>/tiles/...`: tiles estaticos com clusters precomputados e pontos slim
+- `public/data/schools/<camada>/details/<municipio>.json`: detalhes por municipio, carregados so no clique
+- o mapa carrega apenas tiles do viewport atual e descarta tiles fora da tela
 
 ## Atualizacao da densidade populacional
 

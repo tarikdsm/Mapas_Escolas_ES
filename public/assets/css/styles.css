@@ -470,6 +470,10 @@ code {
   min-width: 220px;
 }
 
+.school-popup--loading .school-popup__value {
+  color: var(--muted);
+}
+
 .school-popup__heading {
   display: grid;
   gap: 6px;

@@ -3,6 +3,11 @@
 ## Visao geral
 
 O frontend recebe dados prontos do backend local e os converte para o contrato do site dentro de `public/data/`.
+O contrato atual das escolas usa:
+
+- manifesto leve por camada
+- tiles estaticos com clusters precomputados
+- shards de detalhes por municipio para popup lazy
 
 Backend atual de referencia:
 
@@ -17,12 +22,12 @@ Use o GeoJSON entregue em:
 
 - `..\..\backend\projects\escolas_estaduais_es\data\frontend_exports\escolas_estaduais_es_georef.geojson`
 
-### 2. Normalizar para o contrato do site
+### 2. Gerar a camada otimizada para o site
 
 ```powershell
-python .\scripts\build_school_layer.py `
+python .\scripts\build_school_tiles.py `
   --input "..\..\backend\projects\escolas_estaduais_es\data\frontend_exports\escolas_estaduais_es_georef.geojson" `
-  --output "public\data\schools\estaduais.geojson" `
+  --output-dir "public\data\schools\estaduais" `
   --layer-id "estaduais" `
   --label "E. Estaduais" `
   --color "#2563eb"
@@ -36,12 +41,12 @@ Use o GeoJSON entregue em:
 
 - `..\..\backend\projects\escolas_municipais_es\data\frontend_exports\escolas_municipais_es_georef.geojson`
 
-### 2. Normalizar para o contrato do site
+### 2. Gerar a camada otimizada para o site
 
 ```powershell
-python .\scripts\build_school_layer.py `
+python .\scripts\build_school_tiles.py `
   --input "..\..\backend\projects\escolas_municipais_es\data\frontend_exports\escolas_municipais_es_georef.geojson" `
-  --output "public\data\schools\municipais.geojson" `
+  --output-dir "public\data\schools\municipais" `
   --layer-id "municipais" `
   --label "E. Municipais" `
   --color "#2f9d57"
@@ -64,6 +69,15 @@ Campos mais comuns:
 - `status`
 - `defaultVisible`
 - `dataPath`
+
+## Estrutura final esperada
+
+- `public/data/schools/estaduais/index.json`
+- `public/data/schools/estaduais/tiles/...`
+- `public/data/schools/estaduais/details/...`
+- `public/data/schools/municipais/index.json`
+- `public/data/schools/municipais/tiles/...`
+- `public/data/schools/municipais/details/...`
 
 ## Fluxo para densidade populacional
 

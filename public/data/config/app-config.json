@@ -41,7 +41,7 @@
       "status": "ready",
       "defaultVisible": true,
       "color": "#2f9d57",
-      "dataPath": "data/schools/municipais.geojson"
+      "dataPath": "data/schools/municipais/index.json"
     },
     {
       "id": "estaduais",
@@ -50,7 +50,7 @@
       "status": "ready",
       "defaultVisible": true,
       "color": "#2563eb",
-      "dataPath": "data/schools/estaduais.geojson"
+      "dataPath": "data/schools/estaduais/index.json"
     },
     {
       "id": "federais",

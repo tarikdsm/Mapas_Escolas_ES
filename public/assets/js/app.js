@@ -870,7 +870,99 @@
     });
   }
 
+  function getDirectoryPath(path) {
+    var normalized = String(path || "");
+    var lastSlash = normalized.lastIndexOf("/");
+    if (lastSlash === -1) {
+      return "";
+    }
+    return normalized.slice(0, lastSlash + 1);
+  }
+
+  function applyTemplate(template, replacements) {
+    return String(template || "").replace(/\{(\w+)\}/g, function (_, key) {
+      return replacements && replacements[key] != null ? String(replacements[key]) : "";
+    });
+  }
+
+  function joinPath(basePath, relativePath) {
+    var base = String(basePath || "");
+    var relative = String(relativePath || "");
+    if (!base) {
+      return relative;
+    }
+    if (!relative) {
+      return base;
+    }
+    return base.replace(/\/+$/, "") + "/" + relative.replace(/^\/+/, "");
+  }
+
+  function getManifestBounds(manifest) {
+    if (!manifest || !manifest.bounds || manifest.bounds.length !== 4) {
+      return null;
+    }
+    return L.latLngBounds(
+      [Number(manifest.bounds[1]), Number(manifest.bounds[0])],
+      [Number(manifest.bounds[3]), Number(manifest.bounds[2])]
+    );
+  }
+
+  function longitudeToTileX(longitude, zoom) {
+    var scale = Math.pow(2, zoom);
+    var x = Math.floor(((Number(longitude) + 180) / 360) * scale);
+    return Math.max(0, Math.min(scale - 1, x));
+  }
+
+  function latitudeToTileY(latitude, zoom) {
+    var clampedLatitude = Math.max(-85.05112878, Math.min(85.05112878, Number(latitude)));
+    var radians = (clampedLatitude * Math.PI) / 180;
+    var scale = Math.pow(2, zoom);
+    var y = Math.floor(
+      ((1 -
+        Math.log(Math.tan(radians) + 1 / Math.cos(radians)) / Math.PI) /
+        2) *
+        scale
+    );
+    return Math.max(0, Math.min(scale - 1, y));
+  }
+
+  function buildTileDescriptors(bounds, zoom, bufferTiles) {
+    if (!bounds || !bounds.isValid()) {
+      return [];
+    }
+
+    var west = bounds.getWest();
+    var east = bounds.getEast();
+    var north = bounds.getNorth();
+    var south = bounds.getSouth();
+    var maxIndex = Math.pow(2, zoom) - 1;
+    var minX = Math.max(0, longitudeToTileX(west, zoom) - bufferTiles);
+    var maxX = Math.min(maxIndex, longitudeToTileX(east, zoom) + bufferTiles);
+    var minY = Math.max(0, latitudeToTileY(north, zoom) - bufferTiles);
+    var maxY = Math.min(maxIndex, latitudeToTileY(south, zoom) + bufferTiles);
+    var descriptors = [];
+    var x;
+    var y;
+
+    for (x = minX; x <= maxX; x += 1) {
+      for (y = minY; y <= maxY; y += 1) {
+        descriptors.push({
+          key: zoom + ":" + x + ":" + y,
+          z: zoom,
+          x: x,
+          y: y,
+        });
+      }
+    }
+
+    return descriptors;
+  }
+
   function buildAddress(properties) {
+    if (properties.address_line) {
+      return String(properties.address_line);
+    }
+
     var parts = [
       [properties.address, properties.number].filter(Boolean).join(", "),
       properties.district,
@@ -879,6 +971,34 @@
       properties.postal_code,
     ].filter(Boolean);
     return parts.join(" · ");
+  }
+
+  function buildGeorefLabel(properties) {
+    return properties.classification || "";
+  }
+
+  function buildContactLabel(properties) {
+    return properties.contact || properties.phone_primary || properties.email || "";
+  }
+
+  function buildLoadingPopupMarkup(properties, layerConfig) {
+    return (
+      '<article class="school-popup school-popup--loading">' +
+      '<header class="school-popup__heading">' +
+      "<h3>" +
+      buildSchoolNameMarkup(properties, layerConfig.label, "school-popup__teacher-count") +
+      "</h3>" +
+      '<div class="school-popup__badges">' +
+      '<span class="popup-badge">' +
+      escapeHtml(layerConfig.label) +
+      "</span>" +
+      "</div>" +
+      "</header>" +
+      '<div class="school-popup__grid">' +
+      '<div class="school-popup__row"><span class="school-popup__label">Sincronizando</span><span class="school-popup__value">Carregando detalhes da escola...</span></div>' +
+      "</div>" +
+      "</article>"
+    );
   }
 
   function buildPopupMarkup(properties, layerConfig) {
@@ -911,7 +1031,7 @@
       escapeHtml(buildAddress(properties) || "n/d") +
       "</span></div>" +
       '<div class="school-popup__row"><span class="school-popup__label">Georreferenciamento</span><span class="school-popup__value">' +
-      escapeHtml(properties.classification || "n/d") +
+      escapeHtml(buildGeorefLabel(properties) || "n/d") +
       " · " +
       escapeHtml(properties.georef_source || "n/d") +
       "</span></div>" +
@@ -926,78 +1046,417 @@
     );
   }
 
-  function createSchoolLayer(map, layerConfig) {
-    return fetchJson(layerConfig.dataPath).then(function (geojson) {
-      var features = Array.isArray(geojson.features) ? geojson.features : [];
+  function createSchoolLayer(map, layerConfig, config) {
+    return fetchJson(layerConfig.dataPath).then(function (manifest) {
       var icon = buildSchoolMarkerIcon(layerConfig);
       var allowTooltip = supportsHover();
       var labelMinZoom =
         layerConfig.labelMinZoom == null
           ? (map.options && map.options.schoolLabelMinZoom) || 15
           : Number(layerConfig.labelMinZoom);
-      var markers = [];
       var popupMaxWidth = isCompactLayout() ? 280 : 320;
-      var clusterGroup = L.markerClusterGroup({
-        showCoverageOnHover: false,
-        spiderfyOnMaxZoom: true,
-        chunkedLoading: true,
-        removeOutsideVisibleBounds: true,
-        animate: !matchesMedia("(prefers-reduced-motion: reduce)", false),
-        maxClusterRadius: shouldUseBottomControls() ? 38 : 46,
-        zoomToBoundsOnClick: true,
-        iconCreateFunction: function (cluster) {
-          return buildClusterIcon(layerConfig.color, cluster.getChildCount());
-        },
-      });
+      var layerGroup = L.layerGroup();
+      var manifestBasePath = getDirectoryPath(layerConfig.dataPath);
+      var tileConfig = manifest && manifest.tiles ? manifest.tiles : {};
+      var detailsConfig = manifest && manifest.details ? manifest.details : {};
+      var renderedTiles = {};
+      var desiredTileKeys = {};
+      var tileCache = {};
+      var tileCacheOrder = [];
+      var tileRequests = {};
+      var detailCache = {};
+      var detailRequests = {};
+      var attached = false;
+      var featureCount = Number(manifest && manifest.schoolCount ? manifest.schoolCount : 0);
 
-      var featureLayer = L.geoJSON(geojson, {
-        pointToLayer: function (feature, latlng) {
-          return L.marker(latlng, { icon: icon, keyboard: true });
-        },
-        onEachFeature: function (feature, marker) {
-          var properties = feature.properties || {};
-          var hoverContent = buildSchoolNameMarkup(
-            properties,
-            layerConfig.label,
-            "school-tooltip__teacher-count"
-          );
-          var labelContent = buildSchoolNameMarkup(
-            properties,
-            layerConfig.label,
-            "school-label__teacher-count"
-          );
-          marker.bindPopup(buildPopupMarkup(properties, layerConfig), {
+      function touchCacheKey(key) {
+        var index = tileCacheOrder.indexOf(key);
+        if (index !== -1) {
+          tileCacheOrder.splice(index, 1);
+        }
+        tileCacheOrder.push(key);
+      }
+
+      function evictTileCache() {
+        var maxEntries = tileConfig.maxCachedTiles == null ? 64 : Number(tileConfig.maxCachedTiles);
+        var guard = 0;
+
+        while (tileCacheOrder.length > maxEntries && guard < maxEntries * 4) {
+          var victim = tileCacheOrder[0];
+          guard += 1;
+          if (renderedTiles[victim] || tileRequests[victim]) {
+            tileCacheOrder.push(tileCacheOrder.shift());
+            continue;
+          }
+          delete tileCache[victim];
+          tileCacheOrder.shift();
+        }
+      }
+
+      function getTilePath(descriptor) {
+        return joinPath(
+          manifestBasePath,
+          applyTemplate(tileConfig.pathTemplate || "tiles/{z}/{x}/{y}.json", descriptor)
+        );
+      }
+
+      function getDetailPath(shardKey) {
+        return joinPath(
+          manifestBasePath,
+          applyTemplate(detailsConfig.pathTemplate || "details/{shard}.json", {
+            shard: shardKey,
+          })
+        );
+      }
+
+      function getCurrentTileZoom() {
+        var minZoom =
+          tileConfig.minZoom == null ? Number(map.getMinZoom()) : Number(tileConfig.minZoom);
+        var maxZoom =
+          tileConfig.maxZoom == null ? Number(map.getMaxZoom()) : Number(tileConfig.maxZoom);
+        return clamp(Math.floor(map.getZoom()), minZoom, maxZoom);
+      }
+
+      function fetchTile(descriptor) {
+        if (tileCache[descriptor.key]) {
+          touchCacheKey(descriptor.key);
+          return Promise.resolve(tileCache[descriptor.key]);
+        }
+
+        if (tileRequests[descriptor.key]) {
+          return tileRequests[descriptor.key];
+        }
+
+        tileRequests[descriptor.key] = fetchJson(getTilePath(descriptor)).then(
+          function (payload) {
+            tileCache[descriptor.key] = payload;
+            touchCacheKey(descriptor.key);
+            delete tileRequests[descriptor.key];
+            evictTileCache();
+            return payload;
+          },
+          function (error) {
+            delete tileRequests[descriptor.key];
+            throw error;
+          }
+        );
+
+        return tileRequests[descriptor.key];
+      }
+
+      function fetchDetailShard(shardKey) {
+        if (!shardKey) {
+          return Promise.resolve({});
+        }
+
+        if (detailCache[shardKey]) {
+          return Promise.resolve(detailCache[shardKey]);
+        }
+
+        if (detailRequests[shardKey]) {
+          return detailRequests[shardKey];
+        }
+
+        detailRequests[shardKey] = fetchJson(getDetailPath(shardKey)).then(
+          function (payload) {
+            detailCache[shardKey] = payload && payload.schools ? payload.schools : {};
+            delete detailRequests[shardKey];
+            return detailCache[shardKey];
+          },
+          function (error) {
+            delete detailRequests[shardKey];
+            throw error;
+          }
+        );
+
+        return detailRequests[shardKey];
+      }
+
+      function fitClusterBounds(feature) {
+        var bbox = feature && feature.b ? feature.b : null;
+        var bounds;
+        var southWest;
+        var northEast;
+
+        if (!bbox || bbox.length !== 4) {
+          map.setView([feature.y, feature.x], clamp(map.getZoom() + 2, 7, 18));
+          return;
+        }
+
+        bounds = L.latLngBounds(
+          [Number(bbox[1]), Number(bbox[0])],
+          [Number(bbox[3]), Number(bbox[2])]
+        );
+
+        if (!bounds.isValid()) {
+          map.setView([feature.y, feature.x], clamp(map.getZoom() + 2, 7, 18));
+          return;
+        }
+
+        southWest = bounds.getSouthWest();
+        northEast = bounds.getNorthEast();
+        if (southWest.lat === northEast.lat && southWest.lng === northEast.lng) {
+          map.setView([feature.y, feature.x], clamp(map.getZoom() + 2, 7, 18));
+          return;
+        }
+
+        map.fitBounds(bounds, getFitBoundsOptions(map, config));
+      }
+
+      function hydratePopup(marker, baseProperties) {
+        var popup = marker.getPopup();
+        var hydrationToken = (marker._popupHydrationToken || 0) + 1;
+        marker._popupHydrationToken = hydrationToken;
+
+        fetchDetailShard(baseProperties.detail_shard).then(
+          function (shardSchools) {
+            if (marker._popupHydrationToken !== hydrationToken || !popup) {
+              return;
+            }
+
+            popup.setContent(
+              buildPopupMarkup(
+                extend(baseProperties, shardSchools ? shardSchools[baseProperties.id] : null),
+                layerConfig
+              )
+            );
+            if (marker.isPopupOpen()) {
+              marker.openPopup();
+            }
+          },
+          function () {
+            if (marker._popupHydrationToken !== hydrationToken || !popup) {
+              return;
+            }
+
+            popup.setContent(
+              buildPopupMarkup(
+                extend(baseProperties, {
+                  status: "Detalhes indisponíveis",
+                }),
+                layerConfig
+              )
+            );
+          }
+        );
+      }
+
+      function openSchoolPopup(marker, baseProperties) {
+        if (!marker.getPopup()) {
+          marker.bindPopup(buildLoadingPopupMarkup(baseProperties, layerConfig), {
             maxWidth: popupMaxWidth,
           });
-          marker._schoolHoverContent = hoverContent;
-          marker._schoolLabelContent =
-            normalizeTeacherCount(properties.teacher_count) === null ? "" : labelContent;
-          marker._hasTeacherCount = Boolean(marker._schoolLabelContent);
-          marker._schoolTooltipMode = "";
-          syncMarkerLabelVisibility(marker, map.getZoom(), labelMinZoom, allowTooltip);
-          markers.push(marker);
-        },
-      });
+        } else {
+          marker.getPopup().setContent(buildLoadingPopupMarkup(baseProperties, layerConfig));
+        }
 
-      clusterGroup.addLayer(featureLayer);
+        marker.openPopup();
+        hydratePopup(marker, baseProperties);
+      }
+
+      function createSchoolMarker(feature) {
+        var properties = {
+          id: feature.i,
+          name: feature.n || "",
+          teacher_count: feature.t,
+          detail_shard: feature.d || "",
+          latitude: feature.y,
+          longitude: feature.x,
+        };
+        var marker = L.marker([feature.y, feature.x], { icon: icon, keyboard: true });
+        var hoverContent = buildSchoolNameMarkup(
+          properties,
+          layerConfig.label,
+          "school-tooltip__teacher-count"
+        );
+        var labelContent = buildSchoolNameMarkup(
+          properties,
+          layerConfig.label,
+          "school-label__teacher-count"
+        );
+
+        marker._isSchoolMarker = true;
+        marker._schoolHoverContent = hoverContent;
+        marker._schoolLabelContent =
+          normalizeTeacherCount(properties.teacher_count) === null ? "" : labelContent;
+        marker._hasTeacherCount = Boolean(marker._schoolLabelContent);
+        marker._schoolTooltipMode = "";
+        syncMarkerLabelVisibility(marker, map.getZoom(), labelMinZoom, allowTooltip);
+        marker.on("click", function () {
+          openSchoolPopup(marker, properties);
+        });
+        return marker;
+      }
+
+      function createClusterMarker(feature) {
+        var marker = L.marker([feature.y, feature.x], {
+          icon: buildClusterIcon(layerConfig.color, feature.p),
+          keyboard: true,
+        });
+
+        marker._isSchoolMarker = false;
+        if (allowTooltip) {
+          marker.bindTooltip(formatNumber(feature.p) + " escolas", {
+            sticky: true,
+            className: "school-tooltip",
+            direction: "top",
+            offset: [0, -14],
+          });
+        }
+        marker.on("click", function () {
+          fitClusterBounds(feature);
+        });
+        return marker;
+      }
+
+      function removeRenderedTile(tileKey) {
+        var tileState = renderedTiles[tileKey];
+        if (!tileState) {
+          return;
+        }
+
+        tileState.markers.forEach(function (marker) {
+          layerGroup.removeLayer(marker);
+        });
+        delete renderedTiles[tileKey];
+      }
+
+      function clearRenderedTiles() {
+        Object.keys(renderedTiles).forEach(removeRenderedTile);
+      }
+
+      function materializeTile(descriptor, payload) {
+        if (renderedTiles[descriptor.key]) {
+          return;
+        }
+
+        var markers = [];
+        var features = payload && payload.features ? payload.features : [];
+
+        features.forEach(function (feature) {
+          var marker = null;
+          if (feature.k === "c") {
+            marker = createClusterMarker(feature);
+          } else if (feature.k === "s") {
+            marker = createSchoolMarker(feature);
+          }
+
+          if (marker) {
+            markers.push(marker);
+            layerGroup.addLayer(marker);
+          }
+        });
+
+        renderedTiles[descriptor.key] = {
+          markers: markers,
+        };
+      }
 
       function syncLabelVisibility() {
         var currentZoom = map.getZoom();
-        markers.forEach(function (marker) {
-          syncMarkerLabelVisibility(marker, currentZoom, labelMinZoom, allowTooltip);
+
+        Object.keys(renderedTiles).forEach(function (tileKey) {
+          renderedTiles[tileKey].markers.forEach(function (marker) {
+            if (!marker._isSchoolMarker) {
+              return;
+            }
+            syncMarkerLabelVisibility(marker, currentZoom, labelMinZoom, allowTooltip);
+          });
         });
       }
 
-      map.on("zoomend", syncLabelVisibility);
-      map.on("layeradd", syncLabelVisibility);
+      function refreshVisibleTiles() {
+        if (!attached) {
+          return;
+        }
+
+        var bufferTiles = tileConfig.bufferTiles == null ? 1 : Number(tileConfig.bufferTiles);
+        var descriptors = buildTileDescriptors(map.getBounds(), getCurrentTileZoom(), bufferTiles);
+        var nextTileKeys = {};
+
+        descriptors.forEach(function (descriptor) {
+          nextTileKeys[descriptor.key] = descriptor;
+        });
+        desiredTileKeys = nextTileKeys;
+
+        Object.keys(renderedTiles).forEach(function (tileKey) {
+          if (!nextTileKeys[tileKey]) {
+            removeRenderedTile(tileKey);
+          }
+        });
+
+        descriptors.forEach(function (descriptor) {
+          if (renderedTiles[descriptor.key]) {
+            return;
+          }
+
+          fetchTile(descriptor).then(
+            function (payload) {
+              if (!attached || !desiredTileKeys[descriptor.key] || renderedTiles[descriptor.key]) {
+                return;
+              }
+              materializeTile(descriptor, payload);
+              syncLabelVisibility();
+            },
+            function (error) {
+              console.error(error);
+            }
+          );
+        });
+
+        evictTileCache();
+      }
+
+      function handleMoveEnd() {
+        refreshVisibleTiles();
+      }
+
+      function handleZoomEnd() {
+        refreshVisibleTiles();
+        syncLabelVisibility();
+      }
+
+      function attach() {
+        if (attached) {
+          return;
+        }
+
+        attached = true;
+        if (!map.hasLayer(layerGroup)) {
+          layerGroup.addTo(map);
+        }
+        map.on("moveend", handleMoveEnd);
+        map.on("zoomend", handleZoomEnd);
+        map.on("resize", handleMoveEnd);
+        refreshVisibleTiles();
+        syncLabelVisibility();
+      }
+
+      function detach() {
+        if (!attached) {
+          return;
+        }
+
+        attached = false;
+        map.off("moveend", handleMoveEnd);
+        map.off("zoomend", handleZoomEnd);
+        map.off("resize", handleMoveEnd);
+        desiredTileKeys = {};
+        clearRenderedTiles();
+        if (map.hasLayer(layerGroup)) {
+          map.removeLayer(layerGroup);
+        }
+      }
 
       return {
         id: layerConfig.id,
         label: layerConfig.label,
-        source: geojson,
-        layer: clusterGroup,
-        featureCount: features.length,
-        bounds: featureLayer.getBounds(),
+        source: manifest,
+        layer: layerGroup,
+        featureCount: featureCount,
+        bounds: getManifestBounds(manifest),
+        attach: attach,
+        detach: detach,
         syncLabelVisibility: syncLabelVisibility,
       };
     });
@@ -1108,7 +1567,9 @@
     if (options.enabled) {
       if (options.appState.loadedSchoolLayers[options.layerId]) {
         var loadedInstance = options.appState.loadedSchoolLayers[options.layerId];
-        if (!options.map.hasLayer(loadedInstance.layer)) {
+        if (typeof loadedInstance.attach === "function") {
+          loadedInstance.attach();
+        } else if (!options.map.hasLayer(loadedInstance.layer)) {
           loadedInstance.layer.addTo(options.map);
         }
         if (typeof loadedInstance.syncLabelVisibility === "function") {
@@ -1121,10 +1582,14 @@
       }
 
       setStatus("Carregando " + layerConfig.label.toLowerCase() + "...");
-      return createSchoolLayer(options.map, layerConfig).then(function (instance) {
+      return createSchoolLayer(options.map, layerConfig, options.config).then(function (instance) {
         options.appState.loadedSchoolLayers[options.layerId] = instance;
         options.appState.activeSchoolLayerIds[options.layerId] = true;
-        instance.layer.addTo(options.map);
+        if (typeof instance.attach === "function") {
+          instance.attach();
+        } else {
+          instance.layer.addTo(options.map);
+        }
         if (typeof instance.syncLabelVisibility === "function") {
           instance.syncLabelVisibility();
         }
@@ -1133,11 +1598,12 @@
       });
     }
 
-    if (
-      options.appState.loadedSchoolLayers[options.layerId] &&
-      options.map.hasLayer(options.appState.loadedSchoolLayers[options.layerId].layer)
-    ) {
-      options.map.removeLayer(options.appState.loadedSchoolLayers[options.layerId].layer);
+    if (options.appState.loadedSchoolLayers[options.layerId]) {
+      if (typeof options.appState.loadedSchoolLayers[options.layerId].detach === "function") {
+        options.appState.loadedSchoolLayers[options.layerId].detach();
+      } else if (options.map.hasLayer(options.appState.loadedSchoolLayers[options.layerId].layer)) {
+        options.map.removeLayer(options.appState.loadedSchoolLayers[options.layerId].layer);
+      }
     }
     delete options.appState.activeSchoolLayerIds[options.layerId];
     refreshSummary(options.appState, options.config);
