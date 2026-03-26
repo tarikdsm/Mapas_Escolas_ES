@@ -267,6 +267,51 @@
     });
   }
 
+  function normalizeTeacherThreshold(value) {
+    if (isMissingNumber(value)) {
+      return 0;
+    }
+    return Math.max(0, Math.round(Number(value)));
+  }
+
+  function normalizeTeacherHistogram(histogram) {
+    if (!Array.isArray(histogram)) {
+      return [];
+    }
+
+    return histogram
+      .map(function (item) {
+        if (!Array.isArray(item) || item.length < 2) {
+          return null;
+        }
+        return [normalizeTeacherThreshold(item[0]), Math.max(0, Math.round(Number(item[1]) || 0))];
+      })
+      .filter(Boolean);
+  }
+
+  function countVisibleTeachers(histogram, minimumTeachers) {
+    var normalizedThreshold = normalizeTeacherThreshold(minimumTeachers);
+    var total = 0;
+
+    normalizeTeacherHistogram(histogram).forEach(function (item) {
+      if (item[0] >= normalizedThreshold) {
+        total += item[1];
+      }
+    });
+
+    return total;
+  }
+
+  function countTotalTeachers(histogram) {
+    var total = 0;
+
+    normalizeTeacherHistogram(histogram).forEach(function (item) {
+      total += item[1];
+    });
+
+    return total;
+  }
+
   function normalizeBoundsPadding(padding) {
     if (typeof padding === "number") {
       return {
@@ -457,9 +502,11 @@
     document.getElementById("visible-school-count").textContent = formatNumber(
       payload.visibleSchoolCount
     );
-    document.getElementById("active-layer-count").textContent = formatNumber(
-      payload.activeLayerCount
+    document.getElementById("hidden-school-count").textContent = formatNumber(
+      payload.hiddenSchoolCount
     );
+    document.getElementById("teacher-filter-summary").textContent = payload.filterSummary;
+    document.getElementById("teacher-filter-value").textContent = payload.teacherThreshold;
     document.getElementById("active-layer-chips").innerHTML = payload.activeChips;
     document.getElementById("active-layer-details").innerHTML = payload.details;
   }
@@ -557,6 +604,7 @@
 
   function buildActiveDetails(appState, config) {
     var lines = [];
+    var threshold = normalizeTeacherThreshold(appState.teacherFilterMin);
 
     getActiveSchoolLayerIds(appState).forEach(function (layerId) {
       var layerConfig = findSchoolLayer(config, layerId);
@@ -565,12 +613,25 @@
         return;
       }
 
+      var visibleCount =
+        typeof instance.getVisibleCount === "function"
+          ? instance.getVisibleCount(threshold)
+          : instance.featureCount;
+      var hiddenCount =
+        typeof instance.getHiddenCount === "function"
+          ? instance.getHiddenCount(threshold)
+          : 0;
+
       lines.push(
         "<p><strong>" +
           escapeHtml(layerConfig.label) +
           ":</strong> " +
-          formatNumber(instance.featureCount) +
-          " registros no mapa.</p>"
+          formatNumber(visibleCount) +
+          " escolas exibidas" +
+          (hiddenCount
+            ? " e " + formatNumber(hiddenCount) + " ocultadas pelo corte."
+            : ".") +
+          "</p>"
       );
     });
 
@@ -595,20 +656,64 @@
 
   function refreshSummary(appState, config) {
     var visibleSchoolCount = 0;
+    var hiddenSchoolCount = 0;
     var activeLayerIds = getActiveSchoolLayerIds(appState);
+    var threshold = normalizeTeacherThreshold(appState.teacherFilterMin);
 
     activeLayerIds.forEach(function (layerId) {
       if (appState.activeSchoolLayerIds[layerId] && appState.loadedSchoolLayers[layerId]) {
-        visibleSchoolCount += appState.loadedSchoolLayers[layerId].featureCount;
+        var instance = appState.loadedSchoolLayers[layerId];
+        visibleSchoolCount +=
+          typeof instance.getVisibleCount === "function"
+            ? instance.getVisibleCount(threshold)
+            : instance.featureCount;
+        hiddenSchoolCount +=
+          typeof instance.getHiddenCount === "function" ? instance.getHiddenCount(threshold) : 0;
       }
     });
 
+    updateTeacherFilterBounds(appState);
     updateSummary({
       visibleSchoolCount: visibleSchoolCount,
-      activeLayerCount: activeLayerIds.length + (appState.densityActive ? 1 : 0),
+      hiddenSchoolCount: hiddenSchoolCount,
+      teacherThreshold: String(threshold),
+      filterSummary: threshold === 0 ? "0 professores+" : threshold + " professores+",
       activeChips: buildActiveChips(appState, config),
       details: buildActiveDetails(appState, config),
     });
+  }
+
+  function updateTeacherFilterBounds(appState) {
+    var slider = document.getElementById("teacher-filter-slider");
+    var maxLabel = document.getElementById("teacher-filter-max-label");
+    var maxTeacherCount = 0;
+
+    Object.keys(appState.loadedSchoolLayers || {}).forEach(function (layerId) {
+      var instance = appState.loadedSchoolLayers[layerId];
+      if (instance && instance.maxTeacherCount != null) {
+        maxTeacherCount = Math.max(maxTeacherCount, normalizeTeacherThreshold(instance.maxTeacherCount));
+      }
+    });
+
+    maxTeacherCount = Math.max(
+      100,
+      maxTeacherCount,
+      normalizeTeacherThreshold(appState.teacherFilterMin)
+    );
+    slider.max = String(maxTeacherCount);
+    maxLabel.textContent = String(maxTeacherCount);
+  }
+
+  function applyTeacherFilter(appState, config) {
+    Object.keys(appState.loadedSchoolLayers || {}).forEach(function (layerId) {
+      var instance = appState.loadedSchoolLayers[layerId];
+      if (instance && typeof instance.setTeacherThreshold === "function") {
+        instance.setTeacherThreshold(appState.teacherFilterMin);
+      }
+    });
+
+    updateTeacherFilterBounds(appState);
+    refreshSummary(appState, config);
   }
 
   function findSchoolLayer(config, layerId) {
@@ -1104,7 +1209,7 @@
     );
   }
 
-  function createSchoolLayer(map, layerConfig, config) {
+  function createSchoolLayer(map, layerConfig, config, initialTeacherThreshold) {
     return fetchJson(layerConfig.dataPath).then(function (manifest) {
       var icon = buildSchoolMarkerIcon(layerConfig);
       var allowTooltip = supportsHover();
@@ -1127,6 +1232,14 @@
       var detailRequests = {};
       var attached = false;
       var featureCount = Number(manifest && manifest.schoolCount ? manifest.schoolCount : 0);
+      var teacherHistogram = normalizeTeacherHistogram(
+        manifest && manifest.filter ? manifest.filter.teacherHistogram : []
+      );
+      var maxTeacherCount =
+        manifest && manifest.filter && manifest.filter.maxTeacherCount != null
+          ? normalizeTeacherThreshold(manifest.filter.maxTeacherCount)
+          : 0;
+      var currentTeacherThreshold = normalizeTeacherThreshold(initialTeacherThreshold);
       var availableTileKeys = new Set(
         manifest &&
         manifest.tiles &&
@@ -1241,6 +1354,30 @@
         );
 
         return detailRequests[shardKey];
+      }
+
+      function getVisibleCount(minimumTeachers) {
+        return countVisibleTeachers(teacherHistogram, minimumTeachers);
+      }
+
+      function getHiddenCount(minimumTeachers) {
+        return Math.max(0, featureCount - getVisibleCount(minimumTeachers));
+      }
+
+      function getClusterVisibleCount(feature, minimumTeachers) {
+        if (!feature || feature.k !== "c") {
+          return 0;
+        }
+
+        if (!feature.h || !feature.h.length) {
+          return minimumTeachers <= 0 ? Number(feature.p || 0) : 0;
+        }
+
+        return countVisibleTeachers(feature.h, minimumTeachers);
+      }
+
+      function shouldRenderSchool(feature, minimumTeachers) {
+        return normalizeTeacherThreshold(feature && feature.t) >= minimumTeachers;
       }
 
       function fitClusterBounds(feature) {
@@ -1359,15 +1496,15 @@
         return marker;
       }
 
-      function createClusterMarker(feature) {
+      function createClusterMarker(feature, visibleCount) {
         var marker = L.marker([feature.y, feature.x], {
-          icon: buildClusterIcon(layerConfig.color, feature.p),
+          icon: buildClusterIcon(layerConfig.color, visibleCount),
           keyboard: true,
         });
 
         marker._isSchoolMarker = false;
         if (allowTooltip) {
-          marker.bindTooltip(formatNumber(feature.p) + " escolas", {
+          marker.bindTooltip(formatNumber(visibleCount) + " escolas", {
             sticky: true,
             className: "school-tooltip",
             direction: "top",
@@ -1407,9 +1544,14 @@
         features.forEach(function (feature) {
           var marker = null;
           if (feature.k === "c") {
-            marker = createClusterMarker(feature);
+            var clusterVisibleCount = getClusterVisibleCount(feature, currentTeacherThreshold);
+            if (clusterVisibleCount > 0) {
+              marker = createClusterMarker(feature, clusterVisibleCount);
+            }
           } else if (feature.k === "s") {
-            marker = createSchoolMarker(feature);
+            if (shouldRenderSchool(feature, currentTeacherThreshold)) {
+              marker = createSchoolMarker(feature);
+            }
           }
 
           if (marker) {
@@ -1527,15 +1669,38 @@
         }
       }
 
+      function setTeacherThreshold(nextThreshold) {
+        var normalizedThreshold = normalizeTeacherThreshold(nextThreshold);
+
+        if (normalizedThreshold === currentTeacherThreshold) {
+          return;
+        }
+
+        currentTeacherThreshold = normalizedThreshold;
+        if (!attached) {
+          return;
+        }
+
+        desiredTileKeys = {};
+        clearRenderedTiles();
+        refreshVisibleTiles();
+        syncLabelVisibility();
+      }
+
       return {
         id: layerConfig.id,
         label: layerConfig.label,
         source: manifest,
         layer: layerGroup,
         featureCount: featureCount,
+        teacherHistogram: teacherHistogram,
+        maxTeacherCount: maxTeacherCount,
         bounds: getManifestBounds(manifest),
         attach: attach,
         detach: detach,
+        getVisibleCount: getVisibleCount,
+        getHiddenCount: getHiddenCount,
+        setTeacherThreshold: setTeacherThreshold,
         syncLabelVisibility: syncLabelVisibility,
       };
     });
@@ -1646,6 +1811,9 @@
     if (options.enabled) {
       if (options.appState.loadedSchoolLayers[options.layerId]) {
         var loadedInstance = options.appState.loadedSchoolLayers[options.layerId];
+        if (typeof loadedInstance.setTeacherThreshold === "function") {
+          loadedInstance.setTeacherThreshold(options.appState.teacherFilterMin);
+        }
         if (typeof loadedInstance.attach === "function") {
           loadedInstance.attach();
         } else if (!options.map.hasLayer(loadedInstance.layer)) {
@@ -1661,7 +1829,12 @@
       }
 
       setStatus("Carregando " + layerConfig.label.toLowerCase() + "...");
-      return createSchoolLayer(options.map, layerConfig, options.config).then(function (instance) {
+      return createSchoolLayer(
+        options.map,
+        layerConfig,
+        options.config,
+        options.appState.teacherFilterMin
+      ).then(function (instance) {
         options.appState.loadedSchoolLayers[options.layerId] = instance;
         options.appState.activeSchoolLayerIds[options.layerId] = true;
         if (typeof instance.attach === "function") {
@@ -1738,10 +1911,41 @@
           activeSchoolLayerIds: {},
           densityLayer: null,
           densityActive: false,
+          teacherFilterMin: 0,
         };
 
         attachPanelToggle(panelToggle, sidebar, map);
         renderLayerControls(document.getElementById("layer-controls"), config);
+        var teacherFilterSlider = document.getElementById("teacher-filter-slider");
+        var teacherFilterApplyTimer = null;
+
+        teacherFilterSlider.addEventListener("input", function (event) {
+          appState.teacherFilterMin = normalizeTeacherThreshold(event.currentTarget.value);
+          refreshSummary(appState, config);
+
+          if (teacherFilterApplyTimer) {
+            window.clearTimeout(teacherFilterApplyTimer);
+          }
+
+          teacherFilterApplyTimer = window.setTimeout(function () {
+            applyTeacherFilter(appState, config);
+            setStatus(
+              appState.teacherFilterMin === 0
+                ? "Exibindo todas as escolas."
+                : "Aplicando corte minimo de " +
+                    formatNumber(appState.teacherFilterMin) +
+                    " professores."
+            );
+          }, 60);
+        });
+
+        teacherFilterSlider.addEventListener("change", function () {
+          if (teacherFilterApplyTimer) {
+            window.clearTimeout(teacherFilterApplyTimer);
+            teacherFilterApplyTimer = null;
+          }
+          applyTeacherFilter(appState, config);
+        });
 
         map.on("click movestart zoomstart", function () {
           if (isCompactLayout()) {

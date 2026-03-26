@@ -187,6 +187,96 @@ code {
   gap: 12px;
 }
 
+.teacher-filter {
+  display: grid;
+  gap: 12px;
+  padding: 16px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(15, 53, 81, 0.08);
+}
+
+.teacher-filter__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.teacher-filter__header strong {
+  display: block;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.98rem;
+}
+
+.teacher-filter__header p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  line-height: 1.35;
+  font-size: 0.94rem;
+}
+
+.teacher-filter__value {
+  min-width: 48px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--brand-soft);
+  color: var(--brand);
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  text-align: center;
+}
+
+.teacher-filter__slider {
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  border: none;
+  outline: none;
+  background: linear-gradient(90deg, rgba(15, 53, 81, 0.16), rgba(15, 53, 81, 0.36));
+  cursor: pointer;
+}
+
+.teacher-filter__slider::-webkit-slider-runnable-track {
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(15, 53, 81, 0.16), rgba(15, 53, 81, 0.36));
+}
+
+.teacher-filter__slider::-moz-range-track {
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(15, 53, 81, 0.16), rgba(15, 53, 81, 0.36));
+}
+
+.teacher-filter__slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  margin-top: -6px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  background: var(--brand);
+  box-shadow: 0 6px 18px rgba(15, 53, 81, 0.22);
+}
+
+.teacher-filter__slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  background: var(--brand);
+  box-shadow: 0 6px 18px rgba(15, 53, 81, 0.22);
+}
+
+.teacher-filter__scale {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
 .layer-toggle {
   display: grid;
   grid-template-columns: 1fr auto;

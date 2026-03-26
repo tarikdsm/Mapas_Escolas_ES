@@ -59,12 +59,12 @@
             <strong class="stat-card__value" id="visible-school-count">0</strong>
           </article>
           <article class="stat-card">
-            <span class="stat-card__label">Camadas ativas</span>
-            <strong class="stat-card__value" id="active-layer-count">0</strong>
+            <span class="stat-card__label">Escolas ocultas</span>
+            <strong class="stat-card__value" id="hidden-school-count">0</strong>
           </article>
           <article class="stat-card stat-card--accent">
-            <span class="stat-card__label">Cobertura atual</span>
-            <strong class="stat-card__value">Rede estadual</strong>
+            <span class="stat-card__label">Corte atual</span>
+            <strong class="stat-card__value" id="teacher-filter-summary">0 professores+</strong>
           </article>
         </section>
 
@@ -74,6 +74,28 @@
             <p>Ligue e desligue as bases conforme a análise.</p>
           </div>
           <div id="layer-controls" class="layer-controls" role="group"></div>
+          <div class="teacher-filter" aria-label="Filtro por professores">
+            <div class="teacher-filter__header">
+              <div>
+                <strong>Regua de corte</strong>
+                <p>Defina o numero minimo de professores para a escola aparecer no mapa.</p>
+              </div>
+              <span class="teacher-filter__value" id="teacher-filter-value">0</span>
+            </div>
+            <input
+              class="teacher-filter__slider"
+              id="teacher-filter-slider"
+              type="range"
+              min="0"
+              max="100"
+              step="1"
+              value="0"
+            />
+            <div class="teacher-filter__scale">
+              <span>0</span>
+              <span id="teacher-filter-max-label">100</span>
+            </div>
+          </div>
         </section>
 
         <section class="panel-section" id="active-layer-summary">

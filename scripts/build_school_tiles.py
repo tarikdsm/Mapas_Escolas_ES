@@ -32,6 +32,19 @@ class SchoolRecord:
     detail: dict[str, object]
 
 
+def teacher_bucket(value: int | None) -> int:
+    if value is None:
+        return 0
+    return max(0, int(value))
+
+
+def build_teacher_histogram(schools: list[SchoolRecord]) -> list[list[int]]:
+    histogram: dict[int, int] = defaultdict(int)
+    for school in schools:
+        histogram[teacher_bucket(school.teacher_count)] += 1
+    return [[bucket, histogram[bucket]] for bucket in sorted(histogram)]
+
+
 def clean_text(value: object) -> str:
     if value is None:
         return ""
@@ -292,6 +305,7 @@ def build_tile_payloads(
                     "y": round(latitude, 6),
                     "p": len(grouped_schools),
                     "b": bbox,
+                    "h": build_teacher_histogram(grouped_schools),
                 }
             )
 
@@ -371,6 +385,7 @@ def build_manifest(
     tile_keys: list[str],
     detail_shards: dict[str, int],
 ) -> dict[str, object]:
+    teacher_histogram = build_teacher_histogram(schools)
     return {
         "layerId": args.layer_id,
         "label": args.label,
@@ -389,13 +404,17 @@ def build_manifest(
             "availableKeys": tile_keys,
             "schema": {
                 "school": {"k": "s", "i": "id", "x": "longitude", "y": "latitude", "n": "name", "t": "teacher_count", "d": "detail_shard"},
-                "cluster": {"k": "c", "i": "id", "x": "longitude", "y": "latitude", "p": "point_count", "b": "bbox"},
+                "cluster": {"k": "c", "i": "id", "x": "longitude", "y": "latitude", "p": "point_count", "b": "bbox", "h": "teacher_histogram"},
             },
         },
         "details": {
             "pathTemplate": "details/{shard}.json",
             "shardStrategy": "municipio",
             "shardCount": len(detail_shards),
+        },
+        "filter": {
+            "teacherHistogram": teacher_histogram,
+            "maxTeacherCount": max((bucket for bucket, _ in teacher_histogram), default=0),
         },
         "source": {
             "input": str(args.input),
