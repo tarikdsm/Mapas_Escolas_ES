@@ -55,6 +55,10 @@
     return value === null || value === undefined || isNaN(Number(value));
   }
 
+  function clamp(value, min, max) {
+    return Math.max(min, Math.min(max, value));
+  }
+
   function formatNumber(value, options) {
     if (isMissingNumber(value)) {
       return "0";
@@ -1064,10 +1068,18 @@
       var tileCache = {};
       var tileCacheOrder = [];
       var tileRequests = {};
+      var tileMisses = {};
       var detailCache = {};
       var detailRequests = {};
       var attached = false;
       var featureCount = Number(manifest && manifest.schoolCount ? manifest.schoolCount : 0);
+      var availableTileKeys = new Set(
+        manifest &&
+        manifest.tiles &&
+        Array.isArray(manifest.tiles.availableKeys)
+          ? manifest.tiles.availableKeys
+          : []
+      );
 
       function touchCacheKey(key) {
         var index = tileCacheOrder.indexOf(key);
@@ -1123,6 +1135,10 @@
           return Promise.resolve(tileCache[descriptor.key]);
         }
 
+        if (tileMisses[descriptor.key]) {
+          return Promise.resolve(null);
+        }
+
         if (tileRequests[descriptor.key]) {
           return tileRequests[descriptor.key];
         }
@@ -1137,6 +1153,7 @@
           },
           function (error) {
             delete tileRequests[descriptor.key];
+            tileMisses[descriptor.key] = true;
             throw error;
           }
         );
@@ -1386,13 +1403,21 @@
         });
 
         descriptors.forEach(function (descriptor) {
+          if (availableTileKeys.size && !availableTileKeys.has(descriptor.key)) {
+            return;
+          }
           if (renderedTiles[descriptor.key]) {
             return;
           }
 
           fetchTile(descriptor).then(
             function (payload) {
-              if (!attached || !desiredTileKeys[descriptor.key] || renderedTiles[descriptor.key]) {
+              if (
+                !payload ||
+                !attached ||
+                !desiredTileKeys[descriptor.key] ||
+                renderedTiles[descriptor.key]
+              ) {
                 return;
               }
               materializeTile(descriptor, payload);

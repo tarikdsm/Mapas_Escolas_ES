@@ -249,13 +249,17 @@ def build_tile_payloads(
     return tile_payloads
 
 
-def write_tile_payloads(output_dir: Path, payloads: dict[tuple[int, int, int], list[dict[str, object]]]) -> dict[int, int]:
+def write_tile_payloads(
+    output_dir: Path,
+    payloads: dict[tuple[int, int, int], list[dict[str, object]]],
+) -> tuple[dict[int, int], list[str]]:
     tiles_dir = output_dir / "tiles"
     if tiles_dir.exists():
         shutil.rmtree(tiles_dir)
     tiles_dir.mkdir(parents=True, exist_ok=True)
 
     zoom_counts: dict[int, int] = defaultdict(int)
+    tile_keys: list[str] = []
     for (zoom, tile_x, tile_y), features in payloads.items():
         tile_path = tiles_dir / str(zoom) / str(tile_x) / f"{tile_y}.json"
         tile_path.parent.mkdir(parents=True, exist_ok=True)
@@ -264,8 +268,10 @@ def write_tile_payloads(output_dir: Path, payloads: dict[tuple[int, int, int], l
             encoding="utf-8",
         )
         zoom_counts[zoom] += 1
+        tile_keys.append(f"{zoom}:{tile_x}:{tile_y}")
 
-    return dict(sorted(zoom_counts.items()))
+    tile_keys.sort()
+    return dict(sorted(zoom_counts.items())), tile_keys
 
 
 def write_detail_shards(output_dir: Path, schools: list[SchoolRecord]) -> dict[str, int]:
@@ -310,6 +316,7 @@ def build_manifest(
     schools: list[SchoolRecord],
     args: argparse.Namespace,
     tile_counts_by_zoom: dict[int, int],
+    tile_keys: list[str],
     detail_shards: dict[str, int],
 ) -> dict[str, object]:
     return {
@@ -327,6 +334,7 @@ def build_manifest(
             "clusterRadiusPx": args.cluster_radius_px,
             "bufferTiles": args.buffer_tiles,
             "countsByZoom": tile_counts_by_zoom,
+            "availableKeys": tile_keys,
             "schema": {
                 "school": {"k": "s", "i": "id", "x": "longitude", "y": "latitude", "n": "name", "t": "teacher_count", "d": "detail_shard"},
                 "cluster": {"k": "c", "i": "id", "x": "longitude", "y": "latitude", "p": "point_count", "b": "bbox"},
@@ -377,9 +385,9 @@ def main() -> int:
         cluster_max_zoom=args.cluster_max_zoom,
         cluster_radius_px=args.cluster_radius_px,
     )
-    tile_counts_by_zoom = write_tile_payloads(output_dir, payloads)
+    tile_counts_by_zoom, tile_keys = write_tile_payloads(output_dir, payloads)
     detail_shards = write_detail_shards(output_dir, schools)
-    manifest = build_manifest(schools, args, tile_counts_by_zoom, detail_shards)
+    manifest = build_manifest(schools, args, tile_counts_by_zoom, tile_keys, detail_shards)
     (output_dir / "index.json").write_text(
         json.dumps(manifest, ensure_ascii=False, separators=(",", ":")),
         encoding="utf-8",
