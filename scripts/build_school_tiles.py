@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import math
+import re
 import shutil
 import unicodedata
 from collections import defaultdict
@@ -38,6 +39,21 @@ def clean_text(value: object) -> str:
     if not text or text.lower() == "nan":
         return ""
     return text
+
+
+def first_text(properties: dict[str, object], *keys: str) -> str:
+    for key in keys:
+        text = clean_text(properties.get(key))
+        if text:
+            return text
+    return ""
+
+
+def strip_html(value: object) -> str:
+    text = clean_text(value)
+    if not text:
+        return ""
+    return clean_text(re.sub(r"<[^>]+>", " ", text))
 
 
 def clean_int(value: object) -> int | None:
@@ -124,31 +140,67 @@ def load_features(input_path: Path) -> list[SchoolRecord]:
             continue
 
         properties = feature.get("properties") or {}
-        school_id = clean_text(properties.get("id")) or clean_text(properties.get("inep_code")) or f"school-{index}"
-        inep_code = clean_text(properties.get("inep_code"))
-        name = clean_text(properties.get("name")) or clean_text(properties.get("name_original")) or school_id
+        school_id = first_text(
+            properties,
+            "id_interno",
+            "id",
+            "codigo_inep",
+            "inep_code",
+            "codigo_escola",
+        ) or f"school-{index}"
+        inep_code = first_text(properties, "codigo_inep", "inep_code", "codigo_escola")
+        name = (
+            first_text(
+                properties,
+                "nome_escola_original",
+                "name_original",
+                "nome_escola_padronizado",
+                "nome_escola",
+                "name",
+            )
+            or strip_html(properties.get("nome_escola_mapa_html"))
+            or school_id
+        )
         municipio = clean_text(properties.get("municipio"))
         detail_shard = slugify(municipio)
         longitude = float(coordinates[0])
         latitude = float(coordinates[1])
-        teacher_count = clean_int(properties.get("teacher_count"))
+        teacher_count = clean_int(
+            properties.get("numero_professores")
+            if properties.get("numero_professores") is not None
+            else properties.get("teacher_count")
+        )
 
         detail = compact_dict(
             {
                 "id": school_id,
                 "inep_code": inep_code,
                 "name": name,
+                "name_original": first_text(
+                    properties,
+                    "nome_escola_original",
+                    "name_original",
+                    "nome_escola",
+                    "name",
+                )
+                or name,
                 "municipio": municipio,
                 "uf": clean_text(properties.get("uf")),
-                "status": clean_text(properties.get("status")),
-                "address": clean_text(properties.get("address")),
-                "number": clean_text(properties.get("number")),
-                "district": clean_text(properties.get("district")),
-                "postal_code": clean_text(properties.get("postal_code")),
-                "classification": clean_text(properties.get("classification")),
-                "georef_source": clean_text(properties.get("georef_source")),
-                "phone_primary": clean_text(properties.get("phone_primary")),
+                "status": first_text(properties, "situacao_funcionamento", "status"),
+                "address": first_text(properties, "endereco", "address"),
+                "number": first_text(properties, "numero", "number"),
+                "complement": first_text(properties, "complemento", "complement"),
+                "district": first_text(properties, "bairro", "district"),
+                "postal_code": first_text(properties, "cep", "postal_code"),
+                "classification": first_text(
+                    properties,
+                    "classificacao_georef",
+                    "classification",
+                ),
+                "georef_source": first_text(properties, "fonte_georef", "georef_source"),
+                "phone_primary": first_text(properties, "telefone_1", "phone_primary"),
                 "email": clean_text(properties.get("email")),
+                "teacher_count": teacher_count,
             }
         )
 

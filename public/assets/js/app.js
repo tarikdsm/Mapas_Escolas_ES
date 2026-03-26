@@ -967,8 +967,23 @@
       return String(properties.address_line);
     }
 
+    var address = properties.address || "";
+    var suffixParts = [];
+    var normalizedAddress = String(address).toLowerCase();
+
+    if (properties.number && normalizedAddress.indexOf(String(properties.number).toLowerCase()) === -1) {
+      suffixParts.push(properties.number);
+    }
+
+    if (
+      properties.complement &&
+      normalizedAddress.indexOf(String(properties.complement).toLowerCase()) === -1
+    ) {
+      suffixParts.push(properties.complement);
+    }
+
     var parts = [
-      [properties.address, properties.number].filter(Boolean).join(", "),
+      [address].concat(suffixParts).filter(Boolean).join(", "),
       properties.district,
       properties.municipio,
       properties.uf,
@@ -1009,6 +1024,45 @@
     var activeStatus =
       properties.status && String(properties.status).toLowerCase() === "em atividade";
     var statusClass = activeStatus ? "" : " is-inactive";
+    var teacherCount = normalizeTeacherCount(properties.teacher_count);
+
+    return (
+      '<article class="school-popup">' +
+      '<header class="school-popup__heading">' +
+      "<h3>" +
+      buildSchoolNameMarkup(properties, layerConfig.label, "school-popup__teacher-count") +
+      "</h3>" +
+      '<div class="school-popup__badges">' +
+      '<span class="popup-badge">' +
+      escapeHtml(layerConfig.label) +
+      "</span>" +
+      '<span class="popup-badge popup-badge--status' +
+      statusClass +
+      '">' +
+      escapeHtml(properties.status || "Sem status") +
+      "</span>" +
+      "</div>" +
+      "</header>" +
+      '<div class="school-popup__grid">' +
+      '<div class="school-popup__row"><span class="school-popup__label">Municipio</span><span class="school-popup__value">' +
+      escapeHtml(properties.municipio || "n/d") +
+      "</span></div>" +
+      '<div class="school-popup__row"><span class="school-popup__label">Professores</span><span class="school-popup__value">' +
+      escapeHtml(
+        teacherCount === null
+          ? "n/d"
+          : formatNumber(teacherCount) + " " + (teacherCount === 1 ? "professor" : "professores")
+      ) +
+      "</span></div>" +
+      '<div class="school-popup__row"><span class="school-popup__label">Endereco</span><span class="school-popup__value">' +
+      escapeHtml(buildAddress(properties) || "n/d") +
+      "</span></div>" +
+      '<div class="school-popup__row"><span class="school-popup__label">Contato</span><span class="school-popup__value">' +
+      escapeHtml(properties.phone_primary || properties.email || "n/d") +
+      "</span></div>" +
+      "</div>" +
+      "</article>"
+    );
 
     return (
       '<article class="school-popup">' +
