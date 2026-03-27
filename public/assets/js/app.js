@@ -9,7 +9,7 @@
       '<path fill="#ffffff" d="M14 18.7 24 13l10 5.7V30c0 .6-.4 1-1 1h-3v-7.2h-4V31h-4v-7.2h-4V31h-3c-.6 0-1-.4-1-1V18.7Zm9.2-.4h1.6v1.5h-1.6v-1.5Z"/>',
     federais:
       '<path fill="#ffffff" d="M24 13.2 27.1 19.6l7 .9-5 4.8 1.2 6.9L24 28.8l-6.3 3.4 1.2-6.9-5-4.8 7-.9L24 13.2Z"/>',
-    particulares:
+    privadas:
       '<path fill="#ffffff" d="M16 15.6c2.6 0 4.6.7 6 1.9 1.4-1.2 3.4-1.9 6-1.9 2 0 3.8.3 5.5 1V30c-1.6-.7-3.4-1-5.5-1-2.7 0-4.4.8-6 2.1-1.6-1.3-3.3-2.1-6-2.1-2.1 0-3.9.3-5.5 1V16.6c1.6-.7 3.4-1 5.5-1Zm5.1 3.8c-.9-.7-2.1-1.1-3.9-1.1-1.1 0-2.1.1-3.1.5v7.2c1-.4 2-.5 3.1-.5 1.8 0 3 .4 3.9 1.1v-7.2Zm1.8 7.2c.9-.7 2.1-1.1 3.9-1.1 1.1 0 2.1.1 3.1.5v-7.2c-1-.4-2-.5-3.1-.5-1.8 0-3 .4-3.9 1.1v7.2Z"/>',
   };
   var MARKER_TEMPLATE =
@@ -55,6 +55,22 @@
     return value === null || value === undefined || isNaN(Number(value));
   }
 
+  function cleanOptionalText(value) {
+    var text = String(value == null ? "" : value).trim();
+    if (!text) {
+      return "";
+    }
+
+    switch (text.toLowerCase()) {
+      case "nan":
+      case "null":
+      case "undefined":
+        return "";
+      default:
+        return text;
+    }
+  }
+
   function clamp(value, min, max) {
     return Math.max(min, Math.min(max, value));
   }
@@ -81,18 +97,72 @@
     );
   }
 
-  function formatCoordinates(lat, lng) {
-    if (isMissingNumber(lat) || isMissingNumber(lng)) {
-      return "n/d";
-    }
-    return Number(lat).toFixed(5) + ", " + Number(lng).toFixed(5);
-  }
-
   function normalizeTeacherCount(value) {
     if (isMissingNumber(value)) {
       return null;
     }
     return Math.round(Number(value));
+  }
+
+  function normalizeTeacherThreshold(value) {
+    if (isMissingNumber(value)) {
+      return 0;
+    }
+    return Math.max(0, Math.round(Number(value)));
+  }
+
+  function normalizeTeacherHistogram(histogram) {
+    if (!Array.isArray(histogram)) {
+      return [];
+    }
+
+    return histogram
+      .map(function (item) {
+        if (!Array.isArray(item) || item.length < 2) {
+          return null;
+        }
+        return [normalizeTeacherThreshold(item[0]), Math.max(0, Math.round(Number(item[1]) || 0))];
+      })
+      .filter(Boolean);
+  }
+
+  function countVisibleTeachers(histogram, minimumTeachers) {
+    var normalizedThreshold = normalizeTeacherThreshold(minimumTeachers);
+    var total = 0;
+
+    normalizeTeacherHistogram(histogram).forEach(function (item) {
+      if (item[0] >= normalizedThreshold) {
+        total += item[1];
+      }
+    });
+
+    return total;
+  }
+
+  function escapeHtml(value) {
+    return String(value == null ? "" : value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  function extend(base, extra) {
+    var result = {};
+    var key;
+    var sources = [base || {}, extra || {}];
+    var index;
+
+    for (index = 0; index < sources.length; index += 1) {
+      for (key in sources[index]) {
+        if (Object.prototype.hasOwnProperty.call(sources[index], key)) {
+          result[key] = sources[index][key];
+        }
+      }
+    }
+
+    return result;
   }
 
   function buildTeacherCountLabel(value) {
@@ -177,54 +247,6 @@
     setMarkerTooltipMode(marker, "none");
   }
 
-  function escapeHtml(value) {
-    return String(value == null ? "" : value)
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#39;");
-  }
-
-  function hexToRgba(hex, alpha) {
-    var normalized = String(hex || "").replace("#", "");
-    if (normalized.length === 3) {
-      normalized =
-        normalized.charAt(0) +
-        normalized.charAt(0) +
-        normalized.charAt(1) +
-        normalized.charAt(1) +
-        normalized.charAt(2) +
-        normalized.charAt(2);
-    }
-
-    if (normalized.length !== 6) {
-      return "rgba(37,99,235," + alpha + ")";
-    }
-
-    var r = parseInt(normalized.slice(0, 2), 16);
-    var g = parseInt(normalized.slice(2, 4), 16);
-    var b = parseInt(normalized.slice(4, 6), 16);
-    return "rgba(" + r + "," + g + "," + b + "," + alpha + ")";
-  }
-
-  function extend(base, extra) {
-    var result = {};
-    var key;
-    var sourceList = [base || {}, extra || {}];
-    var index;
-
-    for (index = 0; index < sourceList.length; index += 1) {
-      for (key in sourceList[index]) {
-        if (Object.prototype.hasOwnProperty.call(sourceList[index], key)) {
-          result[key] = sourceList[index][key];
-        }
-      }
-    }
-
-    return result;
-  }
-
   function matchesMedia(query, fallback) {
     if (typeof window.matchMedia !== "function") {
       return Boolean(fallback);
@@ -239,6 +261,16 @@
 
   function supportsHover() {
     return matchesMedia("(hover: hover)", false) && matchesMedia("(pointer: fine)", false);
+  }
+
+  function shouldUseBottomControls() {
+    var compactScreen = matchesMedia("(max-width: 760px)", window.innerWidth <= 760);
+    var coarsePointer = matchesMedia("(pointer: coarse)", false);
+    return compactScreen || coarsePointer;
+  }
+
+  function isCompactLayout() {
+    return matchesMedia("(max-width: 1100px)", window.innerWidth <= 1100);
   }
 
   function requestFrame(callback) {
@@ -261,55 +293,234 @@
     }, 220);
   }
 
+  function setStatus(message) {
+    document.getElementById("map-status").textContent = message;
+  }
+
+  function updateSummary(payload) {
+    document.getElementById("visible-school-count").textContent = formatNumber(
+      payload.visibleSchoolCount
+    );
+    document.getElementById("hidden-school-count").textContent = formatNumber(
+      payload.hiddenSchoolCount
+    );
+    document.getElementById("teacher-filter-summary").textContent = payload.filterSummary;
+    document.getElementById("teacher-filter-value").textContent = payload.teacherThreshold;
+    document.getElementById("active-layer-chips").innerHTML = payload.activeChips;
+    document.getElementById("active-layer-details").innerHTML = payload.details;
+  }
+
+  function renderLayerControls(root, config) {
+    var html = [];
+    var layers = config.schoolLayers.concat([extend(config.densityLayer, { color: "#db6d30" })]);
+
+    layers.forEach(function (layer) {
+      var disabled = layer.status !== "ready" ? "disabled" : "";
+      var checked = layer.defaultVisible ? "checked" : "";
+      var chipClass = layer.status === "ready" ? "" : " layer-chip--disabled";
+      var chipLabel = layer.status === "ready" ? "Disponivel" : "Em preparacao";
+      html.push(
+        '<article class="layer-toggle" data-layer-id="' +
+          escapeHtml(layer.id) +
+          '">' +
+          '<div class="layer-toggle__meta">' +
+          '<div class="layer-toggle__title-row">' +
+          '<span class="layer-toggle__title">' +
+          escapeHtml(layer.label) +
+          "</span>" +
+          '<span class="layer-chip' +
+          chipClass +
+          '" style="--chip-color:' +
+          escapeHtml(layer.color || "#0f3551") +
+          '">' +
+          chipLabel +
+          "</span>" +
+          "</div>" +
+          '<div class="layer-toggle__description">' +
+          escapeHtml(layer.description) +
+          "</div>" +
+          "</div>" +
+          '<label class="switch" aria-label="' +
+          escapeHtml(layer.label) +
+          '">' +
+          '<input type="checkbox" data-toggle-id="' +
+          escapeHtml(layer.id) +
+          '" ' +
+          disabled +
+          " " +
+          checked +
+          " />" +
+          '<span class="switch__track" style="--switch-color:' +
+          escapeHtml(layer.color || "#0f3551") +
+          '"></span>' +
+          '<span class="switch__thumb"></span>' +
+          "</label>" +
+          "</article>"
+      );
+    });
+
+    root.innerHTML = html.join("");
+  }
+
   function getActiveSchoolLayerIds(appState) {
     return Object.keys(appState.activeSchoolLayerIds || {}).filter(function (layerId) {
       return Boolean(appState.activeSchoolLayerIds[layerId]);
     });
   }
 
-  function normalizeTeacherThreshold(value) {
-    if (isMissingNumber(value)) {
-      return 0;
+  function buildActiveChips(appState, config) {
+    var chips = [];
+
+    getActiveSchoolLayerIds(appState).forEach(function (layerId) {
+      var layerConfig = findSchoolLayer(config, layerId);
+      if (!layerConfig) {
+        return;
+      }
+      chips.push(
+        '<span class="layer-chip" style="--chip-color:' +
+          escapeHtml(layerConfig.color) +
+          '">' +
+          escapeHtml(layerConfig.label) +
+          "</span>"
+      );
+    });
+
+    if (appState.densityActive) {
+      chips.push(
+        '<span class="layer-chip" style="--chip-color:#db6d30">' +
+          escapeHtml(config.densityLayer.label) +
+          "</span>"
+      );
     }
-    return Math.max(0, Math.round(Number(value)));
+
+    if (!chips.length) {
+      return '<span class="layer-chip layer-chip--disabled">Nenhuma camada ativa</span>';
+    }
+
+    return chips.join("");
   }
 
-  function normalizeTeacherHistogram(histogram) {
-    if (!Array.isArray(histogram)) {
-      return [];
+  function buildActiveDetails(appState, config) {
+    var lines = [];
+    var threshold = normalizeTeacherThreshold(appState.teacherFilterMin);
+
+    getActiveSchoolLayerIds(appState).forEach(function (layerId) {
+      var layerConfig = findSchoolLayer(config, layerId);
+      var instance = appState.loadedSchoolLayers[layerId];
+      if (!layerConfig || !instance) {
+        return;
+      }
+
+      var visibleCount =
+        typeof instance.getVisibleCount === "function"
+          ? instance.getVisibleCount(threshold)
+          : instance.featureCount;
+      var hiddenCount =
+        typeof instance.getHiddenCount === "function"
+          ? instance.getHiddenCount(threshold)
+          : 0;
+
+      lines.push(
+        "<p><strong>" +
+          escapeHtml(layerConfig.label) +
+          ":</strong> " +
+          formatNumber(visibleCount) +
+          " escolas exibidas" +
+          (hiddenCount
+            ? " e " + formatNumber(hiddenCount) + " ocultadas pelo corte."
+            : ".") +
+          "</p>"
+      );
+    });
+
+    if (appState.densityActive && appState.densityLayer) {
+      lines.push(
+        "<p><strong>" +
+          escapeHtml(config.densityLayer.label) +
+          ":</strong> " +
+          formatNumber(appState.densityLayer.featureCount) +
+          " municipios com densidade oficial do IBGE.</p>"
+      );
     }
 
-    return histogram
-      .map(function (item) {
-        if (!Array.isArray(item) || item.length < 2) {
-          return null;
-        }
-        return [normalizeTeacherThreshold(item[0]), Math.max(0, Math.round(Number(item[1]) || 0))];
-      })
-      .filter(Boolean);
+    if (!lines.length) {
+      lines.push("<p>Ative uma camada para visualizar as escolas no mapa.</p>");
+    }
+
+    return lines.join("");
   }
 
-  function countVisibleTeachers(histogram, minimumTeachers) {
-    var normalizedThreshold = normalizeTeacherThreshold(minimumTeachers);
-    var total = 0;
+  function refreshSummary(appState, config) {
+    var visibleSchoolCount = 0;
+    var hiddenSchoolCount = 0;
+    var threshold = normalizeTeacherThreshold(appState.teacherFilterMin);
 
-    normalizeTeacherHistogram(histogram).forEach(function (item) {
-      if (item[0] >= normalizedThreshold) {
-        total += item[1];
+    getActiveSchoolLayerIds(appState).forEach(function (layerId) {
+      var instance = appState.loadedSchoolLayers[layerId];
+      if (!instance) {
+        return;
+      }
+
+      visibleSchoolCount +=
+        typeof instance.getVisibleCount === "function"
+          ? instance.getVisibleCount(threshold)
+          : instance.featureCount;
+      hiddenSchoolCount +=
+        typeof instance.getHiddenCount === "function" ? instance.getHiddenCount(threshold) : 0;
+    });
+
+    updateTeacherFilterBounds(appState);
+    updateSummary({
+      visibleSchoolCount: visibleSchoolCount,
+      hiddenSchoolCount: hiddenSchoolCount,
+      teacherThreshold: String(threshold),
+      filterSummary: threshold === 0 ? "0 professores+" : threshold + " professores+",
+      activeChips: buildActiveChips(appState, config),
+      details: buildActiveDetails(appState, config),
+    });
+  }
+
+  function updateTeacherFilterBounds(appState) {
+    var slider = document.getElementById("teacher-filter-slider");
+    var maxLabel = document.getElementById("teacher-filter-max-label");
+    var maxTeacherCount = 0;
+
+    Object.keys(appState.loadedSchoolLayers || {}).forEach(function (layerId) {
+      var instance = appState.loadedSchoolLayers[layerId];
+      if (instance && instance.maxTeacherCount != null) {
+        maxTeacherCount = Math.max(maxTeacherCount, normalizeTeacherThreshold(instance.maxTeacherCount));
       }
     });
 
-    return total;
+    maxTeacherCount = Math.max(
+      100,
+      maxTeacherCount,
+      normalizeTeacherThreshold(appState.teacherFilterMin)
+    );
+
+    slider.max = String(maxTeacherCount);
+    maxLabel.textContent = String(maxTeacherCount);
   }
 
-  function countTotalTeachers(histogram) {
-    var total = 0;
-
-    normalizeTeacherHistogram(histogram).forEach(function (item) {
-      total += item[1];
+  function applyTeacherFilter(appState, config) {
+    Object.keys(appState.loadedSchoolLayers || {}).forEach(function (layerId) {
+      var instance = appState.loadedSchoolLayers[layerId];
+      if (instance && typeof instance.setTeacherThreshold === "function") {
+        instance.setTeacherThreshold(appState.teacherFilterMin);
+      }
     });
 
-    return total;
+    updateTeacherFilterBounds(appState);
+    refreshSummary(appState, config);
+  }
+
+  function findSchoolLayer(config, layerId) {
+    for (var index = 0; index < config.schoolLayers.length; index += 1) {
+      if (config.schoolLayers[index].id === layerId) {
+        return config.schoolLayers[index];
+      }
+    }
+    return null;
   }
 
   function normalizeBoundsPadding(padding) {
@@ -428,301 +639,6 @@
     var constraintBounds = buildStateConstraintBounds(map, stateBounds, config);
     map.setMaxBounds(constraintBounds);
     return constraintBounds;
-  }
-
-  function shouldUseBottomControls() {
-    var compactScreen = matchesMedia("(max-width: 760px)", window.innerWidth <= 760);
-    var coarsePointer = matchesMedia("(pointer: coarse)", false);
-    return compactScreen || coarsePointer;
-  }
-
-  function isCompactLayout() {
-    return matchesMedia("(max-width: 1100px)", window.innerWidth <= 1100);
-  }
-
-  function setStatus(message) {
-    document.getElementById("map-status").textContent = message;
-  }
-
-  function renderLayerControls(root, config) {
-    var html = [];
-    var layers = config.schoolLayers.concat([
-      extend(config.densityLayer, { color: "#db6d30" }),
-    ]);
-
-    layers.forEach(function (layer) {
-      var disabled = layer.status !== "ready" ? "disabled" : "";
-      var checked = layer.defaultVisible ? "checked" : "";
-      var chipClass = layer.status === "ready" ? "" : " layer-chip--disabled";
-      var chipLabel = layer.status === "ready" ? "Disponível" : "Em preparação";
-      html.push(
-        '<article class="layer-toggle" data-layer-id="' +
-          escapeHtml(layer.id) +
-          '">' +
-          '<div class="layer-toggle__meta">' +
-          '<div class="layer-toggle__title-row">' +
-          '<span class="layer-toggle__title">' +
-          escapeHtml(layer.label) +
-          "</span>" +
-          '<span class="layer-chip' +
-          chipClass +
-          '" style="--chip-color:' +
-          escapeHtml(layer.color || "#0f3551") +
-          '">' +
-          chipLabel +
-          "</span>" +
-          "</div>" +
-          '<div class="layer-toggle__description">' +
-          escapeHtml(layer.description) +
-          "</div>" +
-          "</div>" +
-          '<label class="switch" aria-label="' +
-          escapeHtml(layer.label) +
-          '">' +
-          '<input type="checkbox" data-toggle-id="' +
-          escapeHtml(layer.id) +
-          '" ' +
-          disabled +
-          " " +
-          checked +
-          " />" +
-          '<span class="switch__track" style="--switch-color:' +
-          escapeHtml(layer.color || "#0f3551") +
-          '"></span>' +
-          '<span class="switch__thumb"></span>' +
-          "</label>" +
-          "</article>"
-      );
-    });
-
-    root.innerHTML = html.join("");
-  }
-
-  function updateSummary(payload) {
-    document.getElementById("visible-school-count").textContent = formatNumber(
-      payload.visibleSchoolCount
-    );
-    document.getElementById("hidden-school-count").textContent = formatNumber(
-      payload.hiddenSchoolCount
-    );
-    document.getElementById("teacher-filter-summary").textContent = payload.filterSummary;
-    document.getElementById("teacher-filter-value").textContent = payload.teacherThreshold;
-    document.getElementById("active-layer-chips").innerHTML = payload.activeChips;
-    document.getElementById("active-layer-details").innerHTML = payload.details;
-  }
-
-  function renderDensityLegend(layerInstance) {
-    var legendRoot = document.getElementById("density-legend");
-    var scaleRoot = document.getElementById("density-legend-scale");
-    var captionRoot = document.getElementById("density-legend-caption");
-    var legend = layerInstance && layerInstance.metadata ? layerInstance.metadata.legend : [];
-
-    if (!legend || !legend.length) {
-      legendRoot.hidden = true;
-      return;
-    }
-
-    scaleRoot.innerHTML = legend
-      .map(function (item) {
-        return (
-          '<div class="density-legend__item">' +
-          '<span class="density-legend__swatch" style="background:' +
-          escapeHtml(item.color) +
-          '"></span>' +
-          "<span>" +
-          escapeHtml(item.label) +
-          "</span>" +
-          "</div>"
-        );
-      })
-      .join("");
-
-    captionRoot.textContent =
-      (layerInstance.metadata && layerInstance.metadata.source_note) ||
-      "Densidade demográfica municipal oficial do IBGE.";
-    legendRoot.hidden = false;
-  }
-
-  function hideDensityLegend() {
-    document.getElementById("density-legend").hidden = true;
-  }
-
-  function closeSidebar(sidebar, button, map) {
-    if (!sidebar.classList.contains("is-open")) {
-      return;
-    }
-    sidebar.classList.remove("is-open");
-    button.setAttribute("aria-expanded", "false");
-    scheduleMapResize(map);
-  }
-
-  function attachPanelToggle(button, sidebar, map) {
-    button.addEventListener("click", function () {
-      var next = !sidebar.classList.contains("is-open");
-      sidebar.classList.toggle("is-open", next);
-      button.setAttribute("aria-expanded", String(next));
-      scheduleMapResize(map);
-    });
-
-    document.addEventListener("keydown", function (event) {
-      if (event.key === "Escape") {
-        closeSidebar(sidebar, button, map);
-      }
-    });
-  }
-
-  function buildActiveChips(appState, config) {
-    var chips = [];
-    getActiveSchoolLayerIds(appState).forEach(function (layerId) {
-      var layerConfig = findSchoolLayer(config, layerId);
-      if (!layerConfig) {
-        return;
-      }
-      chips.push(
-        '<span class="layer-chip" style="--chip-color:' +
-          escapeHtml(layerConfig.color) +
-          '">' +
-          escapeHtml(layerConfig.label) +
-          "</span>"
-      );
-    });
-
-    if (appState.densityActive) {
-      chips.push(
-        '<span class="layer-chip" style="--chip-color:#db6d30">' +
-          escapeHtml(config.densityLayer.label) +
-          "</span>"
-      );
-    }
-
-    if (!chips.length) {
-      return '<span class="layer-chip layer-chip--disabled">Nenhuma camada ativa</span>';
-    }
-
-    return chips.join("");
-  }
-
-  function buildActiveDetails(appState, config) {
-    var lines = [];
-    var threshold = normalizeTeacherThreshold(appState.teacherFilterMin);
-
-    getActiveSchoolLayerIds(appState).forEach(function (layerId) {
-      var layerConfig = findSchoolLayer(config, layerId);
-      var instance = appState.loadedSchoolLayers[layerId];
-      if (!layerConfig || !instance) {
-        return;
-      }
-
-      var visibleCount =
-        typeof instance.getVisibleCount === "function"
-          ? instance.getVisibleCount(threshold)
-          : instance.featureCount;
-      var hiddenCount =
-        typeof instance.getHiddenCount === "function"
-          ? instance.getHiddenCount(threshold)
-          : 0;
-
-      lines.push(
-        "<p><strong>" +
-          escapeHtml(layerConfig.label) +
-          ":</strong> " +
-          formatNumber(visibleCount) +
-          " escolas exibidas" +
-          (hiddenCount
-            ? " e " + formatNumber(hiddenCount) + " ocultadas pelo corte."
-            : ".") +
-          "</p>"
-      );
-    });
-
-    if (appState.densityActive && appState.densityLayer) {
-      lines.push(
-        "<p><strong>" +
-          escapeHtml(config.densityLayer.label) +
-          ":</strong> " +
-          formatNumber(appState.densityLayer.featureCount) +
-          " municípios com densidade oficial do IBGE.</p>"
-      );
-    }
-
-    if (!lines.length) {
-      lines.push(
-        "<p>Ative uma camada para visualizar escolas, clusters e a análise municipal.</p>"
-      );
-    }
-
-    return lines.join("");
-  }
-
-  function refreshSummary(appState, config) {
-    var visibleSchoolCount = 0;
-    var hiddenSchoolCount = 0;
-    var activeLayerIds = getActiveSchoolLayerIds(appState);
-    var threshold = normalizeTeacherThreshold(appState.teacherFilterMin);
-
-    activeLayerIds.forEach(function (layerId) {
-      if (appState.activeSchoolLayerIds[layerId] && appState.loadedSchoolLayers[layerId]) {
-        var instance = appState.loadedSchoolLayers[layerId];
-        visibleSchoolCount +=
-          typeof instance.getVisibleCount === "function"
-            ? instance.getVisibleCount(threshold)
-            : instance.featureCount;
-        hiddenSchoolCount +=
-          typeof instance.getHiddenCount === "function" ? instance.getHiddenCount(threshold) : 0;
-      }
-    });
-
-    updateTeacherFilterBounds(appState);
-    updateSummary({
-      visibleSchoolCount: visibleSchoolCount,
-      hiddenSchoolCount: hiddenSchoolCount,
-      teacherThreshold: String(threshold),
-      filterSummary: threshold === 0 ? "0 professores+" : threshold + " professores+",
-      activeChips: buildActiveChips(appState, config),
-      details: buildActiveDetails(appState, config),
-    });
-  }
-
-  function updateTeacherFilterBounds(appState) {
-    var slider = document.getElementById("teacher-filter-slider");
-    var maxLabel = document.getElementById("teacher-filter-max-label");
-    var maxTeacherCount = 0;
-
-    Object.keys(appState.loadedSchoolLayers || {}).forEach(function (layerId) {
-      var instance = appState.loadedSchoolLayers[layerId];
-      if (instance && instance.maxTeacherCount != null) {
-        maxTeacherCount = Math.max(maxTeacherCount, normalizeTeacherThreshold(instance.maxTeacherCount));
-      }
-    });
-
-    maxTeacherCount = Math.max(
-      100,
-      maxTeacherCount,
-      normalizeTeacherThreshold(appState.teacherFilterMin)
-    );
-    slider.max = String(maxTeacherCount);
-    maxLabel.textContent = String(maxTeacherCount);
-  }
-
-  function applyTeacherFilter(appState, config) {
-    Object.keys(appState.loadedSchoolLayers || {}).forEach(function (layerId) {
-      var instance = appState.loadedSchoolLayers[layerId];
-      if (instance && typeof instance.setTeacherThreshold === "function") {
-        instance.setTeacherThreshold(appState.teacherFilterMin);
-      }
-    });
-
-    updateTeacherFilterBounds(appState);
-    refreshSummary(appState, config);
-  }
-
-  function findSchoolLayer(config, layerId) {
-    for (var index = 0; index < config.schoolLayers.length; index += 1) {
-      if (config.schoolLayers[index].id === layerId) {
-        return config.schoolLayers[index];
-      }
-    }
-    return null;
   }
 
   function createMap(config) {
@@ -966,173 +882,37 @@
     });
   }
 
-  function buildClusterIcon(color, count) {
-    return L.divIcon({
-      className: "",
-      html:
-        '<div class="school-cluster" style="--cluster-fill:' +
-        escapeHtml(hexToRgba(color, 0.8)) +
-        '"><span>' +
-        count +
-        "</span></div>",
-      iconSize: [38, 38],
-    });
-  }
-
-  function getDirectoryPath(path) {
-    var normalized = String(path || "");
-    var lastSlash = normalized.lastIndexOf("/");
-    if (lastSlash === -1) {
-      return "";
-    }
-    return normalized.slice(0, lastSlash + 1);
-  }
-
-  function applyTemplate(template, replacements) {
-    return String(template || "").replace(/\{(\w+)\}/g, function (_, key) {
-      return replacements && replacements[key] != null ? String(replacements[key]) : "";
-    });
-  }
-
-  function joinPath(basePath, relativePath) {
-    var base = String(basePath || "");
-    var relative = String(relativePath || "");
-    if (!base) {
-      return relative;
-    }
-    if (!relative) {
-      return base;
-    }
-    return base.replace(/\/+$/, "") + "/" + relative.replace(/^\/+/, "");
-  }
-
-  function getManifestBounds(manifest) {
-    if (!manifest || !manifest.bounds || manifest.bounds.length !== 4) {
-      return null;
-    }
-    return L.latLngBounds(
-      [Number(manifest.bounds[1]), Number(manifest.bounds[0])],
-      [Number(manifest.bounds[3]), Number(manifest.bounds[2])]
-    );
-  }
-
-  function longitudeToTileX(longitude, zoom) {
-    var scale = Math.pow(2, zoom);
-    var x = Math.floor(((Number(longitude) + 180) / 360) * scale);
-    return Math.max(0, Math.min(scale - 1, x));
-  }
-
-  function latitudeToTileY(latitude, zoom) {
-    var clampedLatitude = Math.max(-85.05112878, Math.min(85.05112878, Number(latitude)));
-    var radians = (clampedLatitude * Math.PI) / 180;
-    var scale = Math.pow(2, zoom);
-    var y = Math.floor(
-      ((1 -
-        Math.log(Math.tan(radians) + 1 / Math.cos(radians)) / Math.PI) /
-        2) *
-        scale
-    );
-    return Math.max(0, Math.min(scale - 1, y));
-  }
-
-  function buildTileDescriptors(bounds, zoom, bufferTiles) {
-    if (!bounds || !bounds.isValid()) {
-      return [];
-    }
-
-    var west = bounds.getWest();
-    var east = bounds.getEast();
-    var north = bounds.getNorth();
-    var south = bounds.getSouth();
-    var maxIndex = Math.pow(2, zoom) - 1;
-    var minX = Math.max(0, longitudeToTileX(west, zoom) - bufferTiles);
-    var maxX = Math.min(maxIndex, longitudeToTileX(east, zoom) + bufferTiles);
-    var minY = Math.max(0, latitudeToTileY(north, zoom) - bufferTiles);
-    var maxY = Math.min(maxIndex, latitudeToTileY(south, zoom) + bufferTiles);
-    var descriptors = [];
-    var x;
-    var y;
-
-    for (x = minX; x <= maxX; x += 1) {
-      for (y = minY; y <= maxY; y += 1) {
-        descriptors.push({
-          key: zoom + ":" + x + ":" + y,
-          z: zoom,
-          x: x,
-          y: y,
-        });
-      }
-    }
-
-    return descriptors;
-  }
-
   function buildAddress(properties) {
-    if (properties.address_line) {
-      return String(properties.address_line);
-    }
-
-    var address = properties.address || "";
-    var suffixParts = [];
-    var normalizedAddress = String(address).toLowerCase();
-
-    if (properties.number && normalizedAddress.indexOf(String(properties.number).toLowerCase()) === -1) {
-      suffixParts.push(properties.number);
-    }
-
-    if (
-      properties.complement &&
-      normalizedAddress.indexOf(String(properties.complement).toLowerCase()) === -1
-    ) {
-      suffixParts.push(properties.complement);
-    }
-
-    var parts = [
-      [address].concat(suffixParts).filter(Boolean).join(", "),
-      properties.district,
-      properties.municipio,
-      properties.uf,
-      properties.postal_code,
-    ].filter(Boolean);
-    return parts.join(" · ");
+    return cleanOptionalText(properties.address);
   }
 
-  function buildGeorefLabel(properties) {
-    return properties.classification || "";
+  function formatPopupCount(value, singularLabel, pluralLabel) {
+    if (value === null) {
+      return "n/d";
+    }
+    return formatNumber(value) + " " + (value === 1 ? singularLabel : pluralLabel);
   }
 
-  function buildContactLabel(properties) {
-    return properties.contact || properties.phone_primary || properties.email || "";
+  function formatCoordinateValue(value) {
+    if (isMissingNumber(value)) {
+      return "n/d";
+    }
+    return Number(value).toFixed(6);
   }
 
-  function buildLoadingPopupMarkup(properties, layerConfig) {
+  function buildPopupRow(label, value) {
     return (
-      '<article class="school-popup school-popup--loading">' +
-      '<header class="school-popup__heading">' +
-      "<h3>" +
-      buildSchoolNameMarkup(properties, layerConfig.label, "school-popup__teacher-count") +
-      "</h3>" +
-      '<div class="school-popup__badges">' +
-      '<span class="popup-badge">' +
-      escapeHtml(layerConfig.label) +
-      "</span>" +
-      "</div>" +
-      "</header>" +
-      '<div class="school-popup__grid">' +
-      '<div class="school-popup__row"><span class="school-popup__label">Sincronizando</span><span class="school-popup__value">Carregando detalhes da escola...</span></div>' +
-      "</div>" +
-      "</article>"
+      '<div class="school-popup__row"><span class="school-popup__label">' +
+      escapeHtml(label) +
+      '</span><span class="school-popup__value">' +
+      escapeHtml(value || "n/d") +
+      "</span></div>"
     );
   }
 
   function buildPopupMarkup(properties, layerConfig) {
-    var activeStatus =
-      properties.status && String(properties.status).toLowerCase() === "em atividade";
-    var statusClass = activeStatus ? "" : " is-inactive";
     var teacherCount = normalizeTeacherCount(properties.teacher_count);
     var studentCount = normalizeTeacherCount(properties.student_count);
-    var displayType = properties.display_type || properties.type || layerConfig.label;
-    var estimateNote = properties.estimate_note || "Sem componente estimado";
 
     return (
       '<article class="school-popup">' +
@@ -1144,50 +924,81 @@
       '<span class="popup-badge">' +
       escapeHtml(layerConfig.label) +
       "</span>" +
-      '<span class="popup-badge popup-badge--status' +
-      statusClass +
-      '">' +
-      escapeHtml(properties.status || "Sem status") +
-      "</span>" +
       "</div>" +
       "</header>" +
       '<div class="school-popup__grid">' +
-      '<div class="school-popup__row"><span class="school-popup__label">Tipo</span><span class="school-popup__value">' +
-      escapeHtml(displayType || "n/d") +
-      "</span></div>" +
-      '<div class="school-popup__row"><span class="school-popup__label">Municipio</span><span class="school-popup__value">' +
-      escapeHtml(properties.municipio || "n/d") +
-      "</span></div>" +
-      '<div class="school-popup__row"><span class="school-popup__label">Professores</span><span class="school-popup__value">' +
-      escapeHtml(
-        teacherCount === null
-          ? "n/d"
-          : formatNumber(teacherCount) + " " + (teacherCount === 1 ? "professor" : "professores")
-      ) +
-      "</span></div>" +
-      '<div class="school-popup__row"><span class="school-popup__label">Alunos</span><span class="school-popup__value">' +
-      escapeHtml(
-        studentCount === null
-          ? "n/d"
-          : formatNumber(studentCount) + " " + (studentCount === 1 ? "aluno" : "alunos")
-      ) +
-      "</span></div>" +
-      '<div class="school-popup__row"><span class="school-popup__label">Endereco</span><span class="school-popup__value">' +
-      escapeHtml(buildAddress(properties) || "n/d") +
-      "</span></div>" +
-      '<div class="school-popup__row"><span class="school-popup__label">Instituicao</span><span class="school-popup__value">' +
-      escapeHtml(properties.institution || properties.acronym || "n/d") +
-      "</span></div>" +
-      '<div class="school-popup__row"><span class="school-popup__label">Estimativa</span><span class="school-popup__value">' +
-      escapeHtml(estimateNote) +
-      "</span></div>" +
+      buildPopupRow("Endereco", buildAddress(properties)) +
+      buildPopupRow("Municipio", cleanOptionalText(properties.municipio)) +
+      buildPopupRow("CEP", cleanOptionalText(properties.postal_code)) +
+      buildPopupRow("Telefone", cleanOptionalText(properties.phone_primary)) +
+      buildPopupRow("E-mail", cleanOptionalText(properties.email)) +
+      buildPopupRow("Latitude", formatCoordinateValue(properties.latitude)) +
+      buildPopupRow("Longitude", formatCoordinateValue(properties.longitude)) +
+      buildPopupRow("Professores", formatPopupCount(teacherCount, "professor", "professores")) +
+      buildPopupRow("Alunos", formatPopupCount(studentCount, "aluno", "alunos")) +
       "</div>" +
       "</article>"
     );
   }
 
+  function buildTeacherHistogramFromSchools(schools) {
+    var histogram = {};
+
+    schools.forEach(function (school) {
+      var bucket = normalizeTeacherThreshold(school && school.teacher_count);
+      histogram[bucket] = (histogram[bucket] || 0) + 1;
+    });
+
+    return Object.keys(histogram)
+      .map(function (bucket) {
+        return [Number(bucket), histogram[bucket]];
+      })
+      .sort(function (left, right) {
+        return left[0] - right[0];
+      });
+  }
+
+  function buildSchoolBounds(schools) {
+    var points = schools
+      .filter(function (school) {
+        return school && !isMissingNumber(school.latitude) && !isMissingNumber(school.longitude);
+      })
+      .map(function (school) {
+        return [Number(school.latitude), Number(school.longitude)];
+      });
+
+    return points.length ? L.latLngBounds(points) : null;
+  }
+
+  function normalizeSchoolRecord(record, layerId, index) {
+    if (
+      !record ||
+      isMissingNumber(record.Latitude) ||
+      isMissingNumber(record.Longitude)
+    ) {
+      return null;
+    }
+
+    var schoolName = cleanOptionalText(record.Nome_escola);
+
+    return {
+      id: layerId + "-" + String(index + 1),
+      name: schoolName || layerId + "-" + String(index + 1),
+      name_original: schoolName || layerId + "-" + String(index + 1),
+      address: cleanOptionalText(record.Endereco),
+      municipio: cleanOptionalText(record.Municipio),
+      postal_code: cleanOptionalText(record.CEP),
+      phone_primary: cleanOptionalText(record.telefone),
+      email: cleanOptionalText(record.email),
+      latitude: Number(record.Latitude),
+      longitude: Number(record.Longitude),
+      teacher_count: normalizeTeacherCount(record.Numero_professores),
+      student_count: normalizeTeacherCount(record.Numero_alunos),
+    };
+  }
+
   function createSchoolLayer(map, layerConfig, config, initialTeacherThreshold) {
-    return fetchJson(layerConfig.dataPath).then(function (manifest) {
+    return fetchJson(layerConfig.dataPath).then(function (records) {
       var icon = buildSchoolMarkerIcon(layerConfig);
       var allowTooltip = supportsHover();
       var labelMinZoom =
@@ -1196,259 +1007,23 @@
           : Number(layerConfig.labelMinZoom);
       var popupMaxWidth = isCompactLayout() ? 280 : 320;
       var layerGroup = L.layerGroup();
-      var manifestBasePath = getDirectoryPath(layerConfig.dataPath);
-      var tileConfig = manifest && manifest.tiles ? manifest.tiles : {};
-      var detailsConfig = manifest && manifest.details ? manifest.details : {};
-      var renderedTiles = {};
-      var desiredTileKeys = {};
-      var tileCache = {};
-      var tileCacheOrder = [];
-      var tileRequests = {};
-      var tileMisses = {};
-      var detailCache = {};
-      var detailRequests = {};
       var attached = false;
-      var featureCount = Number(manifest && manifest.schoolCount ? manifest.schoolCount : 0);
-      var teacherHistogram = normalizeTeacherHistogram(
-        manifest && manifest.filter ? manifest.filter.teacherHistogram : []
-      );
-      var maxTeacherCount =
-        manifest && manifest.filter && manifest.filter.maxTeacherCount != null
-          ? normalizeTeacherThreshold(manifest.filter.maxTeacherCount)
-          : 0;
       var currentTeacherThreshold = normalizeTeacherThreshold(initialTeacherThreshold);
-      var availableTileKeys = new Set(
-        manifest &&
-        manifest.tiles &&
-        Array.isArray(manifest.tiles.availableKeys)
-          ? manifest.tiles.availableKeys
-          : []
-      );
-
-      function touchCacheKey(key) {
-        var index = tileCacheOrder.indexOf(key);
-        if (index !== -1) {
-          tileCacheOrder.splice(index, 1);
-        }
-        tileCacheOrder.push(key);
-      }
-
-      function evictTileCache() {
-        var maxEntries = tileConfig.maxCachedTiles == null ? 64 : Number(tileConfig.maxCachedTiles);
-        var guard = 0;
-
-        while (tileCacheOrder.length > maxEntries && guard < maxEntries * 4) {
-          var victim = tileCacheOrder[0];
-          guard += 1;
-          if (renderedTiles[victim] || tileRequests[victim]) {
-            tileCacheOrder.push(tileCacheOrder.shift());
-            continue;
-          }
-          delete tileCache[victim];
-          tileCacheOrder.shift();
-        }
-      }
-
-      function getTilePath(descriptor) {
-        return joinPath(
-          manifestBasePath,
-          applyTemplate(tileConfig.pathTemplate || "tiles/{z}/{x}/{y}.json", descriptor)
-        );
-      }
-
-      function getDetailPath(shardKey) {
-        return joinPath(
-          manifestBasePath,
-          applyTemplate(detailsConfig.pathTemplate || "details/{shard}.json", {
-            shard: shardKey,
-          })
-        );
-      }
-
-      function getCurrentTileZoom() {
-        var minZoom =
-          tileConfig.minZoom == null ? Number(map.getMinZoom()) : Number(tileConfig.minZoom);
-        var maxZoom =
-          tileConfig.maxZoom == null ? Number(map.getMaxZoom()) : Number(tileConfig.maxZoom);
-        return clamp(Math.floor(map.getZoom()), minZoom, maxZoom);
-      }
-
-      function fetchTile(descriptor) {
-        if (tileCache[descriptor.key]) {
-          touchCacheKey(descriptor.key);
-          return Promise.resolve(tileCache[descriptor.key]);
-        }
-
-        if (tileMisses[descriptor.key]) {
-          return Promise.resolve(null);
-        }
-
-        if (tileRequests[descriptor.key]) {
-          return tileRequests[descriptor.key];
-        }
-
-        tileRequests[descriptor.key] = fetchJson(getTilePath(descriptor)).then(
-          function (payload) {
-            tileCache[descriptor.key] = payload;
-            touchCacheKey(descriptor.key);
-            delete tileRequests[descriptor.key];
-            evictTileCache();
-            return payload;
-          },
-          function (error) {
-            delete tileRequests[descriptor.key];
-            tileMisses[descriptor.key] = true;
-            throw error;
-          }
-        );
-
-        return tileRequests[descriptor.key];
-      }
-
-      function fetchDetailShard(shardKey) {
-        if (!shardKey) {
-          return Promise.resolve({});
-        }
-
-        if (detailCache[shardKey]) {
-          return Promise.resolve(detailCache[shardKey]);
-        }
-
-        if (detailRequests[shardKey]) {
-          return detailRequests[shardKey];
-        }
-
-        detailRequests[shardKey] = fetchJson(getDetailPath(shardKey)).then(
-          function (payload) {
-            detailCache[shardKey] = payload && payload.schools ? payload.schools : {};
-            delete detailRequests[shardKey];
-            return detailCache[shardKey];
-          },
-          function (error) {
-            delete detailRequests[shardKey];
-            throw error;
-          }
-        );
-
-        return detailRequests[shardKey];
-      }
-
-      function getVisibleCount(minimumTeachers) {
-        return countVisibleTeachers(teacherHistogram, minimumTeachers);
-      }
-
-      function getHiddenCount(minimumTeachers) {
-        return Math.max(0, featureCount - getVisibleCount(minimumTeachers));
-      }
-
-      function getClusterVisibleCount(feature, minimumTeachers) {
-        if (!feature || feature.k !== "c") {
-          return 0;
-        }
-
-        if (!feature.h || !feature.h.length) {
-          return minimumTeachers <= 0 ? Number(feature.p || 0) : 0;
-        }
-
-        return countVisibleTeachers(feature.h, minimumTeachers);
-      }
-
-      function shouldRenderSchool(feature, minimumTeachers) {
-        return normalizeTeacherThreshold(feature && feature.t) >= minimumTeachers;
-      }
-
-      function fitClusterBounds(feature) {
-        var bbox = feature && feature.b ? feature.b : null;
-        var bounds;
-        var southWest;
-        var northEast;
-
-        if (!bbox || bbox.length !== 4) {
-          map.setView([feature.y, feature.x], clamp(map.getZoom() + 2, 7, 18));
-          return;
-        }
-
-        bounds = L.latLngBounds(
-          [Number(bbox[1]), Number(bbox[0])],
-          [Number(bbox[3]), Number(bbox[2])]
-        );
-
-        if (!bounds.isValid()) {
-          map.setView([feature.y, feature.x], clamp(map.getZoom() + 2, 7, 18));
-          return;
-        }
-
-        southWest = bounds.getSouthWest();
-        northEast = bounds.getNorthEast();
-        if (southWest.lat === northEast.lat && southWest.lng === northEast.lng) {
-          map.setView([feature.y, feature.x], clamp(map.getZoom() + 2, 7, 18));
-          return;
-        }
-
-        map.fitBounds(bounds, getFitBoundsOptions(map, config));
-      }
-
-      function hydratePopup(marker, baseProperties) {
-        var popup = marker.getPopup();
-        var hydrationToken = (marker._popupHydrationToken || 0) + 1;
-        marker._popupHydrationToken = hydrationToken;
-
-        fetchDetailShard(baseProperties.detail_shard).then(
-          function (shardSchools) {
-            if (marker._popupHydrationToken !== hydrationToken || !popup) {
-              return;
-            }
-
-            popup.setContent(
-              buildPopupMarkup(
-                extend(baseProperties, shardSchools ? shardSchools[baseProperties.id] : null),
-                layerConfig
-              )
-            );
-            if (marker.isPopupOpen()) {
-              marker.openPopup();
-            }
-          },
-          function () {
-            if (marker._popupHydrationToken !== hydrationToken || !popup) {
-              return;
-            }
-
-            popup.setContent(
-              buildPopupMarkup(
-                extend(baseProperties, {
-                  status: "Detalhes indisponíveis",
-                }),
-                layerConfig
-              )
-            );
-          }
-        );
-      }
-
-      function openSchoolPopup(marker, baseProperties) {
-        if (!marker.getPopup()) {
-          marker.bindPopup(buildLoadingPopupMarkup(baseProperties, layerConfig), {
-            maxWidth: popupMaxWidth,
-          });
-        } else {
-          marker.getPopup().setContent(buildLoadingPopupMarkup(baseProperties, layerConfig));
-        }
-
-        marker.openPopup();
-        hydratePopup(marker, baseProperties);
-      }
-
-      function createSchoolMarker(feature) {
-        var properties = {
-          id: feature.i,
-          name: feature.n || "",
-          teacher_count: feature.t,
-          detail_shard: feature.d || "",
-          latitude: feature.y,
-          longitude: feature.x,
-        };
-        var marker = L.marker([feature.y, feature.x], { icon: icon, keyboard: true });
+      var schools = (Array.isArray(records) ? records : [])
+        .map(function (record, index) {
+          return normalizeSchoolRecord(record, layerConfig.id, index);
+        })
+        .filter(Boolean);
+      var featureCount = schools.length;
+      var teacherHistogram = buildTeacherHistogramFromSchools(schools);
+      var maxTeacherCount = teacherHistogram.length
+        ? teacherHistogram[teacherHistogram.length - 1][0]
+        : 0;
+      var schoolStates = schools.map(function (properties) {
+        var marker = L.marker([properties.latitude, properties.longitude], {
+          icon: icon,
+          keyboard: true,
+        });
         var hoverContent = buildSchoolNameMarkup(
           properties,
           layerConfig.label,
@@ -1460,157 +1035,76 @@
           "school-label__teacher-count"
         );
 
+        marker.bindPopup(buildPopupMarkup(properties, layerConfig), {
+          maxWidth: popupMaxWidth,
+        });
         marker._isSchoolMarker = true;
         marker._schoolHoverContent = hoverContent;
         marker._schoolLabelContent =
           normalizeTeacherCount(properties.teacher_count) === null ? "" : labelContent;
         marker._hasTeacherCount = Boolean(marker._schoolLabelContent);
         marker._schoolTooltipMode = "";
-        syncMarkerLabelVisibility(marker, map.getZoom(), labelMinZoom, allowTooltip);
-        marker.on("click", function () {
-          openSchoolPopup(marker, properties);
-        });
-        return marker;
-      }
 
-      function createClusterMarker(feature, visibleCount) {
-        var marker = L.marker([feature.y, feature.x], {
-          icon: buildClusterIcon(layerConfig.color, visibleCount),
-          keyboard: true,
-        });
-
-        marker._isSchoolMarker = false;
-        if (allowTooltip) {
-          marker.bindTooltip(formatNumber(visibleCount) + " escolas", {
-            sticky: true,
-            className: "school-tooltip",
-            direction: "top",
-            offset: [0, -14],
-          });
-        }
-        marker.on("click", function () {
-          fitClusterBounds(feature);
-        });
-        return marker;
-      }
-
-      function removeRenderedTile(tileKey) {
-        var tileState = renderedTiles[tileKey];
-        if (!tileState) {
-          return;
-        }
-
-        tileState.markers.forEach(function (marker) {
-          layerGroup.removeLayer(marker);
-        });
-        delete renderedTiles[tileKey];
-      }
-
-      function clearRenderedTiles() {
-        Object.keys(renderedTiles).forEach(removeRenderedTile);
-      }
-
-      function materializeTile(descriptor, payload) {
-        if (renderedTiles[descriptor.key]) {
-          return;
-        }
-
-        var markers = [];
-        var features = payload && payload.features ? payload.features : [];
-
-        features.forEach(function (feature) {
-          var marker = null;
-          if (feature.k === "c") {
-            var clusterVisibleCount = getClusterVisibleCount(feature, currentTeacherThreshold);
-            if (clusterVisibleCount > 0) {
-              marker = createClusterMarker(feature, clusterVisibleCount);
-            }
-          } else if (feature.k === "s") {
-            if (shouldRenderSchool(feature, currentTeacherThreshold)) {
-              marker = createSchoolMarker(feature);
-            }
-          }
-
-          if (marker) {
-            markers.push(marker);
-            layerGroup.addLayer(marker);
-          }
-        });
-
-        renderedTiles[descriptor.key] = {
-          markers: markers,
+        return {
+          marker: marker,
+          properties: properties,
+          visible: false,
         };
+      });
+
+      function shouldDisplaySchool(properties, minimumTeachers) {
+        return normalizeTeacherThreshold(properties && properties.teacher_count) >= minimumTeachers;
+      }
+
+      function getVisibleCount(minimumTeachers) {
+        return countVisibleTeachers(teacherHistogram, minimumTeachers);
+      }
+
+      function getHiddenCount(minimumTeachers) {
+        return Math.max(0, featureCount - getVisibleCount(minimumTeachers));
+      }
+
+      function syncRenderedSchools() {
+        if (!attached) {
+          return;
+        }
+
+        schoolStates.forEach(function (schoolState) {
+          var shouldShow = shouldDisplaySchool(
+            schoolState.properties,
+            currentTeacherThreshold
+          );
+
+          if (shouldShow && !schoolState.visible) {
+            layerGroup.addLayer(schoolState.marker);
+            schoolState.visible = true;
+            return;
+          }
+
+          if (!shouldShow && schoolState.visible) {
+            layerGroup.removeLayer(schoolState.marker);
+            schoolState.visible = false;
+          }
+        });
       }
 
       function syncLabelVisibility() {
         var currentZoom = map.getZoom();
 
-        Object.keys(renderedTiles).forEach(function (tileKey) {
-          renderedTiles[tileKey].markers.forEach(function (marker) {
-            if (!marker._isSchoolMarker) {
-              return;
-            }
-            syncMarkerLabelVisibility(marker, currentZoom, labelMinZoom, allowTooltip);
-          });
-        });
-      }
-
-      function refreshVisibleTiles() {
-        if (!attached) {
-          return;
-        }
-
-        var bufferTiles = tileConfig.bufferTiles == null ? 1 : Number(tileConfig.bufferTiles);
-        var descriptors = buildTileDescriptors(map.getBounds(), getCurrentTileZoom(), bufferTiles);
-        var nextTileKeys = {};
-
-        descriptors.forEach(function (descriptor) {
-          nextTileKeys[descriptor.key] = descriptor;
-        });
-        desiredTileKeys = nextTileKeys;
-
-        Object.keys(renderedTiles).forEach(function (tileKey) {
-          if (!nextTileKeys[tileKey]) {
-            removeRenderedTile(tileKey);
-          }
-        });
-
-        descriptors.forEach(function (descriptor) {
-          if (availableTileKeys.size && !availableTileKeys.has(descriptor.key)) {
+        schoolStates.forEach(function (schoolState) {
+          if (!schoolState.visible) {
             return;
           }
-          if (renderedTiles[descriptor.key]) {
-            return;
-          }
-
-          fetchTile(descriptor).then(
-            function (payload) {
-              if (
-                !payload ||
-                !attached ||
-                !desiredTileKeys[descriptor.key] ||
-                renderedTiles[descriptor.key]
-              ) {
-                return;
-              }
-              materializeTile(descriptor, payload);
-              syncLabelVisibility();
-            },
-            function (error) {
-              console.error(error);
-            }
+          syncMarkerLabelVisibility(
+            schoolState.marker,
+            currentZoom,
+            labelMinZoom,
+            allowTooltip
           );
         });
-
-        evictTileCache();
-      }
-
-      function handleMoveEnd() {
-        refreshVisibleTiles();
       }
 
       function handleZoomEnd() {
-        refreshVisibleTiles();
         syncLabelVisibility();
       }
 
@@ -1623,11 +1117,10 @@
         if (!map.hasLayer(layerGroup)) {
           layerGroup.addTo(map);
         }
-        map.on("moveend", handleMoveEnd);
-        map.on("zoomend", handleZoomEnd);
-        map.on("resize", handleMoveEnd);
-        refreshVisibleTiles();
+        syncRenderedSchools();
         syncLabelVisibility();
+        map.on("zoomend", handleZoomEnd);
+        map.on("resize", handleZoomEnd);
       }
 
       function detach() {
@@ -1636,11 +1129,12 @@
         }
 
         attached = false;
-        map.off("moveend", handleMoveEnd);
         map.off("zoomend", handleZoomEnd);
-        map.off("resize", handleMoveEnd);
-        desiredTileKeys = {};
-        clearRenderedTiles();
+        map.off("resize", handleZoomEnd);
+        layerGroup.clearLayers();
+        schoolStates.forEach(function (schoolState) {
+          schoolState.visible = false;
+        });
         if (map.hasLayer(layerGroup)) {
           map.removeLayer(layerGroup);
         }
@@ -1658,21 +1152,19 @@
           return;
         }
 
-        desiredTileKeys = {};
-        clearRenderedTiles();
-        refreshVisibleTiles();
+        syncRenderedSchools();
         syncLabelVisibility();
       }
 
       return {
         id: layerConfig.id,
         label: layerConfig.label,
-        source: manifest,
+        source: schools,
         layer: layerGroup,
         featureCount: featureCount,
         teacherHistogram: teacherHistogram,
         maxTeacherCount: maxTeacherCount,
-        bounds: getManifestBounds(manifest),
+        bounds: buildSchoolBounds(schools),
         attach: attach,
         detach: detach,
         getVisibleCount: getVisibleCount,
@@ -1683,11 +1175,50 @@
     });
   }
 
+  function renderDensityLegend(layerInstance) {
+    var legendRoot = document.getElementById("density-legend");
+    var scaleRoot = document.getElementById("density-legend-scale");
+    var captionRoot = document.getElementById("density-legend-caption");
+    var legend = layerInstance && layerInstance.metadata ? layerInstance.metadata.legend : [];
+
+    if (!legend || !legend.length) {
+      legendRoot.hidden = true;
+      return;
+    }
+
+    scaleRoot.innerHTML = legend
+      .map(function (item) {
+        return (
+          '<div class="density-legend__item">' +
+          '<span class="density-legend__swatch" style="background:' +
+          escapeHtml(item.color) +
+          '"></span>' +
+          "<span>" +
+          escapeHtml(item.label) +
+          "</span>" +
+          "</div>"
+        );
+      })
+      .join("");
+
+    captionRoot.textContent =
+      (layerInstance.metadata && layerInstance.metadata.source_note) ||
+      "Densidade demografica municipal oficial do IBGE.";
+    legendRoot.hidden = false;
+  }
+
+  function hideDensityLegend() {
+    document.getElementById("density-legend").hidden = true;
+  }
+
   function styleDensityFeature(feature, metadata) {
     var classes = metadata && metadata.legend ? metadata.legend : [];
-    var index = Number(feature.properties && feature.properties.density_class ? feature.properties.density_class : 0);
+    var index = Number(
+      feature.properties && feature.properties.density_class ? feature.properties.density_class : 0
+    );
     var bucket = classes[Math.max(0, Math.min(index, classes.length - 1))];
     var fillColor = bucket && bucket.color ? bucket.color : "#d9d9d9";
+
     return {
       pane: "densityPane",
       color: "rgba(18, 53, 77, 0.24)",
@@ -1699,29 +1230,28 @@
 
   function buildDensityPopup(feature) {
     var properties = feature.properties || {};
+
     return (
       '<article class="school-popup">' +
       '<header class="school-popup__heading">' +
       "<h3>" +
-      escapeHtml(properties.municipio_nome || "Município") +
+      escapeHtml(properties.municipio_nome || "Municipio") +
       "</h3>" +
       '<div class="school-popup__badges"><span class="popup-badge">Densidade populacional</span></div>' +
       "</header>" +
       '<div class="school-popup__grid">' +
-      '<div class="school-popup__row"><span class="school-popup__label">Densidade</span><span class="school-popup__value">' +
-      escapeHtml(formatDensity(properties.densidade_demografica)) +
-      "</span></div>" +
-      '<div class="school-popup__row"><span class="school-popup__label">População no Censo 2022</span><span class="school-popup__value">' +
-      escapeHtml(formatNumber(properties.populacao_censo_2022) + " pessoas") +
-      "</span></div>" +
-      '<div class="school-popup__row"><span class="school-popup__label">Área Territorial</span><span class="school-popup__value">' +
-      escapeHtml(
+      buildPopupRow("Densidade", formatDensity(properties.densidade_demografica)) +
+      buildPopupRow(
+        "Populacao no Censo 2022",
+        formatNumber(properties.populacao_censo_2022) + " pessoas"
+      ) +
+      buildPopupRow(
+        "Area territorial",
         formatNumber(properties.area_territorial_km2, {
           minimumFractionDigits: 3,
           maximumFractionDigits: 3,
         }) + " km²"
       ) +
-      "</span></div>" +
       "</div>" +
       "</article>"
     );
@@ -1744,9 +1274,11 @@
           });
           if (allowTooltip) {
             subLayer.bindTooltip(
-              (feature.properties ? feature.properties.municipio_nome : "Município") +
+              (feature.properties ? feature.properties.municipio_nome : "Municipio") +
                 " · " +
-                formatDensity(feature.properties ? feature.properties.densidade_demografica : null),
+                formatDensity(
+                  feature.properties ? feature.properties.densidade_demografica : null
+                ),
               { sticky: true, className: "density-tooltip" }
             );
           }
@@ -1776,6 +1308,31 @@
         featureCount: Array.isArray(geojson.features) ? geojson.features.length : 0,
         bounds: layer.getBounds(),
       };
+    });
+  }
+
+  function closeSidebar(sidebar, button, map) {
+    if (!sidebar.classList.contains("is-open")) {
+      return;
+    }
+
+    sidebar.classList.remove("is-open");
+    button.setAttribute("aria-expanded", "false");
+    scheduleMapResize(map);
+  }
+
+  function attachPanelToggle(button, sidebar, map) {
+    button.addEventListener("click", function () {
+      var next = !sidebar.classList.contains("is-open");
+      sidebar.classList.toggle("is-open", next);
+      button.setAttribute("aria-expanded", String(next));
+      scheduleMapResize(map);
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape") {
+        closeSidebar(sidebar, button, map);
+      }
     });
   }
 
@@ -1834,6 +1391,7 @@
         options.map.removeLayer(options.appState.loadedSchoolLayers[options.layerId].layer);
       }
     }
+
     delete options.appState.activeSchoolLayerIds[options.layerId];
     refreshSummary(options.appState, options.config);
     setStatus(layerConfig.label + " oculta.");
@@ -1869,6 +1427,7 @@
     if (options.appState.densityLayer && options.map.hasLayer(options.appState.densityLayer.layer)) {
       options.map.removeLayer(options.appState.densityLayer.layer);
     }
+
     options.appState.densityActive = false;
     hideDensityLegend();
     refreshSummary(options.appState, options.config);
@@ -1893,6 +1452,7 @@
 
         attachPanelToggle(panelToggle, sidebar, map);
         renderLayerControls(document.getElementById("layer-controls"), config);
+
         var teacherFilterSlider = document.getElementById("teacher-filter-slider");
         var teacherFilterApplyTimer = null;
 
@@ -1946,6 +1506,7 @@
               map.on("zoomend", syncStateConstraintBounds);
               map.on("resize", syncStateConstraintBounds);
             }
+
             scheduleMapResize(map);
             window.setTimeout(syncStateConstraintBounds, 260);
           })
@@ -1954,9 +1515,7 @@
             setStatus("Falha ao carregar o contorno do estado.");
           });
 
-        var toggles = Array.prototype.slice.call(
-          document.querySelectorAll("[data-toggle-id]")
-        );
+        var toggles = Array.prototype.slice.call(document.querySelectorAll("[data-toggle-id]"));
         toggles.forEach(function (toggle) {
           toggle.addEventListener("change", function (event) {
             var target = event.currentTarget;

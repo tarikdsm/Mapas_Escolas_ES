@@ -2,91 +2,62 @@
 
 ## Visao geral
 
-O frontend recebe dados prontos do backend local e os converte para o contrato do site dentro de `public/data/`.
-O contrato atual das escolas usa:
+O frontend agora consome diretamente quatro arquivos padronizados para as escolas:
 
-- manifesto leve por camada
-- tiles estaticos com clusters precomputados
-- shards de detalhes por municipio para popup lazy
+- `public/data/schools/e_estaduais.json`
+- `public/data/schools/e_municipais.json`
+- `public/data/schools/e_federais.json`
+- `public/data/schools/e_privadas.json`
 
-Backend atual de referencia:
+As bases originais do backend continuam intactas. O frontend usa apenas esses quatro arquivos para plotar os pontos no mapa e preencher o card/popup das escolas.
 
-- `D:\Escolas ES\backend\projects\escolas_estaduais_es`
-- `D:\Escolas ES\backend\projects\escolas_municipais_es`
+## Contrato padronizado
 
-## Fluxo para escolas
+Cada registro escolar possui somente estes campos:
 
-### 1. Obter o export do backend
+- `Nome_escola`
+- `Endereco`
+- `Municipio`
+- `CEP`
+- `telefone`
+- `email`
+- `Latitude`
+- `Longitude`
+- `Numero_professores`
+- `Numero_alunos`
 
-Use o GeoJSON entregue em:
+## Fontes do backend
+
+Os quatro arquivos sao gerados a partir destes GeoJSONs do backend:
 
 - `..\..\backend\projects\escolas_estaduais_es\data\frontend_exports\escolas_estaduais_es_georef.geojson`
-
-### 2. Gerar a camada otimizada para o site
-
-```powershell
-python .\scripts\build_school_tiles.py `
-  --input "..\..\backend\projects\escolas_estaduais_es\data\frontend_exports\escolas_estaduais_es_georef.geojson" `
-  --output-dir "public\data\schools\estaduais" `
-  --layer-id "estaduais" `
-  --label "E. Estaduais" `
-  --color "#2563eb"
-```
-
-### Fluxo para escolas municipais
-
-### 1. Obter o export do backend
-
-Use o GeoJSON entregue em:
-
 - `..\..\backend\projects\escolas_municipais_es\data\frontend_exports\escolas_municipais_es_georef.geojson`
+- `..\..\backend\projects\escolas_federais_es\data\frontend_exports\escolas_federais_es_georef.geojson`
+- `..\..\backend\projects\escolas_particulares_es\data\frontend_exports\escolas_particulares_es_georef.geojson`
 
-### 2. Gerar a camada otimizada para o site
+## Como regenerar
 
 ```powershell
-python .\scripts\build_school_tiles.py `
-  --input "..\..\backend\projects\escolas_municipais_es\data\frontend_exports\escolas_municipais_es_georef.geojson" `
-  --output-dir "public\data\schools\municipais" `
-  --layer-id "municipais" `
-  --label "E. Municipais" `
-  --color "#2f9d57"
+python .\scripts\build_standardized_school_data.py
 ```
 
-### 3. Ativar quando a camada estiver pronta
+O script recria:
 
-Edite:
+- `public/data/schools/e_estaduais.json`
+- `public/data/schools/e_municipais.json`
+- `public/data/schools/e_federais.json`
+- `public/data/schools/e_privadas.json`
 
-- `public/data/config/app-config.json`
+## Densidade populacional
 
-### 3. Ativar ou revisar a camada
-
-Edite:
-
-- `public/data/config/app-config.json`
-
-Campos mais comuns:
-
-- `status`
-- `defaultVisible`
-- `dataPath`
-
-## Estrutura final esperada
-
-- `public/data/schools/estaduais/index.json`
-- `public/data/schools/estaduais/tiles/...`
-- `public/data/schools/estaduais/details/...`
-- `public/data/schools/municipais/index.json`
-- `public/data/schools/municipais/tiles/...`
-- `public/data/schools/municipais/details/...`
-
-## Fluxo para densidade populacional
+A camada de densidade continua separada:
 
 ```powershell
 python .\scripts\build_density_layer.py `
   --output "public\data\density\es_municipios_density.geojson"
 ```
 
-## Fluxo para o contorno do estado
+## Contorno do estado
 
 ```powershell
 python .\scripts\build_state_boundary.py `
@@ -94,9 +65,9 @@ python .\scripts\build_state_boundary.py `
   --output "public\data\boundaries\es_state.geojson"
 ```
 
-## Checklist antes do push
+## Checklist
 
-1. Validar o arquivo em `public/data/...`.
-2. Conferir `public/data/config/app-config.json`.
-3. Abrir `public/index.html` localmente e testar as camadas.
-4. Fazer commit apenas no repositorio do frontend.
+1. Rodar `python .\scripts\build_standardized_school_data.py`.
+2. Conferir se os quatro arquivos `e_*.json` foram atualizados.
+3. Validar `public/data/config/app-config.json`.
+4. Abrir `public/index.html` e testar as camadas no mapa.

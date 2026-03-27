@@ -37,44 +37,44 @@
     {
       "id": "municipais",
       "label": "E. Municipais",
-      "description": "Base municipal do Espírito Santo com georreferenciamento consolidado e clusterização responsiva.",
+      "description": "Base padronizada das escolas municipais do Espirito Santo para mapa e card.",
       "status": "ready",
       "defaultVisible": true,
       "color": "#2f9d57",
-      "dataPath": "data/schools/municipais/index.json"
+      "dataPath": "data/schools/e_municipais.json"
     },
     {
       "id": "estaduais",
       "label": "E. Estaduais",
-      "description": "Base estadual do Espírito Santo com ícones azuis e clusterização responsiva.",
+      "description": "Base padronizada das escolas estaduais do Espirito Santo para mapa e card.",
       "status": "ready",
       "defaultVisible": true,
       "color": "#2563eb",
-      "dataPath": "data/schools/estaduais/index.json"
+      "dataPath": "data/schools/e_estaduais.json"
     },
     {
       "id": "federais",
       "label": "E. Federais",
-      "description": "Base federal do Espirito Santo com campi, centros de referencia, unidade militar educacional e educacao basica federal.",
+      "description": "Base padronizada das escolas federais do Espirito Santo para mapa e card.",
       "status": "ready",
       "defaultVisible": true,
       "color": "#d9485f",
-      "dataPath": "data/schools/federais/index.json"
+      "dataPath": "data/schools/e_federais.json"
     },
     {
-      "id": "particulares",
-      "label": "E. Particulares",
-      "description": "Base privada do Espirito Santo com educacao basica, tecnica, educacao especial e IES/campi privados com presenca geografica propria.",
+      "id": "privadas",
+      "label": "E. Privadas",
+      "description": "Base padronizada das escolas privadas do Espirito Santo para mapa e card.",
       "status": "ready",
       "defaultVisible": true,
       "color": "#f59e0b",
-      "dataPath": "data/schools/particulares/index.json"
+      "dataPath": "data/schools/e_privadas.json"
     }
   ],
   "densityLayer": {
     "id": "densidade",
     "label": "Densidade Populacional",
-    "description": "Choropleth municipal com densidade demográfica oficial do IBGE para o Espírito Santo.",
+    "description": "Choropleth municipal com densidade demografica oficial do IBGE para o Espirito Santo.",
     "status": "ready",
     "defaultVisible": false,
     "dataPath": "data/density/es_municipios_density.geojson"
