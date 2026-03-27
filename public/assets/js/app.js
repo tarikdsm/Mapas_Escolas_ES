@@ -12,6 +12,12 @@
     privadas:
       '<path fill="#ffffff" d="M16 15.6c2.6 0 4.6.7 6 1.9 1.4-1.2 3.4-1.9 6-1.9 2 0 3.8.3 5.5 1V30c-1.6-.7-3.4-1-5.5-1-2.7 0-4.4.8-6 2.1-1.6-1.3-3.3-2.1-6-2.1-2.1 0-3.9.3-5.5 1V16.6c1.6-.7 3.4-1 5.5-1Zm5.1 3.8c-.9-.7-2.1-1.1-3.9-1.1-1.1 0-2.1.1-3.1.5v7.2c1-.4 2-.5 3.1-.5 1.8 0 3 .4 3.9 1.1v-7.2Zm1.8 7.2c.9-.7 2.1-1.1 3.9-1.1 1.1 0 2.1.1 3.1.5v-7.2c-1-.4-2-.5-3.1-.5-1.8 0-3 .4-3.9 1.1v7.2Z"/>',
   };
+  var SCHOOL_TYPE_LABELS = {
+    municipais: "E. Municipal",
+    estaduais: "E. Estadual",
+    federais: "E. Federal",
+    privadas: "E. Particular",
+  };
   var MARKER_TEMPLATE =
     '<svg viewBox="0 0 48 48" aria-hidden="true"><path fill="COLOR" d="M24 2c-8.3 0-15 6.7-15 15 0 10.4 12.1 25.2 14 27.4.5.6 1.5.6 2 0C26.9 42.2 39 27.4 39 17c0-8.3-6.7-15-15-15Z"/>SYMBOL</svg>';
 
@@ -917,24 +923,6 @@
     });
   }
 
-  function buildAddress(properties) {
-    return cleanOptionalText(properties.address);
-  }
-
-  function formatPopupCount(value, singularLabel, pluralLabel) {
-    if (value === null) {
-      return "n/d";
-    }
-    return formatNumber(value) + " " + (value === 1 ? singularLabel : pluralLabel);
-  }
-
-  function formatCoordinateValue(value) {
-    if (isMissingNumber(value)) {
-      return "n/d";
-    }
-    return Number(value).toFixed(6);
-  }
-
   function buildPopupRow(label, value) {
     return (
       '<div class="school-popup__row"><span class="school-popup__label">' +
@@ -945,32 +933,36 @@
     );
   }
 
+  function buildSimpleSchoolAddress(properties) {
+    return cleanOptionalText(properties.address) || cleanOptionalText(properties.municipio) || "n/d";
+  }
+
+  function buildSchoolTypeLabel(layerConfig) {
+    if (!layerConfig) {
+      return "";
+    }
+
+    return SCHOOL_TYPE_LABELS[layerConfig.id] || cleanOptionalText(layerConfig.label);
+  }
+
   function buildPopupMarkup(properties, layerConfig) {
-    var teacherCount = normalizeTeacherCount(properties.teacher_count);
-    var studentCount = normalizeTeacherCount(properties.student_count);
+    var teacherCountLabel = buildTeacherCountLabel(properties.teacher_count) || "n/d";
+    var schoolName =
+      (properties && (properties.name_original || properties.name)) || layerConfig.label || "Escola";
 
     return (
       '<article class="school-popup">' +
       '<header class="school-popup__heading">' +
       "<h3>" +
-      buildSchoolNameMarkup(properties, layerConfig.label, "school-popup__teacher-count") +
+      escapeHtml(schoolName) +
       "</h3>" +
-      '<div class="school-popup__badges">' +
-      '<span class="popup-badge">' +
-      escapeHtml(layerConfig.label) +
-      "</span>" +
-      "</div>" +
       "</header>" +
       '<div class="school-popup__grid">' +
-      buildPopupRow("Endereco", buildAddress(properties)) +
-      buildPopupRow("Municipio", cleanOptionalText(properties.municipio)) +
-      buildPopupRow("CEP", cleanOptionalText(properties.postal_code)) +
-      buildPopupRow("Telefone", cleanOptionalText(properties.phone_primary)) +
-      buildPopupRow("E-mail", cleanOptionalText(properties.email)) +
-      buildPopupRow("Latitude", formatCoordinateValue(properties.latitude)) +
-      buildPopupRow("Longitude", formatCoordinateValue(properties.longitude)) +
-      buildPopupRow("Professores", formatPopupCount(teacherCount, "professor", "professores")) +
-      buildPopupRow("Alunos", formatPopupCount(studentCount, "aluno", "alunos")) +
+      '<div class="school-popup__row"><span class="school-popup__label">Professores</span><span class="school-popup__value school-popup__teacher-count">' +
+      escapeHtml(teacherCountLabel) +
+      "</span></div>" +
+      buildPopupRow("Tipo", buildSchoolTypeLabel(layerConfig)) +
+      buildPopupRow("Endereco", buildSimpleSchoolAddress(properties)) +
       "</div>" +
       "</article>"
     );
