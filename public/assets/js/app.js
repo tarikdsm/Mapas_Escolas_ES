@@ -882,6 +882,41 @@
     });
   }
 
+  function hexToRgba(hex, alpha) {
+    var normalized = String(hex || "").replace("#", "");
+    if (normalized.length === 3) {
+      normalized =
+        normalized.charAt(0) +
+        normalized.charAt(0) +
+        normalized.charAt(1) +
+        normalized.charAt(1) +
+        normalized.charAt(2) +
+        normalized.charAt(2);
+    }
+
+    if (normalized.length !== 6) {
+      return "rgba(37,99,235," + alpha + ")";
+    }
+
+    var red = parseInt(normalized.slice(0, 2), 16);
+    var green = parseInt(normalized.slice(2, 4), 16);
+    var blue = parseInt(normalized.slice(4, 6), 16);
+    return "rgba(" + red + "," + green + "," + blue + "," + alpha + ")";
+  }
+
+  function buildClusterIcon(color, count) {
+    return L.divIcon({
+      className: "",
+      html:
+        '<div class="school-cluster" style="--cluster-fill:' +
+        escapeHtml(hexToRgba(color, 0.8)) +
+        '"><span>' +
+        count +
+        "</span></div>",
+      iconSize: [38, 38],
+    });
+  }
+
   function buildAddress(properties) {
     return cleanOptionalText(properties.address);
   }
@@ -1001,6 +1036,10 @@
     return fetchJson(layerConfig.dataPath).then(function (records) {
       var icon = buildSchoolMarkerIcon(layerConfig);
       var allowTooltip = supportsHover();
+      var clusterRadiusPx =
+        layerConfig.clusterRadiusPx == null ? 64 : Number(layerConfig.clusterRadiusPx);
+      var clusterMaxZoom =
+        layerConfig.clusterMaxZoom == null ? 14 : Number(layerConfig.clusterMaxZoom);
       var labelMinZoom =
         layerConfig.labelMinZoom == null
           ? (map.options && map.options.schoolLabelMinZoom) || 15
@@ -1009,6 +1048,7 @@
       var layerGroup = L.layerGroup();
       var attached = false;
       var currentTeacherThreshold = normalizeTeacherThreshold(initialTeacherThreshold);
+      var renderedMarkers = [];
       var schools = (Array.isArray(records) ? records : [])
         .map(function (record, index) {
           return normalizeSchoolRecord(record, layerConfig.id, index);
@@ -1048,7 +1088,6 @@
         return {
           marker: marker,
           properties: properties,
-          visible: false,
         };
       });
 
@@ -1064,39 +1103,173 @@
         return Math.max(0, featureCount - getVisibleCount(minimumTeachers));
       }
 
+      function fitClusterBounds(cluster) {
+        var bbox = cluster && cluster.bbox ? cluster.bbox : null;
+        var bounds;
+        var southWest;
+        var northEast;
+
+        if (!bbox || bbox.length !== 4) {
+          map.setView(
+            [cluster.latitude, cluster.longitude],
+            clamp(map.getZoom() + 2, map.getMinZoom(), map.getMaxZoom())
+          );
+          return;
+        }
+
+        bounds = L.latLngBounds(
+          [Number(bbox[1]), Number(bbox[0])],
+          [Number(bbox[3]), Number(bbox[2])]
+        );
+
+        if (!bounds.isValid()) {
+          map.setView(
+            [cluster.latitude, cluster.longitude],
+            clamp(map.getZoom() + 2, map.getMinZoom(), map.getMaxZoom())
+          );
+          return;
+        }
+
+        southWest = bounds.getSouthWest();
+        northEast = bounds.getNorthEast();
+        if (southWest.lat === northEast.lat && southWest.lng === northEast.lng) {
+          map.setView(
+            [cluster.latitude, cluster.longitude],
+            clamp(map.getZoom() + 2, map.getMinZoom(), map.getMaxZoom())
+          );
+          return;
+        }
+
+        map.fitBounds(bounds, getFitBoundsOptions(map, config));
+      }
+
+      function createClusterMarker(cluster) {
+        var marker = L.marker([cluster.latitude, cluster.longitude], {
+          icon: buildClusterIcon(layerConfig.color, cluster.count),
+          keyboard: true,
+        });
+
+        marker._isSchoolMarker = false;
+        marker._schoolTooltipMode = "";
+
+        if (allowTooltip) {
+          marker.bindTooltip(formatNumber(cluster.count) + " escolas", {
+            sticky: true,
+            className: "school-tooltip",
+            direction: "top",
+            offset: [0, -14],
+          });
+        }
+
+        marker.on("click", function () {
+          fitClusterBounds(cluster);
+        });
+
+        return marker;
+      }
+
+      function buildVisibleSchoolStates() {
+        return schoolStates.filter(function (schoolState) {
+          return shouldDisplaySchool(schoolState.properties, currentTeacherThreshold);
+        });
+      }
+
+      function groupVisibleSchoolStates(visibleStates) {
+        var currentZoom = Math.floor(map.getZoom());
+        var clustersByKey = {};
+
+        if (currentZoom > clusterMaxZoom) {
+          return visibleStates.map(function (schoolState) {
+            return {
+              kind: "school",
+              schoolState: schoolState,
+            };
+          });
+        }
+
+        visibleStates.forEach(function (schoolState) {
+          var projected = map.project(
+            [schoolState.properties.latitude, schoolState.properties.longitude],
+            currentZoom
+          );
+          var key =
+            Math.floor(projected.x / clusterRadiusPx) +
+            ":" +
+            Math.floor(projected.y / clusterRadiusPx);
+
+          if (!clustersByKey[key]) {
+            clustersByKey[key] = [];
+          }
+
+          clustersByKey[key].push(schoolState);
+        });
+
+        return Object.keys(clustersByKey).map(function (key) {
+          var groupedStates = clustersByKey[key];
+          var longitudeTotal = 0;
+          var latitudeTotal = 0;
+          var bbox = [Infinity, Infinity, -Infinity, -Infinity];
+
+          if (groupedStates.length === 1) {
+            return {
+              kind: "school",
+              schoolState: groupedStates[0],
+            };
+          }
+
+          groupedStates.forEach(function (schoolState) {
+            longitudeTotal += schoolState.properties.longitude;
+            latitudeTotal += schoolState.properties.latitude;
+            bbox[0] = Math.min(bbox[0], schoolState.properties.longitude);
+            bbox[1] = Math.min(bbox[1], schoolState.properties.latitude);
+            bbox[2] = Math.max(bbox[2], schoolState.properties.longitude);
+            bbox[3] = Math.max(bbox[3], schoolState.properties.latitude);
+          });
+
+          return {
+            kind: "cluster",
+            cluster: {
+              key: key,
+              count: groupedStates.length,
+              latitude: latitudeTotal / groupedStates.length,
+              longitude: longitudeTotal / groupedStates.length,
+              bbox: bbox,
+            },
+          };
+        });
+      }
+
       function syncRenderedSchools() {
         if (!attached) {
           return;
         }
 
-        schoolStates.forEach(function (schoolState) {
-          var shouldShow = shouldDisplaySchool(
-            schoolState.properties,
-            currentTeacherThreshold
-          );
+        renderedMarkers = [];
+        layerGroup.clearLayers();
 
-          if (shouldShow && !schoolState.visible) {
-            layerGroup.addLayer(schoolState.marker);
-            schoolState.visible = true;
-            return;
+        groupVisibleSchoolStates(buildVisibleSchoolStates()).forEach(function (item) {
+          var marker;
+
+          if (item.kind === "cluster") {
+            marker = createClusterMarker(item.cluster);
+          } else {
+            marker = item.schoolState.marker;
           }
 
-          if (!shouldShow && schoolState.visible) {
-            layerGroup.removeLayer(schoolState.marker);
-            schoolState.visible = false;
-          }
+          renderedMarkers.push(marker);
+          layerGroup.addLayer(marker);
         });
       }
 
       function syncLabelVisibility() {
         var currentZoom = map.getZoom();
 
-        schoolStates.forEach(function (schoolState) {
-          if (!schoolState.visible) {
+        renderedMarkers.forEach(function (marker) {
+          if (!marker._isSchoolMarker) {
             return;
           }
           syncMarkerLabelVisibility(
-            schoolState.marker,
+            marker,
             currentZoom,
             labelMinZoom,
             allowTooltip
@@ -1132,9 +1305,7 @@
         map.off("zoomend", handleZoomEnd);
         map.off("resize", handleZoomEnd);
         layerGroup.clearLayers();
-        schoolStates.forEach(function (schoolState) {
-          schoolState.visible = false;
-        });
+        renderedMarkers = [];
         if (map.hasLayer(layerGroup)) {
           map.removeLayer(layerGroup);
         }
