@@ -1053,6 +1053,9 @@
       var attached = false;
       var currentTeacherThreshold = normalizeTeacherThreshold(initialTeacherThreshold);
       var renderedMarkers = [];
+      var renderedMarkerMap = {};
+      var renderScheduled = false;
+      var lastRenderSignature = "";
       var schools = (Array.isArray(records) ? records : [])
         .map(function (record, index) {
           return normalizeSchoolRecord(record, layerConfig.id, index);
@@ -1064,34 +1067,19 @@
         ? teacherHistogram[teacherHistogram.length - 1][0]
         : 0;
       var schoolStates = schools.map(function (properties) {
-        var marker = L.marker([properties.latitude, properties.longitude], {
-          icon: icon,
-          keyboard: true,
-        });
-        var hoverContent = buildSchoolNameMarkup(
-          properties,
-          layerConfig.label,
-          "school-tooltip__teacher-count"
-        );
-        var labelContent = buildSchoolNameMarkup(
-          properties,
-          layerConfig.label,
-          "school-label__teacher-count"
-        );
-
-        marker.bindPopup(buildPopupMarkup(properties, layerConfig), {
-          maxWidth: popupMaxWidth,
-        });
-        marker._isSchoolMarker = true;
-        marker._schoolHoverContent = hoverContent;
-        marker._schoolLabelContent =
-          normalizeTeacherCount(properties.teacher_count) === null ? "" : labelContent;
-        marker._hasTeacherCount = Boolean(marker._schoolLabelContent);
-        marker._schoolTooltipMode = "";
-
         return {
-          marker: marker,
           properties: properties,
+          hoverContent: buildSchoolNameMarkup(
+            properties,
+            layerConfig.label,
+            "school-tooltip__teacher-count"
+          ),
+          labelContent: buildSchoolNameMarkup(
+            properties,
+            layerConfig.label,
+            "school-label__teacher-count"
+          ),
+          marker: null,
         };
       });
 
@@ -1172,26 +1160,63 @@
         return marker;
       }
 
+      function createSchoolMarker(schoolState) {
+        var marker = L.marker([schoolState.properties.latitude, schoolState.properties.longitude], {
+          icon: icon,
+          keyboard: true,
+        });
+
+        marker._isSchoolMarker = true;
+        marker._schoolHoverContent = schoolState.hoverContent;
+        marker._schoolLabelContent =
+          normalizeTeacherCount(schoolState.properties.teacher_count) === null
+            ? ""
+            : schoolState.labelContent;
+        marker._hasTeacherCount = Boolean(marker._schoolLabelContent);
+        marker._schoolTooltipMode = "";
+        marker.on("click", function () {
+          if (!marker.getPopup()) {
+            marker.bindPopup(buildPopupMarkup(schoolState.properties, layerConfig), {
+              maxWidth: popupMaxWidth,
+            });
+          }
+          marker.openPopup();
+        });
+
+        return marker;
+      }
+
+      function getOrCreateSchoolMarker(schoolState) {
+        if (!schoolState.marker) {
+          schoolState.marker = createSchoolMarker(schoolState);
+        }
+
+        return schoolState.marker;
+      }
+
       function buildVisibleSchoolStates() {
         return schoolStates.filter(function (schoolState) {
           return shouldDisplaySchool(schoolState.properties, currentTeacherThreshold);
         });
       }
 
-      function buildSchoolRenderItem(schoolState) {
+      function buildSchoolRenderItem(projectedState) {
         return {
+          key: "s:" + projectedState.schoolState.properties.id,
           kind: "school",
-          schoolState: schoolState,
+          schoolState: projectedState.schoolState,
+          projected: projectedState.projected,
         };
       }
 
-      function buildClusterRenderItem(projectedGroup, clusterId) {
+      function buildClusterRenderItem(clusterState, clusterId) {
         var longitudeTotal = 0;
         var latitudeTotal = 0;
         var bbox = [Infinity, Infinity, -Infinity, -Infinity];
+        var projectedGroup = clusterState.members;
 
         if (projectedGroup.length === 1) {
-          return buildSchoolRenderItem(projectedGroup[0].schoolState);
+          return buildSchoolRenderItem(projectedGroup[0]);
         }
 
         projectedGroup.forEach(function (projectedState) {
@@ -1205,7 +1230,9 @@
         });
 
         return {
+          key: "c:" + clusterId,
           kind: "cluster",
+          projected: L.point(clusterState.centerX, clusterState.centerY),
           cluster: {
             key: clusterId,
             count: projectedGroup.length,
@@ -1229,18 +1256,75 @@
         }
       }
 
+      function getRenderPixelBounds() {
+        var pixelBounds;
+        var padding;
+
+        if (typeof map.getPixelBounds !== "function") {
+          return null;
+        }
+
+        pixelBounds = map.getPixelBounds();
+        if (!pixelBounds || !pixelBounds.min || !pixelBounds.max) {
+          return null;
+        }
+
+        padding = Math.max(clusterOverlapPx * 2, 64);
+        return L.bounds(
+          L.point(pixelBounds.min.x - padding, pixelBounds.min.y - padding),
+          L.point(pixelBounds.max.x + padding, pixelBounds.max.y + padding)
+        );
+      }
+
+      function isProjectedPointVisible(projected, pixelBounds) {
+        if (!projected || !pixelBounds) {
+          return true;
+        }
+
+        return (
+          projected.x >= pixelBounds.min.x &&
+          projected.x <= pixelBounds.max.x &&
+          projected.y >= pixelBounds.min.y &&
+          projected.y <= pixelBounds.max.y
+        );
+      }
+
+      function filterRenderItemsToViewport(renderItems) {
+        var pixelBounds = getRenderPixelBounds();
+
+        if (!pixelBounds) {
+          return renderItems;
+        }
+
+        return renderItems.filter(function (item) {
+          return isProjectedPointVisible(item.projected, pixelBounds);
+        });
+      }
+
+      function buildRenderSignature() {
+        var pixelBounds = getRenderPixelBounds();
+
+        if (!pixelBounds) {
+          return [map.getZoom(), currentTeacherThreshold].join("|");
+        }
+
+        return [
+          map.getZoom(),
+          currentTeacherThreshold,
+          Math.round(pixelBounds.min.x),
+          Math.round(pixelBounds.min.y),
+          Math.round(pixelBounds.max.x),
+          Math.round(pixelBounds.max.y),
+        ].join("|");
+      }
+
       function groupVisibleSchoolStates(visibleStates) {
         var currentZoom = map.getZoom();
         var grid = {};
         var projectedStates;
         var clusterDistanceSquared = clusterOverlapPx * clusterOverlapPx;
         var clusterStates = [];
-
-        if (currentZoom > clusterMaxZoom || clusterOverlapPx <= 0) {
-          return visibleStates.map(function (schoolState) {
-            return buildSchoolRenderItem(schoolState);
-          });
-        }
+        var clusterZoomKey = Math.round(currentZoom * 10);
 
         projectedStates = visibleStates.map(function (schoolState) {
           var projected = map.project(
@@ -1253,6 +1337,10 @@
             projected: projected,
           };
         });
+
+        if (currentZoom > clusterMaxZoom || clusterOverlapPx <= 0) {
+          return projectedStates.map(buildSchoolRenderItem);
+        }
 
         projectedStates.sort(function (left, right) {
           return left.projected.y === right.projected.y
@@ -1343,32 +1431,59 @@
 
         return clusterStates.map(function (clusterState) {
           return buildClusterRenderItem(
-            clusterState.members,
-            layerConfig.id + ":" + clusterState.id
+            clusterState,
+            layerConfig.id +
+              ":" +
+              clusterZoomKey +
+              ":" +
+              currentTeacherThreshold +
+              ":" +
+              clusterState.id
           );
         });
       }
 
       function syncRenderedSchools() {
+        var renderSignature;
+        var nextMarkerMap = {};
+
         if (!attached) {
           return;
         }
 
-        renderedMarkers = [];
-        layerGroup.clearLayers();
+        renderSignature = buildRenderSignature();
+        if (renderSignature === lastRenderSignature) {
+          return;
+        }
 
-        groupVisibleSchoolStates(buildVisibleSchoolStates()).forEach(function (item) {
-          var marker;
+        filterRenderItemsToViewport(groupVisibleSchoolStates(buildVisibleSchoolStates())).forEach(
+          function (item) {
+            var marker =
+              item.kind === "cluster"
+                ? renderedMarkerMap[item.key] || createClusterMarker(item.cluster)
+                : getOrCreateSchoolMarker(item.schoolState);
 
-          if (item.kind === "cluster") {
-            marker = createClusterMarker(item.cluster);
-          } else {
-            marker = item.schoolState.marker;
+            nextMarkerMap[item.key] = marker;
           }
+        );
 
-          renderedMarkers.push(marker);
-          layerGroup.addLayer(marker);
+        Object.keys(renderedMarkerMap).forEach(function (key) {
+          if (!nextMarkerMap[key]) {
+            layerGroup.removeLayer(renderedMarkerMap[key]);
+          }
         });
+
+        Object.keys(nextMarkerMap).forEach(function (key) {
+          if (!renderedMarkerMap[key]) {
+            layerGroup.addLayer(nextMarkerMap[key]);
+          }
+        });
+
+        renderedMarkerMap = nextMarkerMap;
+        renderedMarkers = Object.keys(nextMarkerMap).map(function (key) {
+          return nextMarkerMap[key];
+        });
+        lastRenderSignature = renderSignature;
       }
 
       function syncLabelVisibility() {
@@ -1387,9 +1502,21 @@
         });
       }
 
+      function scheduleRenderSync() {
+        if (!attached || renderScheduled) {
+          return;
+        }
+
+        renderScheduled = true;
+        requestFrame(function () {
+          renderScheduled = false;
+          syncRenderedSchools();
+          syncLabelVisibility();
+        });
+      }
+
       function handleViewChange() {
-        syncRenderedSchools();
-        syncLabelVisibility();
+        scheduleRenderSync();
       }
 
       function attach() {
@@ -1403,6 +1530,7 @@
         }
         syncRenderedSchools();
         syncLabelVisibility();
+        map.on("moveend", handleViewChange);
         map.on("zoomend", handleViewChange);
         map.on("resize", handleViewChange);
       }
@@ -1413,9 +1541,13 @@
         }
 
         attached = false;
+        renderScheduled = false;
+        lastRenderSignature = "";
+        map.off("moveend", handleViewChange);
         map.off("zoomend", handleViewChange);
         map.off("resize", handleViewChange);
         layerGroup.clearLayers();
+        renderedMarkerMap = {};
         renderedMarkers = [];
         if (map.hasLayer(layerGroup)) {
           map.removeLayer(layerGroup);
@@ -1434,6 +1566,7 @@
           return;
         }
 
+        lastRenderSignature = "";
         syncRenderedSchools();
         syncLabelVisibility();
       }
