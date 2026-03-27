@@ -41,7 +41,8 @@
       "status": "ready",
       "defaultVisible": true,
       "color": "#2f9d57",
-      "dataPath": "data/schools/e_municipais.json"
+      "dataPath": "data/schools/e_municipais.json",
+      "clusterOverlapPx": 36
     },
     {
       "id": "estaduais",
@@ -50,7 +51,8 @@
       "status": "ready",
       "defaultVisible": true,
       "color": "#2563eb",
-      "dataPath": "data/schools/e_estaduais.json"
+      "dataPath": "data/schools/e_estaduais.json",
+      "clusterOverlapPx": 36
     },
     {
       "id": "federais",
@@ -59,7 +61,8 @@
       "status": "ready",
       "defaultVisible": true,
       "color": "#d9485f",
-      "dataPath": "data/schools/e_federais.json"
+      "dataPath": "data/schools/e_federais.json",
+      "clusterOverlapPx": 36
     },
     {
       "id": "privadas",
@@ -68,7 +71,8 @@
       "status": "ready",
       "defaultVisible": true,
       "color": "#f59e0b",
-      "dataPath": "data/schools/e_privadas.json"
+      "dataPath": "data/schools/e_privadas.json",
+      "clusterOverlapPx": 36
     }
   ],
   "densityLayer": {

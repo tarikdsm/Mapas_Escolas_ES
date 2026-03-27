@@ -1036,10 +1036,22 @@
     return fetchJson(layerConfig.dataPath).then(function (records) {
       var icon = buildSchoolMarkerIcon(layerConfig);
       var allowTooltip = supportsHover();
-      var clusterRadiusPx =
-        layerConfig.clusterRadiusPx == null ? 64 : Number(layerConfig.clusterRadiusPx);
+      var defaultClusterOverlapPx = Math.max(
+        36,
+        icon &&
+          icon.options &&
+          Array.isArray(icon.options.iconSize) &&
+          icon.options.iconSize.length
+          ? Number(icon.options.iconSize[0]) || 0
+          : 0
+      );
+      var clusterOverlapPx = isMissingNumber(layerConfig.clusterOverlapPx)
+        ? isMissingNumber(layerConfig.clusterRadiusPx)
+          ? defaultClusterOverlapPx
+          : Math.max(16, Number(layerConfig.clusterRadiusPx))
+        : Math.max(16, Number(layerConfig.clusterOverlapPx));
       var clusterMaxZoom =
-        layerConfig.clusterMaxZoom == null ? 14 : Number(layerConfig.clusterMaxZoom);
+        layerConfig.clusterMaxZoom == null ? map.getMaxZoom() : Number(layerConfig.clusterMaxZoom);
       var labelMinZoom =
         layerConfig.labelMinZoom == null
           ? (map.options && map.options.schoolLabelMinZoom) || 15
@@ -1174,68 +1186,174 @@
         });
       }
 
-      function groupVisibleSchoolStates(visibleStates) {
-        var currentZoom = Math.floor(map.getZoom());
-        var clustersByKey = {};
+      function buildSchoolRenderItem(schoolState) {
+        return {
+          kind: "school",
+          schoolState: schoolState,
+        };
+      }
 
-        if (currentZoom > clusterMaxZoom) {
+      function buildClusterRenderItem(projectedGroup, clusterId) {
+        var longitudeTotal = 0;
+        var latitudeTotal = 0;
+        var bbox = [Infinity, Infinity, -Infinity, -Infinity];
+
+        if (projectedGroup.length === 1) {
+          return buildSchoolRenderItem(projectedGroup[0].schoolState);
+        }
+
+        projectedGroup.forEach(function (projectedState) {
+          var properties = projectedState.schoolState.properties;
+          longitudeTotal += properties.longitude;
+          latitudeTotal += properties.latitude;
+          bbox[0] = Math.min(bbox[0], properties.longitude);
+          bbox[1] = Math.min(bbox[1], properties.latitude);
+          bbox[2] = Math.max(bbox[2], properties.longitude);
+          bbox[3] = Math.max(bbox[3], properties.latitude);
+        });
+
+        return {
+          kind: "cluster",
+          cluster: {
+            key: clusterId,
+            count: projectedGroup.length,
+            latitude: latitudeTotal / projectedGroup.length,
+            longitude: longitudeTotal / projectedGroup.length,
+            bbox: bbox,
+          },
+        };
+      }
+
+      function removeClusterFromBucket(bucket, clusterId) {
+        var index;
+
+        if (!bucket || !bucket.length) {
+          return;
+        }
+
+        index = bucket.indexOf(clusterId);
+        if (index >= 0) {
+          bucket.splice(index, 1);
+        }
+      }
+
+      function groupVisibleSchoolStates(visibleStates) {
+        var currentZoom = map.getZoom();
+        var grid = {};
+        var projectedStates;
+        var clusterDistanceSquared = clusterOverlapPx * clusterOverlapPx;
+        var clusterStates = [];
+
+        if (currentZoom > clusterMaxZoom || clusterOverlapPx <= 0) {
           return visibleStates.map(function (schoolState) {
-            return {
-              kind: "school",
-              schoolState: schoolState,
-            };
+            return buildSchoolRenderItem(schoolState);
           });
         }
 
-        visibleStates.forEach(function (schoolState) {
+        projectedStates = visibleStates.map(function (schoolState) {
           var projected = map.project(
             [schoolState.properties.latitude, schoolState.properties.longitude],
             currentZoom
           );
-          var key =
-            Math.floor(projected.x / clusterRadiusPx) +
-            ":" +
-            Math.floor(projected.y / clusterRadiusPx);
-
-          if (!clustersByKey[key]) {
-            clustersByKey[key] = [];
-          }
-
-          clustersByKey[key].push(schoolState);
-        });
-
-        return Object.keys(clustersByKey).map(function (key) {
-          var groupedStates = clustersByKey[key];
-          var longitudeTotal = 0;
-          var latitudeTotal = 0;
-          var bbox = [Infinity, Infinity, -Infinity, -Infinity];
-
-          if (groupedStates.length === 1) {
-            return {
-              kind: "school",
-              schoolState: groupedStates[0],
-            };
-          }
-
-          groupedStates.forEach(function (schoolState) {
-            longitudeTotal += schoolState.properties.longitude;
-            latitudeTotal += schoolState.properties.latitude;
-            bbox[0] = Math.min(bbox[0], schoolState.properties.longitude);
-            bbox[1] = Math.min(bbox[1], schoolState.properties.latitude);
-            bbox[2] = Math.max(bbox[2], schoolState.properties.longitude);
-            bbox[3] = Math.max(bbox[3], schoolState.properties.latitude);
-          });
 
           return {
-            kind: "cluster",
-            cluster: {
-              key: key,
-              count: groupedStates.length,
-              latitude: latitudeTotal / groupedStates.length,
-              longitude: longitudeTotal / groupedStates.length,
-              bbox: bbox,
-            },
+            schoolState: schoolState,
+            projected: projected,
           };
+        });
+
+        projectedStates.sort(function (left, right) {
+          return left.projected.y === right.projected.y
+            ? left.projected.x - right.projected.x
+            : left.projected.y - right.projected.y;
+        });
+
+        // A cluster remains only while the schools still overlap around the same screen-space center.
+        projectedStates.forEach(function (projectedState) {
+          var cellX = Math.floor(projectedState.projected.x / clusterOverlapPx);
+          var cellY = Math.floor(projectedState.projected.y / clusterOverlapPx);
+          var bestCluster = null;
+          var bestDistanceSquared = Infinity;
+          var neighborCellX;
+          var neighborCellY;
+
+          for (neighborCellX = cellX - 1; neighborCellX <= cellX + 1; neighborCellX += 1) {
+            for (neighborCellY = cellY - 1; neighborCellY <= cellY + 1; neighborCellY += 1) {
+              var neighborKey = neighborCellX + ":" + neighborCellY;
+              var neighborClusterIds = grid[neighborKey] || [];
+
+              neighborClusterIds.forEach(function (clusterId) {
+                var clusterState = clusterStates[clusterId];
+                var deltaX;
+                var deltaY;
+                var distanceSquared;
+
+                if (!clusterState) {
+                  return;
+                }
+
+                deltaX = clusterState.centerX - projectedState.projected.x;
+                deltaY = clusterState.centerY - projectedState.projected.y;
+                distanceSquared = deltaX * deltaX + deltaY * deltaY;
+
+                if (
+                  distanceSquared > clusterDistanceSquared ||
+                  distanceSquared >= bestDistanceSquared
+                ) {
+                  return;
+                }
+
+                bestCluster = clusterState;
+                bestDistanceSquared = distanceSquared;
+              });
+            }
+          }
+
+          if (!bestCluster) {
+            bestCluster = {
+              id: clusterStates.length,
+              members: [projectedState],
+              sumX: projectedState.projected.x,
+              sumY: projectedState.projected.y,
+              centerX: projectedState.projected.x,
+              centerY: projectedState.projected.y,
+            };
+            clusterStates.push(bestCluster);
+            if (!grid[cellX + ":" + cellY]) {
+              grid[cellX + ":" + cellY] = [];
+            }
+            grid[cellX + ":" + cellY].push(bestCluster.id);
+            return;
+          }
+
+          removeClusterFromBucket(
+            grid[
+              Math.floor(bestCluster.centerX / clusterOverlapPx) +
+                ":" +
+                Math.floor(bestCluster.centerY / clusterOverlapPx)
+            ],
+            bestCluster.id
+          );
+
+          bestCluster.members.push(projectedState);
+          bestCluster.sumX += projectedState.projected.x;
+          bestCluster.sumY += projectedState.projected.y;
+          bestCluster.centerX = bestCluster.sumX / bestCluster.members.length;
+          bestCluster.centerY = bestCluster.sumY / bestCluster.members.length;
+
+          cellX = Math.floor(bestCluster.centerX / clusterOverlapPx);
+          cellY = Math.floor(bestCluster.centerY / clusterOverlapPx);
+          if (!grid[cellX + ":" + cellY]) {
+            grid[cellX + ":" + cellY] = [];
+          }
+          grid[cellX + ":" + cellY].push(bestCluster.id);
+        });
+
+        return clusterStates.map(function (clusterState) {
+          return buildClusterRenderItem(
+            clusterState.members,
+            layerConfig.id + ":" + clusterState.id
+          );
         });
       }
 
@@ -1277,7 +1395,8 @@
         });
       }
 
-      function handleZoomEnd() {
+      function handleViewChange() {
+        syncRenderedSchools();
         syncLabelVisibility();
       }
 
@@ -1292,8 +1411,8 @@
         }
         syncRenderedSchools();
         syncLabelVisibility();
-        map.on("zoomend", handleZoomEnd);
-        map.on("resize", handleZoomEnd);
+        map.on("zoomend", handleViewChange);
+        map.on("resize", handleViewChange);
       }
 
       function detach() {
@@ -1302,8 +1421,8 @@
         }
 
         attached = false;
-        map.off("zoomend", handleZoomEnd);
-        map.off("resize", handleZoomEnd);
+        map.off("zoomend", handleViewChange);
+        map.off("resize", handleViewChange);
         layerGroup.clearLayers();
         renderedMarkers = [];
         if (map.hasLayer(layerGroup)) {
