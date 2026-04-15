@@ -1,10 +1,22 @@
 # Mapas das Escolas do Espirito Santo
 
-Repositorio do frontend do mapa, preparado para GitHub Pages.
+Repositorio com frontend do mapa, backend local em Python e banco SQLite unificado.
+
+## Como rodar localmente
+
+```bash
+python3 backend/server.py
+```
+
+URLs locais:
+
+- mapa: `http://127.0.0.1:8765/`
+- backend administrativo: `http://127.0.0.1:8765/admin/`
+- API: `http://127.0.0.1:8765/api/`
 
 ## Regra de publicacao
 
-Somente `public/` vai para o Pages. Scripts, docs e experimentos ficam no repositorio, mas nao entram no artefato publicado.
+Somente `public/` vai para o GitHub Pages. Scripts, docs, banco SQLite e backend Python ficam no repositorio e nao entram no artefato publicado.
 
 ## Estrutura
 
@@ -16,75 +28,58 @@ Somente `public/` vai para o Pages. Scripts, docs e experimentos ficam no reposi
 - `docs/`: arquitetura, deploy e atualizacao
 - `experiments/`: prototipos e HTMLs locais
 
-## Relacao com o backend
+## Relacao entre frontend e backend
 
-Este frontend consome artefatos gerados no backend local em:
+O backend local:
 
-- `D:\Escolas ES\backend\projects\escolas_estaduais_es\data\frontend_exports\`
-- `D:\Escolas ES\backend\projects\escolas_municipais_es\data\frontend_exports\`
-- `D:\Escolas ES\backend\projects\escolas_federais_es\data\frontend_exports\`
-- `D:\Escolas ES\backend\projects\escolas_particulares_es\data\frontend_exports\`
+1. importa os snapshots atuais `public/data/schools/e_*.json` para um banco SQLite unico
+2. expoe CRUD e consulta por API
+3. serve o mapa em `/` e o painel em `/admin/`
+4. regrava os arquivos `public/data/schools/e_*.json` sempre que uma escola e criada, alterada ou excluida
 
-O fluxo esperado e:
+O frontend local tenta carregar `/api/config` primeiro. Quando a API existe, ele consome os datasets pela API. No GitHub Pages, sem backend, ele volta automaticamente para os arquivos estaticos publicados em `public/data/`.
 
-1. backend gera um GeoJSON ou CSV pronto para handoff
-2. frontend gera uma camada otimizada em tiles, com shards de detalhes por municipio
-3. frontend sobe somente `public/` no GitHub Pages
+## GitHub Pages
 
-## Atualizacao da camada estadual
+No GitHub Pages ficam publicados:
 
-```powershell
-cd D:\Escolas ES\frontend\Mapa_Escolas_ES
-python .\scripts\build_school_tiles.py `
-  --input "..\..\backend\projects\escolas_estaduais_es\data\frontend_exports\escolas_estaduais_es_georef.geojson" `
-  --output-dir "public\data\schools\estaduais" `
-  --layer-id "estaduais" `
-  --label "E. Estaduais" `
-  --color "#2563eb"
+- o mapa em modo estatico
+- o painel administrativo em modo somente leitura
+
+O Pages nao hospeda SQLite nem API com escrita. O modo completo de edicao roda localmente com `python3 backend/server.py`.
+
+## Dados escolares publicados
+
+Os datasets estaticos publicados e mantidos pelo backend sao:
+
+- `public/data/schools/e_municipais.json`
+- `public/data/schools/e_estaduais.json`
+- `public/data/schools/e_federais.json`
+- `public/data/schools/e_privadas.json`
+
+Eles continuam separados por rede para o frontend saber o tipo da escola, e tambem servem como snapshot para o GitHub Pages e bootstrap da primeira carga do banco local.
+
+## Documentacao principal
+
+- `docs/ARQUITETURA.md`
+- `docs/API_BACKEND.md`
+- `docs/TESTES.md`
+- `docs/DEPLOY_GITHUB_PAGES.md`
+- `docs/ATUALIZACAO_DE_DADOS.md`
+
+## Testes
+
+Runner principal:
+
+```bash
+python3 tests/scripts/run_tests.py
 ```
 
-## Atualizacao da camada municipal
+Estrutura:
 
-```powershell
-cd D:\Escolas ES\frontend\Mapa_Escolas_ES
-python .\scripts\build_school_tiles.py `
-  --input "..\..\backend\projects\escolas_municipais_es\data\frontend_exports\escolas_municipais_es_georef.geojson" `
-  --output-dir "public\data\schools\municipais" `
-  --layer-id "municipais" `
-  --label "E. Municipais" `
-  --color "#2f9d57"
-```
-
-## Atualizacao da camada federal
-
-```powershell
-cd D:\Escolas ES\frontend\Mapa_Escolas_ES
-python .\scripts\build_school_tiles.py `
-  --input "..\..\backend\projects\escolas_federais_es\data\frontend_exports\escolas_federais_es_georef.geojson" `
-  --output-dir "public\data\schools\federais" `
-  --layer-id "federais" `
-  --label "E. Federais" `
-  --color "#d9485f"
-```
-
-## Atualizacao da camada privada
-
-```powershell
-cd D:\Escolas ES\frontend\Mapa_Escolas_ES
-python .\scripts\build_school_tiles.py `
-  --input "..\..\backend\projects\escolas_particulares_es\data\frontend_exports\escolas_particulares_es_georef.geojson" `
-  --output-dir "public\data\schools\particulares" `
-  --layer-id "particulares" `
-  --label "E. Particulares" `
-  --color "#f59e0b"
-```
-
-## Arquitetura de desempenho
-
-- `public/data/schools/<camada>/index.json`: manifesto leve da camada
-- `public/data/schools/<camada>/tiles/...`: tiles estaticos com clusters precomputados e pontos slim
-- `public/data/schools/<camada>/details/<municipio>.json`: detalhes por municipio, carregados so no clique
-- o mapa carrega apenas tiles do viewport atual e descarta tiles fora da tela
+- `tests/scripts/`
+- `tests/docs/`
+- `tests/logs/`
 
 ## Atualizacao da densidade populacional
 

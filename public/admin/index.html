@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#13384e" />
+    <title>Painel das Escolas do ES</title>
+    <meta
+      name="description"
+      content="Painel administrativo para consultar e editar a base unica das escolas do Espirito Santo."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Source+Sans+3:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/css/admin.css?v=20260415-notes-popover" />
+  </head>
+  <body>
+    <div class="admin-shell">
+      <header class="admin-header">
+        <div class="admin-header__title">
+          <p class="admin-header__eyebrow">Backend local</p>
+          <h1>Planilha das Escolas do ES</h1>
+          <p id="admin-mode-copy">
+            Carregando o modo de administracao...
+          </p>
+        </div>
+        <div class="admin-header__actions">
+          <a class="ghost-link" href="../" target="_blank" rel="noreferrer">Abrir mapa</a>
+          <button class="ghost-link" id="refresh-button" type="button">
+            Atualizar lista
+          </button>
+        </div>
+      </header>
+
+      <div class="status-banner" id="status-banner">
+        Preparando a conexao com a API...
+      </div>
+
+      <main class="admin-main">
+        <section class="admin-sheet-panel" aria-label="Planilha de escolas">
+          <div class="admin-toolbar">
+            <label class="field field--search">
+              <span>Busca</span>
+              <input
+                id="search-input"
+                type="search"
+                placeholder="Nome, municipio ou codigo INEP"
+              />
+            </label>
+            <label class="field">
+              <span>Rede</span>
+              <select id="network-filter">
+                <option value="">Todas</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>Municipio</span>
+              <select id="municipio-filter">
+                <option value="">Todos</option>
+              </select>
+            </label>
+            <button class="primary-button" id="new-school-button" type="button">
+              Nova escola
+            </button>
+          </div>
+
+          <div class="browser-summary">
+            <strong id="result-count">0 escolas</strong>
+            <span id="result-range">Nenhum resultado carregado.</span>
+          </div>
+
+          <div class="school-sheet" aria-label="Planilha de escolas">
+            <table class="school-table">
+              <thead>
+                <tr>
+                  <th scope="col">Nome da escola</th>
+                  <th scope="col">Acoes</th>
+                  <th scope="col">Rede administrativa</th>
+                  <th scope="col">Codigo INEP</th>
+                  <th scope="col">Nome original</th>
+                  <th scope="col">Municipio</th>
+                  <th scope="col">UF</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Endereco</th>
+                  <th scope="col">Numero</th>
+                  <th scope="col">Complemento</th>
+                  <th scope="col">Bairro</th>
+                  <th scope="col">CEP</th>
+                  <th scope="col">Latitude</th>
+                  <th scope="col">Longitude</th>
+                  <th scope="col">Shard</th>
+                  <th scope="col">Professores</th>
+                  <th scope="col">Alunos</th>
+                  <th scope="col">Classificacao</th>
+                  <th scope="col">Tipo de exibicao</th>
+                  <th scope="col">Instituicao</th>
+                  <th scope="col">Sigla</th>
+                  <th scope="col">Telefone</th>
+                  <th scope="col">E-mail</th>
+                  <th scope="col">Fonte georef</th>
+                  <th scope="col">Estimativa professores</th>
+                  <th scope="col">Estimativa alunos</th>
+                  <th scope="col">Obs. estimativa</th>
+                  <th scope="col">Notas</th>
+                </tr>
+              </thead>
+              <tbody id="school-table-body"></tbody>
+            </table>
+          </div>
+
+          <div class="sheet-scrollbar" id="sheet-scrollbar" aria-hidden="true">
+            <div class="sheet-scrollbar__fill" id="sheet-scrollbar-fill"></div>
+          </div>
+
+          <div class="pager">
+            <button id="prev-page-button" type="button">Pagina anterior</button>
+            <button id="next-page-button" type="button">Proxima pagina</button>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script defer src="../assets/js/admin.js?v=20260415-notes-popover"></script>
+  </body>
+</html>

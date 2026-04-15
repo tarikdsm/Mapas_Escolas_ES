@@ -5,4 +5,4 @@ tmp_*.html
 .cache/
 __pycache__/
 *.pyc
-
+backend/data/*.sqlite3

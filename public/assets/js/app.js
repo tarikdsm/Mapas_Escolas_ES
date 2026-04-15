@@ -2,6 +2,8 @@
   "use strict";
 
   var CONFIG_PATH = "data/config/app-config.json";
+  var API_CONFIG_PATH = "/api/config";
+  var API_META_PATH = "/api/meta";
   var LAYER_SYMBOLS = {
     municipais:
       '<path fill="#ffffff" d="M24 13 13 18v2h2.6V31H13v3h22v-3h-2.6V20H35v-2L24 13Zm-6 7.2h2.3V31H18V20.2Zm4.9 0h2.3V31h-2.3V20.2Zm4.9 0H30V31h-2.2V20.2Z"/>',
@@ -54,6 +56,33 @@
         reject(new Error("Falha ao carregar " + path));
       };
       request.send();
+    });
+  }
+
+  function ensureRuntimeConfig(config) {
+    var runtime = config && config.runtime ? config.runtime : {};
+    config.runtime = {
+      apiEnabled: Boolean(runtime.apiEnabled),
+      dataVersion: cleanOptionalText(runtime.dataVersion),
+      adminUrl: cleanOptionalText(runtime.adminUrl) || "admin/",
+      frontendUrl: cleanOptionalText(runtime.frontendUrl) || "./",
+      apiBaseUrl: cleanOptionalText(runtime.apiBaseUrl),
+      metaPath: cleanOptionalText(runtime.metaPath) || API_META_PATH,
+    };
+    return config;
+  }
+
+  function loadConfig() {
+    return fetchJson(API_CONFIG_PATH)
+      .then(ensureRuntimeConfig)
+      .catch(function () {
+        return fetchJson(CONFIG_PATH).then(ensureRuntimeConfig);
+      });
+  }
+
+  function applyRuntimeLinks(config) {
+    Array.prototype.slice.call(document.querySelectorAll("[data-admin-link]")).forEach(function (link) {
+      link.setAttribute("href", config.runtime.adminUrl || "admin/");
     });
   }
 
@@ -1758,6 +1787,15 @@
     }
 
     if (options.enabled) {
+      if (options.forceReload && options.appState.loadedSchoolLayers[options.layerId]) {
+        if (typeof options.appState.loadedSchoolLayers[options.layerId].detach === "function") {
+          options.appState.loadedSchoolLayers[options.layerId].detach();
+        } else if (options.map.hasLayer(options.appState.loadedSchoolLayers[options.layerId].layer)) {
+          options.map.removeLayer(options.appState.loadedSchoolLayers[options.layerId].layer);
+        }
+        delete options.appState.loadedSchoolLayers[options.layerId];
+      }
+
       if (options.appState.loadedSchoolLayers[options.layerId]) {
         var loadedInstance = options.appState.loadedSchoolLayers[options.layerId];
         if (typeof loadedInstance.setTeacherThreshold === "function") {
@@ -1850,8 +1888,68 @@
     return Promise.resolve();
   }
 
+  function reloadActiveSchoolLayers(map, appState, config) {
+    var activeLayerIds = getActiveSchoolLayerIds(appState).slice();
+
+    if (!activeLayerIds.length) {
+      refreshSummary(appState, config);
+      return Promise.resolve();
+    }
+
+    return activeLayerIds.reduce(function (chain, layerId) {
+      return chain.then(function () {
+        return toggleSchoolLayer({
+          map: map,
+          appState: appState,
+          config: config,
+          layerId: layerId,
+          enabled: true,
+          forceReload: true,
+        });
+      });
+    }, Promise.resolve());
+  }
+
+  function startDataVersionPolling(map, appState, config) {
+    var currentVersion = config.runtime && config.runtime.dataVersion;
+    var metaPath = (config.runtime && config.runtime.metaPath) || API_META_PATH;
+    var requestInFlight = false;
+
+    if (!config.runtime || !config.runtime.apiEnabled) {
+      return;
+    }
+
+    window.setInterval(function () {
+      if (requestInFlight || document.visibilityState === "hidden") {
+        return;
+      }
+
+      requestInFlight = true;
+      fetchJson(metaPath)
+        .then(function (meta) {
+          var nextVersion = cleanOptionalText(meta && meta.dataVersion);
+
+          if (!nextVersion || nextVersion === currentVersion) {
+            return;
+          }
+
+          currentVersion = nextVersion;
+          config.runtime.dataVersion = nextVersion;
+          setStatus("Atualizando dados do mapa...");
+          return reloadActiveSchoolLayers(map, appState, config).then(function () {
+            refreshSummary(appState, config);
+            setStatus("Mapa atualizado com a base mais recente.");
+          });
+        })
+        .catch(function () {})
+        .then(function () {
+          requestInFlight = false;
+        });
+    }, 15000);
+  }
+
   function bootstrap() {
-    fetchJson(CONFIG_PATH)
+    loadConfig()
       .then(function (config) {
         var map = createMap(config);
         var sidebar = document.getElementById("sidebar");
@@ -1865,6 +1963,7 @@
           teacherFilterMin: 0,
         };
 
+        applyRuntimeLinks(config);
         attachPanelToggle(panelToggle, sidebar, map);
         renderLayerControls(document.getElementById("layer-controls"), config);
 
@@ -2003,6 +2102,7 @@
             return Promise.resolve();
           })
           .then(function () {
+            startDataVersionPolling(map, appState, config);
             setStatus("Mapa pronto.");
           })
           .catch(function (error) {

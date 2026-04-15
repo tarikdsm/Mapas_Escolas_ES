@@ -2,14 +2,16 @@
 
 ## Visao geral
 
-O frontend agora consome diretamente quatro arquivos padronizados para as escolas:
+Agora existe uma base unica no backend local.
+
+O frontend continua consumindo quatro datasets padronizados por rede:
 
 - `public/data/schools/e_estaduais.json`
 - `public/data/schools/e_municipais.json`
 - `public/data/schools/e_federais.json`
 - `public/data/schools/e_privadas.json`
 
-As bases originais do backend continuam intactas. O frontend usa apenas esses quatro arquivos para plotar os pontos no mapa e preencher o card/popup das escolas.
+Localmente, o mapa pode ler os dados pela API. Para GitHub Pages, o backend regrava esses quatro arquivos estaticos sempre que uma escola e salva ou excluida no painel administrativo.
 
 ## Contrato padronizado
 
@@ -26,16 +28,34 @@ Cada registro escolar possui somente estes campos:
 - `Numero_professores`
 - `Numero_alunos`
 
-## Fontes do backend
+## Fonte unica atual
 
-Os quatro arquivos sao gerados a partir destes GeoJSONs do backend:
+O backend local importa os snapshots `public/data/schools/e_*.json` para um SQLite unico em:
 
-- `..\..\backend\projects\escolas_estaduais_es\data\frontend_exports\escolas_estaduais_es_georef.geojson`
-- `..\..\backend\projects\escolas_municipais_es\data\frontend_exports\escolas_municipais_es_georef.geojson`
-- `..\..\backend\projects\escolas_federais_es\data\frontend_exports\escolas_federais_es_georef.geojson`
-- `..\..\backend\projects\escolas_particulares_es\data\frontend_exports\escolas_particulares_es_georef.geojson`
+- `backend/data/schools.sqlite3`
 
-## Como regenerar
+As escolas continuam identificando a rede em `network_type`, com os valores:
+
+- `municipais`
+- `estaduais`
+- `federais`
+- `privadas`
+
+## Como atualizar pela interface
+
+1. Rode `python3 backend/server.py`.
+2. Abra `http://127.0.0.1:8765/admin/`.
+3. Crie, altere ou exclua escolas.
+4. O backend atualiza o banco e regrava:
+
+- `public/data/schools/e_estaduais.json`
+- `public/data/schools/e_municipais.json`
+- `public/data/schools/e_federais.json`
+- `public/data/schools/e_privadas.json`
+
+## Como regenerar manualmente
+
+O script legado continua disponivel para regeneracao manual a partir dos GeoJSONs externos:
 
 ```powershell
 python .\scripts\build_standardized_school_data.py
@@ -67,7 +87,8 @@ python .\scripts\build_state_boundary.py `
 
 ## Checklist
 
-1. Rodar `python .\scripts\build_standardized_school_data.py`.
-2. Conferir se os quatro arquivos `e_*.json` foram atualizados.
-3. Validar `public/data/config/app-config.json`.
-4. Abrir `public/index.html` e testar as camadas no mapa.
+1. Rodar `python3 backend/server.py`.
+2. Validar o mapa em `http://127.0.0.1:8765/`.
+3. Validar o painel em `http://127.0.0.1:8765/admin/`.
+4. Confirmar se os quatro arquivos `e_*.json` refletem a mudanca.
+5. Fazer commit das alteracoes quando quiser publicar no Pages.
