@@ -1,3 +1,15 @@
 {
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "files.exclude": {
+        "**/backend/data": true,
+        "**/tests/logs/latest-test-run.log": true
+    },
+    "search.exclude": {
+        "**/backend/data": true,
+        "**/tests/logs/latest-test-run.log": true
+    },
+    "files.watcherExclude": {
+        "**/backend/data/**": true,
+        "**/tests/logs/latest-test-run.log": true
+    }
 }
