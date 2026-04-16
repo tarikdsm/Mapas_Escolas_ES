@@ -22,9 +22,11 @@ Arquivo-chave:
 ## Como funciona
 
 1. Push em `main`.
-2. O workflow faz checkout do repositorio do frontend.
-3. O artefato enviado ao Pages e apenas `public/`.
-4. O GitHub Pages publica o site.
+2. O workflow executa `python tests/scripts/run_tests.py`.
+3. So com a suite verde o job de deploy continua.
+4. O workflow faz checkout do repositorio do frontend.
+5. O artefato enviado ao Pages e apenas `public/`.
+6. O GitHub Pages publica o site.
 
 ## Primeiro deploy
 
@@ -39,6 +41,7 @@ Se o Pages ainda nao estiver habilitado:
 - scripts, docs, banco e backend permanecem no repositorio
 - `public/` sobe com o mapa e o painel estatico
 - o Pages nao permite escrita no banco nem CRUD real
+- teste falhando bloqueia o deploy
 
 ## Fluxo recomendado para publicar dados atualizados
 

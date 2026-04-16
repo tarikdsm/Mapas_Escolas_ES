@@ -1,6 +1,6 @@
 [
   {
-    "Nome_escola": "CAEE FRANCISCO ARCON APAE",
+    "Nome_escola": "CAEE FRANCISCO ARCON-APAE",
     "Endereco": "RUA ENILA PINHEIRO DE SOUZA, 48, CENTRO",
     "Municipio": "Alegre",
     "CEP": "29500-000",
@@ -36,7 +36,7 @@
     "Numero_alunos": 62
   },
   {
-    "Nome_escola": "COOPERATIVA EDUCACIONAL SUL CAPIXABA COLEGIO INOVADOR",
+    "Nome_escola": "COOPERATIVA EDUCACIONAL SUL CAPIXABA - COLEGIO INOVADOR",
     "Endereco": "RUA MISAEL BARCELOS, 54",
     "Municipio": "Alegre",
     "CEP": "29500-000",
@@ -60,7 +60,7 @@
     "Numero_alunos": 243
   },
   {
-    "Nome_escola": "CAEE BEIJINHO DOCE PESTALOZZI",
+    "Nome_escola": "CAEE BEIJINHO DOCE- PESTALOZZI",
     "Endereco": "ALAMEDA JOSE SEME, 140",
     "Municipio": "Alfredo Chaves",
     "CEP": "29240-000",
@@ -72,7 +72,7 @@
     "Numero_alunos": 0
   },
   {
-    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE ALFREDO CHAVES MEPES",
+    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE ALFREDO CHAVES - MEPES",
     "Endereco": "RUA PADRE HUMBERTO PIETROGRANDE, SN",
     "Municipio": "Alfredo Chaves",
     "CEP": "29240-000",
@@ -84,7 +84,7 @@
     "Numero_alunos": 113
   },
   {
-    "Nome_escola": "CAEE ANCHIETA PESTALOZZI",
+    "Nome_escola": "CAEE - ANCHIETA - PESTALOZZI",
     "Endereco": "RUA DAS GABIROBAS, S/N",
     "Municipio": "Anchieta",
     "CEP": "29230-000",
@@ -96,7 +96,7 @@
     "Numero_alunos": 0
   },
   {
-    "Nome_escola": "CENTRO DE EDUCACAO INFANTIL FRANCISCO GIUSTI MEPES",
+    "Nome_escola": "CENTRO DE EDUCACAO INFANTIL FRANCISCO GIUSTI - MEPES",
     "Endereco": "RUA JOAQUIM PEREIRA DA SILVA, SN, ESCOLA",
     "Municipio": "Anchieta",
     "CEP": "29230-000",
@@ -108,7 +108,7 @@
     "Numero_alunos": 169
   },
   {
-    "Nome_escola": "CENTRO DE EDUCACAO INFANTIL PINGO DE GENTE MEPES",
+    "Nome_escola": "CENTRO DE EDUCACAO INFANTIL PINGO DE GENTE - MEPES",
     "Endereco": "RUA PROFESSOR RUI LORA, 160",
     "Municipio": "Anchieta",
     "CEP": "29230-000",
@@ -120,7 +120,7 @@
     "Numero_alunos": 16
   },
   {
-    "Nome_escola": "CENTRO DE EDUCACAO INFANTIL XODO DAS TITIAS MEPES",
+    "Nome_escola": "CENTRO DE EDUCACAO INFANTIL XODO DAS TITIAS - MEPES",
     "Endereco": "RUA BEIRA CAMPO, SN, ZONA RURAL",
     "Municipio": "Anchieta",
     "CEP": "29230-000",
@@ -132,7 +132,7 @@
     "Numero_alunos": 24
   },
   {
-    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE OLIVANIA MEPES",
+    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE OLIVANIA - MEPES",
     "Endereco": "RUA PROJETADA, SN, ZONA RURAL",
     "Municipio": "Anchieta",
     "CEP": "29230-000",
@@ -144,7 +144,7 @@
     "Numero_alunos": 211
   },
   {
-    "Nome_escola": "ESCOLA FAMILIA TURISMO PIETROGRANDE MEPES",
+    "Nome_escola": "ESCOLA FAMILIA TURISMO PIETROGRANDE - MEPES",
     "Endereco": "RUA COSTA PEREIRA, 131",
     "Municipio": "Anchieta",
     "CEP": "29230-000",
@@ -156,7 +156,7 @@
     "Numero_alunos": 37
   },
   {
-    "Nome_escola": "CAEE NOSSO LAR APAE",
+    "Nome_escola": "CAEE- NOSSO LAR APAE",
     "Endereco": "EPHIFANIO PONTIN, 200, POLIVALENTE",
     "Municipio": "Aracruz",
     "CEP": "29190-476",
@@ -192,7 +192,7 @@
     "Numero_alunos": 908
   },
   {
-    "Nome_escola": "CENTRO EDUCACIONAL COLIBRI LTDA ME",
+    "Nome_escola": "CENTRO EDUCACIONAL COLIBRI LTDA - ME",
     "Endereco": "LAGOA DA TAPERA, 04, ESCOLA, COQUEIRAL",
     "Municipio": "Aracruz",
     "CEP": "29199-191",
@@ -216,7 +216,7 @@
     "Numero_alunos": 403
   },
   {
-    "Nome_escola": "CENTRO EDUCACIONAL PENSAR LTDA ME",
+    "Nome_escola": "CENTRO EDUCACIONAL PENSAR LTDA - ME",
     "Endereco": "LUIZ MUSSO, 240, VILA NOVA",
     "Municipio": "Aracruz",
     "CEP": "29194-509",
@@ -312,7 +312,7 @@
     "Numero_alunos": 492
   },
   {
-    "Nome_escola": "SENAI ES CENTRO DE EDUCACAO PROFISSIONAL SERGIO ROGERIO DE CASTRO",
+    "Nome_escola": "SENAI ES - CENTRO DE EDUCACAO PROFISSIONAL SERGIO ROGERIO DE CASTRO",
     "Endereco": "EPHIFANIO PONTIN, 985B, VILA NOVA",
     "Municipio": "Aracruz",
     "CEP": "29194-611",
@@ -324,7 +324,7 @@
     "Numero_alunos": 82
   },
   {
-    "Nome_escola": "SESC CENTRO EDUCACIONAL PARA A VIDA",
+    "Nome_escola": "SESC - CENTRO EDUCACIONAL PARA A VIDA",
     "Endereco": "PROFESSOR LOBO, 650, CENTRO",
     "Municipio": "Aracruz",
     "CEP": "29190-062",
@@ -336,7 +336,7 @@
     "Numero_alunos": 499
   },
   {
-    "Nome_escola": "SESI ES CENTRO DE ATIVIDADES SERGIO ROGERIO DE CASTRO",
+    "Nome_escola": "SESI ES - CENTRO DE ATIVIDADES SERGIO ROGERIO DE CASTRO",
     "Endereco": "EPHIFANIO PONTIN, 985B, VILA NOVA",
     "Municipio": "Aracruz",
     "CEP": "29194-611",
@@ -348,7 +348,7 @@
     "Numero_alunos": 423
   },
   {
-    "Nome_escola": "CAEE ALDACYR DA SILVA CANDIDO LEAL PESTALOZZI",
+    "Nome_escola": "CAEE ALDACYR DA SILVA CANDIDO LEAL - PESTALOZZI",
     "Endereco": "RUA PROJETADA, S/Nº, PREDIO ESCOLAR",
     "Municipio": "Atílio Vivácqua",
     "CEP": "29490-000",
@@ -360,7 +360,7 @@
     "Numero_alunos": 0
   },
   {
-    "Nome_escola": "CAEE ALEGRIA DE VIVER APAE",
+    "Nome_escola": "CAEE ALEGRIA DE VIVER- APAE",
     "Endereco": "AVENIDA SANTA TEREZINHA, 107",
     "Municipio": "Baixo Guandu",
     "CEP": "29730-000",
@@ -372,7 +372,7 @@
     "Numero_alunos": 0
   },
   {
-    "Nome_escola": "CENTRO EDUCACIONAL 1A OPCAO SONHO MEU",
+    "Nome_escola": "CENTRO EDUCACIONAL 1ª OPCAO SONHO MEU",
     "Endereco": "AVENIDA CARLOS DE MEDEIROS, 108",
     "Municipio": "Baixo Guandu",
     "CEP": "29730-000",
@@ -408,7 +408,7 @@
     "Numero_alunos": 285
   },
   {
-    "Nome_escola": "CAEE DR PEDRO TALLIS CRUZ PAES APAE",
+    "Nome_escola": "CAEE DR PEDRO TALLIS CRUZ PAES - APAE",
     "Endereco": "RUA VEREADOR TITO VALDEMAR VIEIRA, 550",
     "Municipio": "Barra de São Francisco",
     "CEP": "29800-000",
@@ -456,7 +456,7 @@
     "Numero_alunos": 48
   },
   {
-    "Nome_escola": "ESCOLA FAMILIA AGRICOLA JACYRA DE PAULA MINIGUITE MEPES",
+    "Nome_escola": "ESCOLA FAMILIA AGRICOLA JACYRA DE PAULA MINIGUITE - MEPES",
     "Endereco": "RODOVIA BARRA DE SAO FRANCISCO X ECOPORANGA, SN, CORREGO DO RECREIO",
     "Municipio": "Barra de São Francisco",
     "CEP": "29800-000",
@@ -468,7 +468,7 @@
     "Numero_alunos": 274
   },
   {
-    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE ENSINO MEDIO E EDUCACAO PROFISSIONAL DE BOA ESPERANCA MEPES",
+    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE ENSINO MEDIO E EDUCACAO PROFISSIONAL DE BOA ESPERANCA - MEPES",
     "Endereco": "ESTRADA DO CAMPO, SN, ZONA RURAL",
     "Municipio": "Boa Esperança",
     "CEP": "29845-000",
@@ -504,7 +504,7 @@
     "Numero_alunos": 93
   },
   {
-    "Nome_escola": "CAEE DR GILSON CARONE APAE",
+    "Nome_escola": "CAEE DR GILSON CARONE - APAE",
     "Endereco": "JOAO SASSO, 702 A 748, SÃO GERALDO",
     "Municipio": "Cachoeiro de Itapemirim",
     "CEP": "29314-650",
@@ -528,7 +528,7 @@
     "Numero_alunos": 798
   },
   {
-    "Nome_escola": "CE SAO CAMILO ICE",
+    "Nome_escola": "CE SAO CAMILO - ICE",
     "Endereco": "SAO CAMILO DE LELLIS, 01, BLOCO I, PARAÍSO",
     "Municipio": "Cachoeiro de Itapemirim",
     "CEP": "29304-315",
@@ -552,7 +552,7 @@
     "Numero_alunos": 1218
   },
   {
-    "Nome_escola": "CENTRO UNIVERSITARIO SAO CAMILO ESPIRITO SANTO",
+    "Nome_escola": "CENTRO UNIVERSITÁRIO SÃO CAMILO - ESPÍRITO SANTO",
     "Endereco": "Rua São Camilo de Lellis, 01, Paraiso",
     "Municipio": "Cachoeiro de Itapemirim",
     "CEP": "29304-910",
@@ -624,7 +624,7 @@
     "Numero_alunos": 422
   },
   {
-    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE CACHOEIRO DE ITAPEMIRIM MEPES",
+    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE CACHOEIRO DE ITAPEMIRIM - MEPES",
     "Endereco": "RODOVIA JOAO DOMINGO ZAGO, SN, KM 25",
     "Municipio": "Cachoeiro de Itapemirim",
     "CEP": "29323-000",
@@ -660,7 +660,7 @@
     "Numero_alunos": 197
   },
   {
-    "Nome_escola": "ESCOLA PARA A VIDA PROFESSORA MARIA STELLA DE NOVAES SESC CACI",
+    "Nome_escola": "ESCOLA PARA A VIDA PROFESSORA MARIA STELLA DE NOVAES SESC - CACI",
     "Endereco": "JOANNA PAYER, 101, AEROPORTO",
     "Municipio": "Cachoeiro de Itapemirim",
     "CEP": "29314-106",
@@ -672,7 +672,7 @@
     "Numero_alunos": 525
   },
   {
-    "Nome_escola": "FACULDADE AMERICA",
+    "Nome_escola": "Faculdade América",
     "Endereco": "Rodovia Engenheiro Fabiano Vivacqua, 165, Cachoeiro de Itapemirim, Marbrasa",
     "Municipio": "Cachoeiro de Itapemirim",
     "CEP": "29313-656",
@@ -732,7 +732,7 @@
     "Numero_alunos": 32
   },
   {
-    "Nome_escola": "FACULDADE MULTIVIX DE CACHOEIRO",
+    "Nome_escola": "Faculdade Multivix de Cachoeiro",
     "Endereco": "Rodovia Engenheiro Fabiano Vivacqua, 2531, Cachoeiro de Itapemirim, Monte Belo",
     "Municipio": "Cachoeiro de Itapemirim",
     "CEP": "29314-803",
@@ -756,7 +756,7 @@
     "Numero_alunos": 476
   },
   {
-    "Nome_escola": "IPES ESCOLA DE SAUDE",
+    "Nome_escola": "IPES - ESCOLA DE SAUDE",
     "Endereco": "MANOEL FONSECA, 15, PREDIO, FERROVIÁRIOS",
     "Municipio": "Cachoeiro de Itapemirim",
     "CEP": "29308-010",
@@ -780,7 +780,7 @@
     "Numero_alunos": 146
   },
   {
-    "Nome_escola": "SENAI ES CENTRO DE EDUCACAO PROFISSIONAL AUREO VIANNA MAMERI",
+    "Nome_escola": "SENAI ES - CENTRO DE EDUCACAO PROFISSIONAL AUREO VIANNA MAMERI",
     "Endereco": "JONES DOS SANTOS NEVES, 975, ALTO MONTE CRISTO",
     "Municipio": "Cachoeiro de Itapemirim",
     "CEP": "29312-535",
@@ -792,7 +792,7 @@
     "Numero_alunos": 110
   },
   {
-    "Nome_escola": "UP TO DATE INSTITUTO DE ENSINO MULTILINGUE LTDA EPP",
+    "Nome_escola": "UP TO DATE INSTITUTO DE ENSINO MULTILINGUE LTDA - EPP",
     "Endereco": "RUA AMELIA MOLINAROLLI GIRO, 57, EM FRENTE A PIZZARIA, SAO GERALDO",
     "Municipio": "Cachoeiro de Itapemirim",
     "CEP": "29314-673",
@@ -804,7 +804,7 @@
     "Numero_alunos": 211
   },
   {
-    "Nome_escola": "CAEE PADRE GABRIEL MAIRE APAE CARIACICA",
+    "Nome_escola": "CAEE PADRE GABRIEL MAIRE APAE-CARIACICA",
     "Endereco": "RUA CARLOS ROGERIO JESUS GOMES, 163, MORADA DE SANTA FE",
     "Municipio": "Cariacica",
     "CEP": "29143-738",
@@ -1212,7 +1212,7 @@
     "Numero_alunos": 533
   },
   {
-    "Nome_escola": "FACULDADE DE CIENCIAS BIOMEDICAS DO ESPIRITO SANTO",
+    "Nome_escola": "FACULDADE DE CIÊNCIAS BIOMÉDICAS DO ESPÍRITO SANTO",
     "Endereco": "Rua Bolívar de Abreu, 48, Campo Grande",
     "Municipio": "Cariacica",
     "CEP": "29146-330",
@@ -1224,7 +1224,7 @@
     "Numero_alunos": 68
   },
   {
-    "Nome_escola": "FACULDADE DE ESTUDOS SOCIAIS DO ESPIRITO SANTO",
+    "Nome_escola": "FACULDADE DE ESTUDOS SOCIAIS DO ESPÍRITO SANTO",
     "Endereco": "Rua Bolivar de Abreu, 48, Campo Grande",
     "Municipio": "Cariacica",
     "CEP": "29146-330",
@@ -1236,7 +1236,7 @@
     "Numero_alunos": 201
   },
   {
-    "Nome_escola": "FACULDADE ESPIRITO SANTENSE",
+    "Nome_escola": "FACULDADE ESPÍRITO SANTENSE",
     "Endereco": "Rua São Jorge, 2, Alto Laje",
     "Municipio": "Cariacica",
     "CEP": "29151-120",
@@ -1248,7 +1248,7 @@
     "Numero_alunos": 107
   },
   {
-    "Nome_escola": "FACULDADE ESPIRITO SANTENSE DE CIENCIAS JURIDICAS",
+    "Nome_escola": "FACULDADE ESPÍRITO SANTENSE DE CIÊNCIAS JURÍDICAS",
     "Endereco": "Rua Bolívar de Abreu, 48, Campo Grande",
     "Municipio": "Cariacica",
     "CEP": "29146-330",
@@ -1260,7 +1260,7 @@
     "Numero_alunos": 110
   },
   {
-    "Nome_escola": "FACULDADE EUROPEIA DE VITORIA",
+    "Nome_escola": "FACULDADE EUROPÉIA DE VITÓRIA",
     "Endereco": "Rua Adélia Pereira de Souza, 06, ITACIBÁ",
     "Municipio": "Cariacica",
     "CEP": "29150-310",
@@ -1272,7 +1272,7 @@
     "Numero_alunos": 44
   },
   {
-    "Nome_escola": "FACULDADE MULTIVIX CARIACICA",
+    "Nome_escola": "Faculdade Multivix Cariacica",
     "Endereco": "Rua 13 de Maio, 40, São Geraldo",
     "Municipio": "Cariacica",
     "CEP": "29146-672",
@@ -1296,7 +1296,7 @@
     "Numero_alunos": 650
   },
   {
-    "Nome_escola": "SEST SENAT A 12 CARIACICA",
+    "Nome_escola": "SEST SENAT A 12 - CARIACICA",
     "Endereco": "RIO CLARO, S/Nº, KM 0,5, ITAQUARI",
     "Municipio": "Cariacica",
     "CEP": "29151-315",
@@ -1344,7 +1344,7 @@
     "Numero_alunos": 507
   },
   {
-    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE CASTELO MEPES",
+    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE CASTELO - MEPES",
     "Endereco": "ESTRADA DO CAMPO, SN, ARACUI",
     "Municipio": "Castelo",
     "CEP": "29360-000",
@@ -1356,7 +1356,7 @@
     "Numero_alunos": 121
   },
   {
-    "Nome_escola": "FACULDADE DE CASTELO MULTIVIX CASTELO",
+    "Nome_escola": "Faculdade de Castelo - Multivix Castelo",
     "Endereco": "Avenida Nicanor Marques, 245, Centro",
     "Municipio": "Castelo",
     "CEP": "29360-000",
@@ -1368,7 +1368,7 @@
     "Numero_alunos": 110
   },
   {
-    "Nome_escola": "CAEE ANGELA DE BRIENZA APAE",
+    "Nome_escola": "CAEE ANGELA DE BRIENZA - APAE",
     "Endereco": "BENJAMIM COSTA, 96, MARISTA",
     "Municipio": "Colatina",
     "CEP": "29707-130",
@@ -1440,7 +1440,7 @@
     "Numero_alunos": 391
   },
   {
-    "Nome_escola": "CENTRO UNIVERSITARIO CASTELO BRANCO",
+    "Nome_escola": "CENTRO UNIVERSITÁRIO CASTELO BRANCO",
     "Endereco": "Avenida Brasil, 1303, Maria das Graças",
     "Municipio": "Colatina",
     "CEP": "29705-100",
@@ -1452,7 +1452,7 @@
     "Numero_alunos": 481
   },
   {
-    "Nome_escola": "CENTRO UNIVERSITARIO DO ESPIRITO SANTO UNESC COLATINA",
+    "Nome_escola": "CENTRO UNIVERSITÁRIO DO ESPÍRITO SANTO UNESC",
     "Endereco": "Avenida Fioravante Rossi, 2930, Martinelli",
     "Municipio": "Colatina",
     "CEP": "29703-858",
@@ -1524,7 +1524,7 @@
     "Numero_alunos": 130
   },
   {
-    "Nome_escola": "ESCOLA TECNICA NOROESTE CAPIXABA LTDA CEDTEC",
+    "Nome_escola": "ESCOLA TECNICA NOROESTE CAPIXABA LTDA - CEDTEC",
     "Endereco": "JOSE ZOUAIN, 439, 1º ANDAR, CENTRO",
     "Municipio": "Colatina",
     "CEP": "29700-020",
@@ -1548,7 +1548,7 @@
     "Numero_alunos": 119
   },
   {
-    "Nome_escola": "SENAI ES CENTRO DE EDUCACAO PROFISSIONAL ALBANO FRANCO",
+    "Nome_escola": "SENAI ES - CENTRO DE EDUCACAO PROFISSIONAL ALBANO FRANCO",
     "Endereco": "DO CAFE GETHER LOPES DE FARIAS, 175, MORADA DO SOL",
     "Municipio": "Colatina",
     "CEP": "29704-885",
@@ -1560,7 +1560,7 @@
     "Numero_alunos": 123
   },
   {
-    "Nome_escola": "CAEE ESPERANCA PESTALOZZI",
+    "Nome_escola": "CAEE ESPERANCA - PESTALOZZI",
     "Endereco": "RUA ESPERANCA, S/N",
     "Municipio": "Conceição da Barra",
     "CEP": "29960-000",
@@ -1572,7 +1572,7 @@
     "Numero_alunos": 0
   },
   {
-    "Nome_escola": "CAEE MENINO JESUS PESTALOZZI",
+    "Nome_escola": "CAEE MENINO JESUS -PESTALOZZI",
     "Endereco": "RUA MARIA GOMES DE AGUIAR, SN",
     "Municipio": "Divino de São Lourenço",
     "CEP": "29590-000",
@@ -1584,7 +1584,7 @@
     "Numero_alunos": 0
   },
   {
-    "Nome_escola": "CAEE ROSA DE SARON PESTALOZZI",
+    "Nome_escola": "CAEE ROSA DE SARON - PESTALOZZI",
     "Endereco": "RUA CANDIDO MIGUEL DE SOUZA, 54, PREDIO",
     "Municipio": "Ecoporanga",
     "CEP": "29850-000",
@@ -1620,7 +1620,7 @@
     "Numero_alunos": 113
   },
   {
-    "Nome_escola": "CAEE IRENE SUELA PRANDO APAE",
+    "Nome_escola": "CAEE IRENE SUELA PRANDO -APAE",
     "Endereco": "RODOVIA DARIO SALVADOR - CORREGO QUINZE DE NOVEMBRO, 3744 5194",
     "Municipio": "Governador Lindenberg",
     "CEP": "29720-000",
@@ -1632,7 +1632,7 @@
     "Numero_alunos": 0
   },
   {
-    "Nome_escola": "CAEE JANDIRA MARIA FERREIRA ALVES APAE",
+    "Nome_escola": "CAEE JANDIRA MARIA FERREIRA ALVES - APAE",
     "Endereco": "VEREADOR JORGE SIMOES, 10, ITAPEBUSSU",
     "Municipio": "Guarapari",
     "CEP": "29210-155",
@@ -1644,7 +1644,7 @@
     "Numero_alunos": 0
   },
   {
-    "Nome_escola": "CAEE PEIXINHO DOURADO PESTALOZZI",
+    "Nome_escola": "CAEE PEIXINHO DOURADO - PESTALOZZI",
     "Endereco": "PARANA, 25, JARDIM BOA VISTA",
     "Municipio": "Guarapari",
     "CEP": "29217-030",
@@ -1692,7 +1692,7 @@
     "Numero_alunos": 13
   },
   {
-    "Nome_escola": "CEDTEC ENSINO E SOLUCOES DIDATICAS LTDA",
+    "Nome_escola": "CEDTEC - ENSINO E SOLUCOES DIDATICAS LTDA",
     "Endereco": "JOSIAS CERUTTI, 375, PREDIO VERDE, PRAIA DO MORRO",
     "Municipio": "Guarapari",
     "CEP": "29216-600",
@@ -1716,7 +1716,7 @@
     "Numero_alunos": 42
   },
   {
-    "Nome_escola": "ESCOLA AMERICANO DOCTUM DE GUARAPARI UNIDADE I",
+    "Nome_escola": "ESCOLA AMERICANO DOCTUM DE GUARAPARI - UNIDADE I",
     "Endereco": "ERNESTINA VIEIRA SIMOES, 218, COMUNIDADE URBANA DE MAXINDA",
     "Municipio": "Guarapari",
     "CEP": "29202-020",
@@ -1812,7 +1812,7 @@
     "Numero_alunos": 1012
   },
   {
-    "Nome_escola": "FACULDADE DE COMUNICACAO ANHANGUERA UNIDADE GUARAPARI",
+    "Nome_escola": "FACULDADE DE COMUNICAÇÃO ANHANGUERA UNIDADE GUARAPARI",
     "Endereco": "Rodovia Jones dos Santos Neves, 1000, Lagoa Funda",
     "Municipio": "Guarapari",
     "CEP": "29214-005",
@@ -1836,7 +1836,7 @@
     "Numero_alunos": 339
   },
   {
-    "Nome_escola": "FACULDADES DOCTUM DE GUARAPARI",
+    "Nome_escola": "Faculdades Doctum de Guarapari",
     "Endereco": "Rodovia Jones dos Santos Neves, 3535, Muquiçaba",
     "Municipio": "Guarapari",
     "CEP": "29215-002",
@@ -1908,7 +1908,7 @@
     "Numero_alunos": 87
   },
   {
-    "Nome_escola": "CAEE DOUTOR JOSE REZENDE VARGAS APAE",
+    "Nome_escola": "CAEE DOUTOR JOSE REZENDE VARGAS - APAE",
     "Endereco": "RUA NOSSA SENHORA DO PERPETUO SOCORRO, 155, PREDIO ESCOLAR",
     "Municipio": "Guaçuí",
     "CEP": "29560-000",
@@ -1920,7 +1920,7 @@
     "Numero_alunos": 0
   },
   {
-    "Nome_escola": "CEFTAC CENTRO EDUCACIONAL DE FORMACAO TECNICA ALTO CAPARAO",
+    "Nome_escola": "CEFTAC - CENTRO EDUCACIONAL DE FORMACAO TECNICA ALTO CAPARAO",
     "Endereco": "RUA MURILO EMERY LUCINDO, 67",
     "Municipio": "Guaçuí",
     "CEP": "29560-000",
@@ -1956,7 +1956,7 @@
     "Numero_alunos": 319
   },
   {
-    "Nome_escola": "CAEE JOAO FERREIRA SOBRINHO APAE",
+    "Nome_escola": "CAEE - JOAO FERREIRA SOBRINHO - APAE",
     "Endereco": "RUA VITALINA ALVES MORENO, 01, PREDIO",
     "Municipio": "Ibatiba",
     "CEP": "29395-000",
@@ -1980,7 +1980,7 @@
     "Numero_alunos": 61
   },
   {
-    "Nome_escola": "ESCOLA DE ENSINO INFANTIL E FUDAMENTAL IMPACTO LTDA ME",
+    "Nome_escola": "ESCOLA DE ENSINO INFANTIL E FUDAMENTAL IMPACTO LTDA-ME",
     "Endereco": "AVENIDA SERVULO RODRIGUES TRINDADE, 72",
     "Municipio": "Ibatiba",
     "CEP": "29395-000",
@@ -1992,7 +1992,7 @@
     "Numero_alunos": 118
   },
   {
-    "Nome_escola": "CAEE PROFESSORA ELZITA BARBARIOLI PESTALOZZI",
+    "Nome_escola": "CAEE PROFESSORA ELZITA BARBARIOLI - PESTALOZZI",
     "Endereco": "RUA MARIO ANTONIO MODENESI, SN",
     "Municipio": "Ibiraçu",
     "CEP": "29670-000",
@@ -2016,7 +2016,7 @@
     "Numero_alunos": 112
   },
   {
-    "Nome_escola": "ESCOLA SAO FRANCISCO DE ASSIS ESFA",
+    "Nome_escola": "ESCOLA SAO FRANCISCO DE ASSIS - ESFA",
     "Endereco": "RUA DOS TUCANOS, 218, ERICINA",
     "Municipio": "Ibiraçu",
     "CEP": "29670-000",
@@ -2028,7 +2028,7 @@
     "Numero_alunos": 214
   },
   {
-    "Nome_escola": "CAEE RAPHAEL TARSIS OLIVEIRA AMIGO APAE DE IBITIRAMA",
+    "Nome_escola": "CAEE RAPHAEL TARSIS OLIVEIRA AMIGO - APAE DE IBITIRAMA",
     "Endereco": "AVENIDA ANIZIO FERREIRA DA SILVA, 67, PREDIO",
     "Municipio": "Ibitirama",
     "CEP": "29540-000",
@@ -2040,7 +2040,7 @@
     "Numero_alunos": 0
   },
   {
-    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE IBITIRAMA MEPES",
+    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE IBITIRAMA - MEPES",
     "Endereco": "ESTRADA SAO JOSE, SN, ZONA RURAL",
     "Municipio": "Ibitirama",
     "CEP": "29540-000",
@@ -2052,7 +2052,7 @@
     "Numero_alunos": 59
   },
   {
-    "Nome_escola": "CAEE AMOR PERFEITO APAE",
+    "Nome_escola": "CAEE AMOR PERFEITO - APAE",
     "Endereco": "RUA LEVI AMARO MACHADO, 125",
     "Municipio": "Irupi",
     "CEP": "29398-000",
@@ -2064,7 +2064,7 @@
     "Numero_alunos": 0
   },
   {
-    "Nome_escola": "CAEE ARCO IRIS APAE",
+    "Nome_escola": "CAEE ARCO-IRIS - APAE",
     "Endereco": "AVENIDA PREFEITO WELLINGTON FIRMINO DO CARMO, S/Nº",
     "Municipio": "Iúna",
     "CEP": "29390-000",
@@ -2076,7 +2076,7 @@
     "Numero_alunos": 0
   },
   {
-    "Nome_escola": "CETESC CENTRO DE ENSINO TECNICO E SUPERIOR CAPIXABA LTDA ME",
+    "Nome_escola": "CETESC - CENTRO DE ENSINO TECNICO E SUPERIOR CAPIXABA - LTDA - ME",
     "Endereco": "RUA RAULINO FINAMORE, 43, ESCOLA",
     "Municipio": "Iúna",
     "CEP": "29390-000",
@@ -2112,7 +2112,7 @@
     "Numero_alunos": 252
   },
   {
-    "Nome_escola": "CAEE LUZ DA VIDA PESTALOZZI",
+    "Nome_escola": "CAEE LUZ DA VIDA - PESTALOZZI",
     "Endereco": "RUA ANTENOR GABRIEL, 194, QUADRA 56",
     "Municipio": "Jaguaré",
     "CEP": "29950-000",
@@ -2136,7 +2136,7 @@
     "Numero_alunos": 258
   },
   {
-    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE JAGUARE MEPES",
+    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE JAGUARE - MEPES",
     "Endereco": "RODOVIA DOM JOSE DALVIT, SN, KM 10",
     "Municipio": "Jaguaré",
     "CEP": "29950-000",
@@ -2148,7 +2148,7 @@
     "Numero_alunos": 253
   },
   {
-    "Nome_escola": "CAEE JERONIMO MONTEIRO PESTALOZZI",
+    "Nome_escola": "CAEE JERONIMO MONTEIRO-PESTALOZZI",
     "Endereco": "RUA AMERICA DELOGO, 130",
     "Municipio": "Jerônimo Monteiro",
     "CEP": "29550-000",
@@ -2184,7 +2184,7 @@
     "Numero_alunos": 331
   },
   {
-    "Nome_escola": "CAEE DE LINHARES PESTALOZZI",
+    "Nome_escola": "CAEE DE LINHARES - PESTALOZZI",
     "Endereco": "PRESIDENTE RODRIGUES ALVES, 275, ESCOLA, COLINA",
     "Municipio": "Linhares",
     "CEP": "29900-415",
@@ -2352,7 +2352,7 @@
     "Numero_alunos": 1739
   },
   {
-    "Nome_escola": "SENAI ES CENTRO DE EDUCACAO PROFISSIONAL EURICO DE AGUIAR SALLES",
+    "Nome_escola": "SENAI ES - CENTRO DE EDUCACAO PROFISSIONAL EURICO DE AGUIAR SALLES",
     "Endereco": "FILOGONIO PEIXOTO, 728, AVISO",
     "Municipio": "Linhares",
     "CEP": "29901-288",
@@ -2376,7 +2376,7 @@
     "Numero_alunos": 444
   },
   {
-    "Nome_escola": "CAEE ORQUIDEA PESTALOZZI",
+    "Nome_escola": "CAEE ORQUIDEA-PESTALOZZI",
     "Endereco": "RUA VEREADOR JOAQUIM BATISTA DE SOUZA, 199, PROXIMO DEEDS HOTEL, CENTRO",
     "Municipio": "Mantenópolis",
     "CEP": "29770-000",
@@ -2388,7 +2388,7 @@
     "Numero_alunos": 0
   },
   {
-    "Nome_escola": "CAEE ZELIA VIANNA DE MORAES APAE",
+    "Nome_escola": "CAEE ZELIA VIANNA DE MORAES - APAE",
     "Endereco": "RUA PRIMEIRO DE MAIO, S/Nº, ATRAS DA SUDESTE VIA",
     "Municipio": "Marataízes",
     "CEP": "29345-000",
@@ -2460,7 +2460,7 @@
     "Numero_alunos": 266
   },
   {
-    "Nome_escola": "CAEE PE JOSE DE SOUZA BRASIL APAE",
+    "Nome_escola": "CAEE PE JOSE DE SOUZA BRASIL - APAE",
     "Endereco": "RUA DIONISIO FALQUETO, 05, PREDIO",
     "Municipio": "Marilândia",
     "CEP": "29725-000",
@@ -2472,7 +2472,7 @@
     "Numero_alunos": 0
   },
   {
-    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE MARILANDIA MEPES",
+    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE MARILANDIA - MEPES",
     "Endereco": "RUA IZALDINO CAMATA, 150, ZONA URBANA, CENTRO",
     "Municipio": "Marilândia",
     "CEP": "29725-000",
@@ -2484,7 +2484,7 @@
     "Numero_alunos": 221
   },
   {
-    "Nome_escola": "CAEE CRESCER PESTALOZZI",
+    "Nome_escola": "CAEE CRESCER-PESTALOZZI",
     "Endereco": "RUA CLAUDIO VIVAS, 300, PREDIO",
     "Municipio": "Mimoso do Sul",
     "CEP": "29400-000",
@@ -2496,7 +2496,7 @@
     "Numero_alunos": 0
   },
   {
-    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE BELO MONTE MEPES",
+    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE BELO MONTE - MEPES",
     "Endereco": "ESTRADA DE BELMONTE, SN",
     "Municipio": "Mimoso do Sul",
     "CEP": "29400-000",
@@ -2508,7 +2508,7 @@
     "Numero_alunos": 47
   },
   {
-    "Nome_escola": "CAEE IRMA DULCE APAE",
+    "Nome_escola": "CAEE IRMA DULCE - APAE",
     "Endereco": "RUA ANCHIETA, 282, PREDIO",
     "Municipio": "Montanha",
     "CEP": "29890-000",
@@ -2532,7 +2532,7 @@
     "Numero_alunos": 219
   },
   {
-    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE VINHATICO MEPES",
+    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE VINHATICO - MEPES",
     "Endereco": "RODOVIA MONTANHA A VINHATICO, SN, KM 02",
     "Municipio": "Montanha",
     "CEP": "29890-000",
@@ -2544,7 +2544,7 @@
     "Numero_alunos": 195
   },
   {
-    "Nome_escola": "CAEE NASIRA DEPS ALMEIDA APAE",
+    "Nome_escola": "CAEE NASIRA DEPS ALMEIDA - APAE",
     "Endereco": "RUA JOSE CABRIANO DE AGUILAR, S/N, PREDIO",
     "Municipio": "Muniz Freire",
     "CEP": "29380-000",
@@ -2568,7 +2568,7 @@
     "Numero_alunos": 172
   },
   {
-    "Nome_escola": "CAEE DESPERTAR APAE",
+    "Nome_escola": "CAEE DESPERTAR - APAE",
     "Endereco": "RUA MINAH LOBATO FRAGA, 391, PREDIO",
     "Municipio": "Muqui",
     "CEP": "29480-000",
@@ -2604,7 +2604,7 @@
     "Numero_alunos": 141
   },
   {
-    "Nome_escola": "CAEE SAO MARCOS APAE",
+    "Nome_escola": "CAEE - SAO MARCOS - APAE",
     "Endereco": "AVENIDA MATEUS TOSCANO, 100",
     "Municipio": "Nova Venécia",
     "CEP": "29830-000",
@@ -2628,7 +2628,7 @@
     "Numero_alunos": 469
   },
   {
-    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE CHAPADINHA MEPES",
+    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE CHAPADINHA - MEPES",
     "Endereco": "ESTRADA BR 342, SN, KM 1075",
     "Municipio": "Nova Venécia",
     "CEP": "29830-000",
@@ -2640,7 +2640,7 @@
     "Numero_alunos": 144
   },
   {
-    "Nome_escola": "FACULDADE MULTIVIX NOVA VENECIA",
+    "Nome_escola": "Faculdade Multivix Nova Venécia",
     "Endereco": "Rua Jacobina, 165, São Francisco",
     "Municipio": "Nova Venécia",
     "CEP": "29830-000",
@@ -2652,7 +2652,7 @@
     "Numero_alunos": 1829
   },
   {
-    "Nome_escola": "ESCOLA DE ENSINO FUNDAMENTAL DE PANCAS ASPEN",
+    "Nome_escola": "ESCOLA DE ENSINO FUNDAMENTAL DE PANCAS - ASPEN",
     "Endereco": "AVENIDA JOSE NUNES DE MIRANDA, 872, PREDIO",
     "Municipio": "Pancas",
     "CEP": "29750-000",
@@ -2688,7 +2688,7 @@
     "Numero_alunos": 33
   },
   {
-    "Nome_escola": "CAEE SAO VICENTE DE PAULA APAE",
+    "Nome_escola": "CAEE- SAO VICENTE DE PAULA - APAE",
     "Endereco": "RUA GERALDO LICINIO VACCARI, 100",
     "Municipio": "Pinheiros",
     "CEP": "29980-000",
@@ -2712,7 +2712,7 @@
     "Numero_alunos": 228
   },
   {
-    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE PINHEIROS MEPES",
+    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE PINHEIROS - MEPES",
     "Endereco": "RODOVIA PINHEIROS A PEDRO CANARIO, SN, KM 25",
     "Municipio": "Pinheiros",
     "CEP": "29980-000",
@@ -2724,7 +2724,7 @@
     "Numero_alunos": 64
   },
   {
-    "Nome_escola": "CAEE DE PIUMA JOSE VIEIRA JATOBA APAE",
+    "Nome_escola": "CAEE DE PIUMA - JOSE VIEIRA JATOBA-APAE",
     "Endereco": "AVENIDA RIO MAR NUMERO 700, 700, APAE",
     "Municipio": "Piúma",
     "CEP": "29285-000",
@@ -2748,7 +2748,7 @@
     "Numero_alunos": 203
   },
   {
-    "Nome_escola": "CAEE VIDA E ESPERANCA PESTALOZZI",
+    "Nome_escola": "CAEE VIDA E ESPERANCA - PESTALOZZI",
     "Endereco": "AVENIDA SEBASTIAO RABELO, 580",
     "Municipio": "Ponto Belo",
     "CEP": "29885-000",
@@ -2760,7 +2760,7 @@
     "Numero_alunos": 0
   },
   {
-    "Nome_escola": "CAEE NOVO AMANHECER APAE",
+    "Nome_escola": "CAEE NOVO AMANHECER - APAE",
     "Endereco": "RUA ANDRE PIZZETA, 72, PREDIO",
     "Municipio": "Rio Bananal",
     "CEP": "29920-000",
@@ -2772,7 +2772,7 @@
     "Numero_alunos": 0
   },
   {
-    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE RIO BANANAL MEPES",
+    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE RIO BANANAL - MEPES",
     "Endereco": "RODOVIA ROBERTO CALMON, SN, KM 40",
     "Municipio": "Rio Bananal",
     "CEP": "29920-000",
@@ -2784,7 +2784,7 @@
     "Numero_alunos": 136
   },
   {
-    "Nome_escola": "CAEE DE RIO NOVO DO SUL PESTALOZZI",
+    "Nome_escola": "CAEE DE RIO NOVO DO SUL - PESTALOZZI",
     "Endereco": "RUA DUQUE DE CAXIAS, 41",
     "Municipio": "Rio Novo do Sul",
     "CEP": "29290-000",
@@ -2796,7 +2796,7 @@
     "Numero_alunos": 0
   },
   {
-    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE RIO NOVO DO SUL MEPES",
+    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE RIO NOVO DO SUL - MEPES",
     "Endereco": "RUA PADRE GUIDO SPOLAOR, SN, ZONA RURAL",
     "Municipio": "Rio Novo do Sul",
     "CEP": "29290-000",
@@ -2820,7 +2820,7 @@
     "Numero_alunos": 51
   },
   {
-    "Nome_escola": "CAEE GIRASSOL APAE SANTA LEOPOLDINA",
+    "Nome_escola": "CAEE GIRASSOL - APAE SANTA LEOPOLDINA",
     "Endereco": "RUA REGINALDO TERRA, 535, TERREO",
     "Municipio": "Santa Leopoldina",
     "CEP": "29640-000",
@@ -2832,7 +2832,7 @@
     "Numero_alunos": 0
   },
   {
-    "Nome_escola": "CAEE NEUES LEBEN APAE DE SANTA MARIA DE JETIBA",
+    "Nome_escola": "CAEE NEUES LEBEN - APAE DE SANTA MARIA DE JETIBA",
     "Endereco": "RUA HENRIQUE JOAO JULIO KUSTER, 469",
     "Municipio": "Santa Maria de Jetibá",
     "CEP": "29645-000",
@@ -2856,7 +2856,7 @@
     "Numero_alunos": 167
   },
   {
-    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE SAO JOAO DO GARRAFAO MEPES",
+    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE SAO JOAO DO GARRAFAO - MEPES",
     "Endereco": "AVENIDA JOAO PEDRO LAUVERS, SN",
     "Municipio": "Santa Maria de Jetibá",
     "CEP": "29645-000",
@@ -2868,7 +2868,7 @@
     "Numero_alunos": 200
   },
   {
-    "Nome_escola": "CAEE MANOEL VALENTIM PESTALOZZI",
+    "Nome_escola": "CAEE MANOEL VALENTIM - PESTALOZZI",
     "Endereco": "LADEIRA FORTUNATO CARLOS BONINO, 457",
     "Municipio": "Santa Teresa",
     "CEP": "29650-000",
@@ -2892,7 +2892,7 @@
     "Numero_alunos": 381
   },
   {
-    "Nome_escola": "ESCOLA SUPERIOR SAO FRANCISCO DE ASSIS",
+    "Nome_escola": "ESCOLA SUPERIOR SÃO FRANCISCO DE ASSIS",
     "Endereco": "Rua Bernardino Monteiro, 700, Dois Pinheiros",
     "Municipio": "Santa Teresa",
     "CEP": "29650-000",
@@ -2904,7 +2904,7 @@
     "Numero_alunos": 544
   },
   {
-    "Nome_escola": "CAEE DR PEDRO FEU ROSA APAE",
+    "Nome_escola": "CAEE DR PEDRO FEU ROSA - APAE",
     "Endereco": "AFONSO ARINOS MELO FRANCO, 133, PARQUE RESIDENCIAL LARANJEIRAS",
     "Municipio": "Serra",
     "CEP": "29165-491",
@@ -2964,7 +2964,7 @@
     "Numero_alunos": 60
   },
   {
-    "Nome_escola": "CE SERRANO COLEGIO ALTERNATIVO",
+    "Nome_escola": "CE SERRANO - COLEGIO ALTERNATIVO",
     "Endereco": "ADERBAL ATHAIDE GUIMARAES, 84, CASTELANDIA",
     "Municipio": "Serra",
     "CEP": "29172-655",
@@ -3000,7 +3000,7 @@
     "Numero_alunos": 289
   },
   {
-    "Nome_escola": "CENTRO DE EDUCACAO BASICA E PROFISSIONAL HENRIQUE MEYERFREUND SESI",
+    "Nome_escola": "CENTRO DE EDUCACAO BASICA E PROFISSIONAL HENRIQUE MEYERFREUND - SESI",
     "Endereco": "PAULO MIGUEL BOHOMOLETZ, 242, CIVIT I",
     "Municipio": "Serra",
     "CEP": "29168-010",
@@ -3072,7 +3072,7 @@
     "Numero_alunos": 62
   },
   {
-    "Nome_escola": "CENTRO EDUCACIONAL MUNDO DO SABER UNIDADE MORADA FUNDAMENTAL",
+    "Nome_escola": "CENTRO EDUCACIONAL MUNDO DO SABER - UNIDADE MORADA FUNDAMENTAL",
     "Endereco": "COPACABANA, S/N, QD 14 LT 05, MORADA DE LARANJEIRAS",
     "Municipio": "Serra",
     "CEP": "29166-820",
@@ -3084,7 +3084,7 @@
     "Numero_alunos": 53
   },
   {
-    "Nome_escola": "CENTRO EDUCACIONAL MUNDO DO SABER UNIDADE MORADA INFANTIL",
+    "Nome_escola": "CENTRO EDUCACIONAL MUNDO DO SABER - UNIDADE MORADA INFANTIL",
     "Endereco": "COPACABANA, S/N, QD 14 LT 05, MORADA DE LARANJEIRAS",
     "Municipio": "Serra",
     "CEP": "29166-820",
@@ -3108,7 +3108,7 @@
     "Numero_alunos": 48
   },
   {
-    "Nome_escola": "CENTRO UNIVERSITARIO DO ESPIRITO SANTO UNESC SERRA",
+    "Nome_escola": "CENTRO UNIVERSITÁRIO DO ESPÍRITO SANTO UNESC",
     "Endereco": "",
     "Municipio": "Serra",
     "CEP": "",
@@ -3168,7 +3168,7 @@
     "Numero_alunos": 812
   },
   {
-    "Nome_escola": "ESCOLA AMERICANO DOCTUM LARANJEIRAS INSTITUTO ENSINAR BRASIL",
+    "Nome_escola": "ESCOLA AMERICANO DOCTUM LARANJEIRAS - INSTITUTO ENSINAR BRASIL",
     "Endereco": "ELDES SCHERRER SOUZA, 108, PARQUE RESIDENCIAL LARANJEIRAS",
     "Municipio": "Serra",
     "CEP": "29165-680",
@@ -3276,7 +3276,7 @@
     "Numero_alunos": 424
   },
   {
-    "Nome_escola": "ESCOLA SIENA LARANJEIRAS",
+    "Nome_escola": "ESCOLA SIENA - LARANJEIRAS",
     "Endereco": "PITAGORAS, 126, PREDIO/ESCOLA, PARQUE RESIDENCIAL LARANJEIRAS",
     "Municipio": "Serra",
     "CEP": "29165-170",
@@ -3312,7 +3312,7 @@
     "Numero_alunos": 580
   },
   {
-    "Nome_escola": "FACULDADE BRASILEIRA CRISTA",
+    "Nome_escola": "FACULDADE BRASILEIRA CRISTÃ",
     "Endereco": "Rua Pouso Alegre, 49, Barcelona",
     "Municipio": "Serra",
     "CEP": "29166-160",
@@ -3324,7 +3324,7 @@
     "Numero_alunos": 892
   },
   {
-    "Nome_escola": "FACULDADE DE EDUCACAO E TECNOLOGIA DO ESPIRITO SANTO",
+    "Nome_escola": "Faculdade de Educação e Tecnologia do Espírito Santo",
     "Endereco": "Avenida Central, 15, Loja B, Parque Residencial Laranjeiras",
     "Municipio": "Serra",
     "CEP": "29165-130",
@@ -3348,7 +3348,7 @@
     "Numero_alunos": 833
   },
   {
-    "Nome_escola": "FACULDADE DOCTUM DE SERRA",
+    "Nome_escola": "Faculdade Doctum de Serra",
     "Endereco": "Avenida Eldes Scherrer Souza, 108, Campus II, Parque Residencial Laranjeiras",
     "Municipio": "Serra",
     "CEP": "29165-680",
@@ -3360,7 +3360,7 @@
     "Numero_alunos": 682
   },
   {
-    "Nome_escola": "FACULDADE MULTIVIX SERRA",
+    "Nome_escola": "Faculdade Multivix Serra",
     "Endereco": "Rua Barão do Rio Branco, 120, Colina de Laranjeiras",
     "Municipio": "Serra",
     "CEP": "29167-172",
@@ -3384,7 +3384,7 @@
     "Numero_alunos": 1104
   },
   {
-    "Nome_escola": "IDEA INSTITUTO DE DESENVOLVIMENTO EDUCACIONAL E ASSESSORIA EIRELI ME",
+    "Nome_escola": "IDEA - INSTITUTO DE DESENVOLVIMENTO EDUCACIONAL E ASSESSORIA EIRELI ME",
     "Endereco": "TALMA RODRIGUES RIBEIRO, 482, PORTAL DE JACARAÍPE",
     "Municipio": "Serra",
     "CEP": "29173-795",
@@ -3420,7 +3420,7 @@
     "Numero_alunos": 32
   },
   {
-    "Nome_escola": "SENAI ES CENTRO DE EDUCACAO PROFISSIONAL JONES SANTOS NEVES",
+    "Nome_escola": "SENAI ES - CENTRO DE EDUCACAO PROFISSIONAL JONES SANTOS NEVES",
     "Endereco": "PAULO MIGUEL BOHOMOLETZ, 242, CIVIT I",
     "Municipio": "Serra",
     "CEP": "29168-010",
@@ -3456,7 +3456,7 @@
     "Numero_alunos": 345
   },
   {
-    "Nome_escola": "CAEE RENASCER APAE",
+    "Nome_escola": "CAEE RENASCER -APAE",
     "Endereco": "RUA JOAO GABRIEL, 139",
     "Municipio": "São Gabriel da Palha",
     "CEP": "29780-000",
@@ -3480,7 +3480,7 @@
     "Numero_alunos": 331
   },
   {
-    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE ENSINO FUNDAMENTAL E MEDIO E EDUCACAO PROFISSIONAL DO BLEY MEPES",
+    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE ENSINO FUNDAMENTAL E MEDIO E EDUCACAO PROFISSIONAL DO BLEY - MEPES",
     "Endereco": "RODOVIA JOAO IZOTON FILHO, SN, KM 12",
     "Municipio": "São Gabriel da Palha",
     "CEP": "29780-000",
@@ -3504,7 +3504,7 @@
     "Numero_alunos": 34
   },
   {
-    "Nome_escola": "CAEE LIZETE CONDE RIOS CAVALCANTE APAE DE SAO MATEUS",
+    "Nome_escola": "CAEE LIZETE CONDE RIOS CAVALCANTE- APAE DE SAO MATEUS",
     "Endereco": "CORONEL CONSTANTINO CUNHA, 2127, CENTRO",
     "Municipio": "São Mateus",
     "CEP": "29930-360",
@@ -3636,7 +3636,7 @@
     "Numero_alunos": 61
   },
   {
-    "Nome_escola": "CENTRO UNIVERSITARIO VALE DO CRICARE",
+    "Nome_escola": "CENTRO UNIVERSITÁRIO VALE DO CRICARÉ",
     "Endereco": "Rua Humberto de Almeida Franklin, 257, Unidade- São Mateus- uNIVERSITÁRIO, Universitário",
     "Municipio": "São Mateus",
     "CEP": "29933-480",
@@ -3696,7 +3696,7 @@
     "Numero_alunos": 61
   },
   {
-    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DO KM 41 MEPES",
+    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DO KM 41 - MEPES",
     "Endereco": "BR-381 MIGUEL CURRY CARNEIRO, SN, KM 41, NESTOR GOMES",
     "Municipio": "São Mateus",
     "CEP": "29949-040",
@@ -3756,7 +3756,7 @@
     "Numero_alunos": 138
   },
   {
-    "Nome_escola": "FACULDADE MULTIVIX SAO MATEUS",
+    "Nome_escola": "Faculdade Multivix São Mateus",
     "Endereco": "Rodovia Othovarino Duarte Santos, 844, Residencial Park Washington",
     "Municipio": "São Mateus",
     "CEP": "29938-015",
@@ -3768,7 +3768,7 @@
     "Numero_alunos": 1206
   },
   {
-    "Nome_escola": "SEST SENAT C 123 SAO MATEUS",
+    "Nome_escola": "SEST SENAT - C 123 SAO MATEUS",
     "Endereco": "SAO LUCAS, SNº, SÃO BENEDITO",
     "Municipio": "São Mateus",
     "CEP": "29940-025",
@@ -3780,7 +3780,7 @@
     "Numero_alunos": 126
   },
   {
-    "Nome_escola": "CAEE GERALDO MAGELA GIRELLI APAE",
+    "Nome_escola": "CAEE GERALDO MAGELA GIRELLI - APAE",
     "Endereco": "RODOVIA ARMANDO MARTINELLI, 866, TERREO",
     "Municipio": "São Roque do Canaã",
     "CEP": "29665-000",
@@ -3792,7 +3792,7 @@
     "Numero_alunos": 0
   },
   {
-    "Nome_escola": "CAEE ASSOCIACAO PESTALOZZI DE VARGEM ALTA",
+    "Nome_escola": "CAEE - ASSOCIACAO PESTALOZZI DE VARGEM ALTA",
     "Endereco": "RUA FELIPE DAVID, 96, CENTRO",
     "Municipio": "Vargem Alta",
     "CEP": "29295-000",
@@ -3852,7 +3852,7 @@
     "Numero_alunos": 312
   },
   {
-    "Nome_escola": "CAEE IZAURA ZULMIRA CALAIS APAE DE VIANA",
+    "Nome_escola": "CAEE IZAURA ZULMIRA CALAIS - APAE DE VIANA",
     "Endereco": "SOROCABA, 31/32, QUADRA 34, MARCILIO DE NORONHA",
     "Municipio": "Viana",
     "CEP": "29135-372",
@@ -3864,7 +3864,7 @@
     "Numero_alunos": 0
   },
   {
-    "Nome_escola": "CE TELLES KOHLER CETEK",
+    "Nome_escola": "CE TELLES KOHLER - CETEK",
     "Endereco": "VITORIA, 03, QUADRA 34, MARCILIO DE NORONHA",
     "Municipio": "Viana",
     "CEP": "29135-368",
@@ -3888,7 +3888,7 @@
     "Numero_alunos": 54
   },
   {
-    "Nome_escola": "CAEE FLORENTINO MENEGUSSI APAE",
+    "Nome_escola": "CAEE FLORENTINO MENEGUSSI - APAE",
     "Endereco": "RUA ANTONIO BARCELOS, 107, PREDIO",
     "Municipio": "Vila Valério",
     "CEP": "29785-000",
@@ -3912,7 +3912,7 @@
     "Numero_alunos": 38
   },
   {
-    "Nome_escola": "CAEE DARCY PACHECO DE QUEIROZ APAE",
+    "Nome_escola": "CAEE DARCY PACHECO DE QUEIROZ - APAE",
     "Endereco": "FREI FIRMINO MATUSCHEK, 1050, CENTRO DE VILA VELHA",
     "Municipio": "Vila Velha",
     "CEP": "29100-325",
@@ -4092,7 +4092,7 @@
     "Numero_alunos": 112
   },
   {
-    "Nome_escola": "CEAEB CENTRO DE ENSINO ALBERT EINSTEIN DA BARRA",
+    "Nome_escola": "CEAEB - CENTRO DE ENSINO ALBERT EINSTEIN DA BARRA",
     "Endereco": "RODOVIA DO SOL, 1000, BARRA DO JUCU",
     "Municipio": "Vila Velha",
     "CEP": "29125-033",
@@ -4212,7 +4212,7 @@
     "Numero_alunos": 57
   },
   {
-    "Nome_escola": "CENTRO EDUCACIONAL PARA A VIDA DO SESC VILA VELHA",
+    "Nome_escola": "CENTRO EDUCACIONAL PARA A VIDA DO SESC - VILA VELHA",
     "Endereco": "JOSE EUGENIO, 30, NOSSA SENHORA DA PENHA",
     "Municipio": "Vila Velha",
     "CEP": "29110-240",
@@ -4260,7 +4260,7 @@
     "Numero_alunos": 182
   },
   {
-    "Nome_escola": "CFT CENTRO DE FORMACAO TECNICA LTDA ME",
+    "Nome_escola": "CFT - CENTRO DE FORMACAO TECNICA LTDA ME",
     "Endereco": "LUCIANO DAS NEVES, 1012, CENTRO DE VILA VELHA",
     "Municipio": "Vila Velha",
     "CEP": "29100-200",
@@ -4344,7 +4344,7 @@
     "Numero_alunos": 1204
   },
   {
-    "Nome_escola": "CRECHE CARINHO CIA LTDA ME",
+    "Nome_escola": "CRECHE CARINHO CIA LTDA -ME",
     "Endereco": "SANTA LEOPOLDINA, 2269, PRAIA DE ITAPARICA",
     "Municipio": "Vila Velha",
     "CEP": "29102-040",
@@ -4392,7 +4392,7 @@
     "Numero_alunos": 69
   },
   {
-    "Nome_escola": "ELITE REDE DE ENSINO",
+    "Nome_escola": "ELITE - REDE DE ENSINO",
     "Endereco": "DA CULTURA DUQUE DE CAXIAS, 173, CENTRO DE VILA VELHA",
     "Municipio": "Vila Velha",
     "CEP": "29100-300",
@@ -4584,7 +4584,7 @@
     "Numero_alunos": 34
   },
   {
-    "Nome_escola": "FACULDADE DE ENSINO SUPERIOR BRASILEIRA FACULDADE FEBRAS",
+    "Nome_escola": "Faculdade de Ensino Superior Brasileira - Faculdade FEBRAS",
     "Endereco": "Rua Doutor Annor da Silva, 106, Coqueiral de Itaparica",
     "Municipio": "Vila Velha",
     "CEP": "29102-300",
@@ -4596,7 +4596,7 @@
     "Numero_alunos": 141
   },
   {
-    "Nome_escola": "FACULDADE DOCTUM DE VILA VELHA",
+    "Nome_escola": "Faculdade Doctum de Vila Velha",
     "Endereco": "Rua Lúcio Bacelar, 490, Praia da Costa",
     "Municipio": "Vila Velha",
     "CEP": "29101-030",
@@ -4608,7 +4608,7 @@
     "Numero_alunos": 136
   },
   {
-    "Nome_escola": "FACULDADE ESTACIO DE SA DE VILA VELHA",
+    "Nome_escola": "FACULDADE ESTÁCIO DE SÁ DE VILA VELHA",
     "Endereco": "Rua Cabo Aylson Simões Lotes 01 a 06, 67, Esquina com Rua Charles Darwin, Centro",
     "Municipio": "Vila Velha",
     "CEP": "29100-320",
@@ -4620,7 +4620,7 @@
     "Numero_alunos": 378
   },
   {
-    "Nome_escola": "FACULDADE MULTIVIX VILA VELHA",
+    "Nome_escola": "Faculdade Multivix Vila Velha",
     "Endereco": "Rodovia do Sol, 3990, Unidade Sede, Jockey de Itaparica",
     "Municipio": "Vila Velha",
     "CEP": "29103-800",
@@ -4632,7 +4632,7 @@
     "Numero_alunos": 4067
   },
   {
-    "Nome_escola": "FACULDADE NOVO MILENIO",
+    "Nome_escola": "FACULDADE NOVO MILÊNIO",
     "Endereco": "Avenida Santa Leopoldina, 840, de 631/632 a 999/1000, Coqueiral de Itaparica",
     "Municipio": "Vila Velha",
     "CEP": "29102-375",
@@ -4656,7 +4656,7 @@
     "Numero_alunos": 797
   },
   {
-    "Nome_escola": "INSTITUTO SUPERIOR DE EDUCACAO ATENEU",
+    "Nome_escola": "INSTITUTO SUPERIOR DE EDUCAÇÃO ATENEU",
     "Endereco": "Rua Professor Annor Silva, 106, CAMPUS - VILA VELHA - COQUEIRAL DE ITAPARICA, Coqueiral de Itaparica",
     "Municipio": "Vila Velha",
     "CEP": "29102-160",
@@ -4704,7 +4704,7 @@
     "Numero_alunos": 1732
   },
   {
-    "Nome_escola": "SENAI ES CENTRO DE EDUCACAO PROFISSIONAL HELCIO REZENDE DIAS",
+    "Nome_escola": "SENAI ES - CENTRO DE EDUCACAO PROFISSIONAL HELCIO REZENDE DIAS",
     "Endereco": "DARLY SANTOS, 2655, PÓLO EMPRESARIAL NOVO MÉXICO",
     "Municipio": "Vila Velha",
     "CEP": "29104-360",
@@ -4764,7 +4764,7 @@
     "Numero_alunos": 999
   },
   {
-    "Nome_escola": "CAEE AUGUSTA BRAGATTO AMAES",
+    "Nome_escola": "CAEE AUGUSTA BRAGATTO - AMAES",
     "Endereco": "FERNANDO FERRARI, 2115, GOIABEIRAS",
     "Municipio": "Vitória",
     "CEP": "29075-041",
@@ -4776,7 +4776,7 @@
     "Numero_alunos": 0
   },
   {
-    "Nome_escola": "CAEE ZEZE GABEIRA APAE DE VITORIA",
+    "Nome_escola": "CAEE ZEZE GABEIRA - APAE DE VITORIA",
     "Endereco": "ALUYSIO SIMOES, 185, BENTO FERREIRA",
     "Municipio": "Vitória",
     "CEP": "29050-637",
@@ -4968,7 +4968,7 @@
     "Numero_alunos": 1539
   },
   {
-    "Nome_escola": "CENTRO DE ENSINO SUPERIOR DE VITORIA",
+    "Nome_escola": "CENTRO DE ENSINO SUPERIOR DE VITÓRIA",
     "Endereco": "Rua Doutor Eurico de Aguiar, 1003, de 371 ao fim - lado ímpar, Santa Lúcia",
     "Municipio": "Vitória",
     "CEP": "29056-205",
@@ -5004,7 +5004,7 @@
     "Numero_alunos": 9
   },
   {
-    "Nome_escola": "CENTRO UNIVERSITARIO ESPIRITO SANTENSE FAESA",
+    "Nome_escola": "CENTRO UNIVERSITÁRIO ESPÍRITO-SANTENSE/FAESA",
     "Endereco": "Rua Anselmo Serrat, 199, Ilha de Monte Belo",
     "Municipio": "Vitória",
     "CEP": "29053-250",
@@ -5016,7 +5016,7 @@
     "Numero_alunos": 2941
   },
   {
-    "Nome_escola": "CENTRO UNIVERSITARIO ESTACIO DE VITORIA",
+    "Nome_escola": "Centro Universitário Estácio de Vitória",
     "Endereco": "Rua Doutor Herwan Modenese Wanderley, 1001, Jardim Camburi",
     "Municipio": "Vitória",
     "CEP": "29090-640",
@@ -5028,7 +5028,7 @@
     "Numero_alunos": 764
   },
   {
-    "Nome_escola": "CENTRO UNIVERSITARIO FAESA",
+    "Nome_escola": "Centro Universitário FAESA",
     "Endereco": "Rua Alsemo Serrat, 199, CEP 20935-250, Monte Belo",
     "Municipio": "Vitória",
     "CEP": "29010-200",
@@ -5040,7 +5040,7 @@
     "Numero_alunos": 2019
   },
   {
-    "Nome_escola": "CENTRO UNIVERSITARIO MULTIVIX VITORIA",
+    "Nome_escola": "Centro Universitário Multivix Vitória",
     "Endereco": "Rua José Alves, 135, Vitória, Goiabeiras",
     "Municipio": "Vitória",
     "CEP": "29075-080",
@@ -5052,7 +5052,7 @@
     "Numero_alunos": 7291
   },
   {
-    "Nome_escola": "CENTRO UNIVERSITARIO SALESIANO",
+    "Nome_escola": "Centro Universitário Salesiano",
     "Endereco": "Avenida Vitória, 950, Forte São João",
     "Municipio": "Vitória",
     "CEP": "29017-950",
@@ -5160,7 +5160,7 @@
     "Numero_alunos": 32
   },
   {
-    "Nome_escola": "CRECHE ESCOLA BRINCARTE LTDA ME",
+    "Nome_escola": "CRECHE - ESCOLA BRINCARTE LTDA ME",
     "Endereco": "NICOLAU VON SCHILGEN, 281, JARDIM DA PENHA",
     "Municipio": "Vitória",
     "CEP": "29060-025",
@@ -5424,7 +5424,7 @@
     "Numero_alunos": 930
   },
   {
-    "Nome_escola": "ESCOLA SUPERIOR DE CIENCIAS DA SANTA CASA DE MISERICORDIA DE VITORIA",
+    "Nome_escola": "ESCOLA SUPERIOR DE CIÊNCIAS DA SANTA CASA DE MISERICÓRDIA DE VITÓRIA",
     "Endereco": "AVENIDA NOSSA SENHORA DA PENHA, 2190, SANTA LUIZA",
     "Municipio": "Vitória",
     "CEP": "29045-402",
@@ -5436,7 +5436,7 @@
     "Numero_alunos": 1558
   },
   {
-    "Nome_escola": "ESCOLA TECNICA DE SAUDE DO ES ETESES",
+    "Nome_escola": "ESCOLA TECNICA DE SAUDE DO ES - ETESES",
     "Endereco": "AVENIDA VITORIA, 2588, BENTO FERREIRA",
     "Municipio": "Vitória",
     "CEP": "29050-810",
@@ -5448,7 +5448,7 @@
     "Numero_alunos": 489
   },
   {
-    "Nome_escola": "FACULDADE DE CIENCIAS E EDUCACAO DO ESPIRITO SANTO",
+    "Nome_escola": "FACULDADE DE CIÊNCIAS E EDUCAÇÃO DO ESPÍRITO SANTO",
     "Endereco": "Avenida Saturnino Rangel Mauro, 420, Jardim da Penha",
     "Municipio": "Vitória",
     "CEP": "29060-770",
@@ -5460,7 +5460,7 @@
     "Numero_alunos": 22
   },
   {
-    "Nome_escola": "FACULDADE DE CIENCIAS EDUCACIONAIS E TECNOLOGIAS INTEGRADAS",
+    "Nome_escola": "Faculdade de Ciências Educacionais e Tecnologias Integradas",
     "Endereco": "Rua Mário Aguirre, 45, Jucutuquara",
     "Municipio": "Vitória",
     "CEP": "29040-810",
@@ -5472,7 +5472,7 @@
     "Numero_alunos": 14
   },
   {
-    "Nome_escola": "FACULDADE DE DIREITO DE VITORIA",
+    "Nome_escola": "FACULDADE DE DIREITO DE VITÓRIA",
     "Endereco": "Rua Juiz Alexandre Martins de Castro Filho, 215, Santa Lúcia",
     "Municipio": "Vitória",
     "CEP": "29056-295",
@@ -5484,7 +5484,7 @@
     "Numero_alunos": 619
   },
   {
-    "Nome_escola": "FACULDADE DE ENSINO JURIDICO DE VITORIA",
+    "Nome_escola": "Faculdade de Ensino Jurídico de Vitória",
     "Endereco": "Rua das Palmeiras, 500, Itararé",
     "Municipio": "Vitória",
     "CEP": "29047-550",
@@ -5508,7 +5508,7 @@
     "Numero_alunos": 522
   },
   {
-    "Nome_escola": "FACULDADE DE VITORIA",
+    "Nome_escola": "FACULDADE DE VITÓRIA",
     "Endereco": "Rua Sagrado Coração de Maria, 315, Praia do Canto",
     "Municipio": "Vitória",
     "CEP": "29055-770",
@@ -5520,7 +5520,7 @@
     "Numero_alunos": 25
   },
   {
-    "Nome_escola": "FACULDADE DOCTUM DE VITORIA",
+    "Nome_escola": "Faculdade Doctum de Vitória",
     "Endereco": "Avenida Vitória, 2703, Doctum Vitória, Horto",
     "Municipio": "Vitória",
     "CEP": "29045-160",
@@ -5544,7 +5544,7 @@
     "Numero_alunos": 353
   },
   {
-    "Nome_escola": "FACULDADE UNIDA DE VITORIA",
+    "Nome_escola": "FACULDADE UNIDA DE VITÓRIA",
     "Endereco": "Rua Engenheiro Fábio Ruschi, 161, Bento Ferreira",
     "Municipio": "Vitória",
     "CEP": "29050-670",
@@ -5568,7 +5568,7 @@
     "Numero_alunos": 63
   },
   {
-    "Nome_escola": "INSTITUTO DE ENSINO SUPERIOR E FORMACAO AVANCADA DE VITORIA",
+    "Nome_escola": "INSTITUTO DE ENSINO SUPERIOR E FORMAÇÃO AVANÇADA DE VITÓRIA",
     "Endereco": "Avenida Nossa Senhora da Penha, 1.800, de 1800 a 2150 - lado par, Barro Vermelho",
     "Municipio": "Vitória",
     "CEP": "29057-565",
@@ -5580,7 +5580,7 @@
     "Numero_alunos": 192
   },
   {
-    "Nome_escola": "INSTITUTO FORMAR BRASIL ENSINO A DISTANCIA TECNICO REGULAR E PROFISSIONALIZANTE LTDA",
+    "Nome_escola": "INSTITUTO FORMAR BRASIL - ENSINO A DISTANCIA TECNICO REGULAR E PROFISSIONALIZANTE LTDA",
     "Endereco": "PRINCESA ISABEL, 15, SALA 1105 1107 1109, CENTRO",
     "Municipio": "Vitória",
     "CEP": "29010-361",
@@ -5604,7 +5604,7 @@
     "Numero_alunos": 68
   },
   {
-    "Nome_escola": "SENAI ES CENTRO DE EDUCACAO E TECNOLOGIA ARIVALDO FONTES",
+    "Nome_escola": "SENAI ES - CENTRO DE EDUCACAO E TECNOLOGIA ARIVALDO FONTES",
     "Endereco": "MARECHAL MASCARENHAS DE MORAES, 2235, BENTO FERREIRA",
     "Municipio": "Vitória",
     "CEP": "29050-625",
@@ -5616,7 +5616,7 @@
     "Numero_alunos": 561
   },
   {
-    "Nome_escola": "SERVICO NACIONAL DE APRENDIZAGEM COMERCIAL SENAC",
+    "Nome_escola": "SERVICO NACIONAL DE APRENDIZAGEM COMERCIAL - SENAC",
     "Endereco": "AVENIDA MARECHAL MASCARENHAS DE MORAES, 2077, 2077, BENTO FERREIRA",
     "Municipio": "Vitória",
     "CEP": "29050-935",
@@ -5628,7 +5628,7 @@
     "Numero_alunos": 1576
   },
   {
-    "Nome_escola": "SISTEMA EDUCACIONAL BRASILEIRO DE EDUCACAO BASICA SEB JARDIM DA PENHA",
+    "Nome_escola": "SISTEMA EDUCACIONAL BRASILEIRO DE EDUCACAO BASICA - SEB JARDIM DA PENHA",
     "Endereco": "SATURNINO RANGEL MAURO, 1365, PONTAL DE CAMBURI",
     "Municipio": "Vitória",
     "CEP": "29062-033",
@@ -5652,7 +5652,7 @@
     "Numero_alunos": 391
   },
   {
-    "Nome_escola": "SUNDAYS EDUCACAO INFANTIL INTEGRAL",
+    "Nome_escola": "SUNDAYS - EDUCACAO INFANTIL INTEGRAL",
     "Endereco": "ANTONIO GUILHERME DO NASCIMENTO, 65, JARDIM CAMBURI",
     "Municipio": "Vitória",
     "CEP": "29090-570",
@@ -5688,7 +5688,7 @@
     "Numero_alunos": 848
   },
   {
-    "Nome_escola": "CAEE JARDIM SOCIAL PESTALOZZI",
+    "Nome_escola": "CAEE JARDIM SOCIAL - PESTALOZZI",
     "Endereco": "RUA PROTAZIO ELIZEU, 70, PREDIO TERREO",
     "Municipio": "Água Doce do Norte",
     "CEP": "29820-000",
@@ -5700,7 +5700,7 @@
     "Numero_alunos": 0
   },
   {
-    "Nome_escola": "CAEE BEM VIVER PESTALOZZI",
+    "Nome_escola": "CAEE BEM VIVER-PESTALOZZI",
     "Endereco": "RODOVIA ES 080, KM 213,5, S/N, ANTIGO LATICINIO",
     "Municipio": "Águia Branca",
     "CEP": "29795-000",

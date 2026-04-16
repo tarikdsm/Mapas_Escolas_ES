@@ -59,6 +59,81 @@
     });
   }
 
+  function fetchJsonWithMetadata(path, options) {
+    var requestOptions = options || {};
+
+    if (typeof window.fetch === "function") {
+      return window.fetch(path, requestOptions).then(function (response) {
+        if (response.status === 304) {
+          return {
+            status: 304,
+            payload: null,
+            etag: cleanOptionalText(response.headers.get("ETag")),
+          };
+        }
+
+        if (!response.ok) {
+          throw new Error("Falha ao carregar " + path);
+        }
+
+        return response.json().then(function (payload) {
+          return {
+            status: response.status,
+            payload: payload,
+            etag: cleanOptionalText(response.headers.get("ETag")),
+          };
+        });
+      });
+    }
+
+    return new Promise(function (resolve, reject) {
+      var request = new XMLHttpRequest();
+      var headers = requestOptions.headers || {};
+      request.open(requestOptions.method || "GET", path, true);
+      Object.keys(headers).forEach(function (key) {
+        request.setRequestHeader(key, headers[key]);
+      });
+      request.onreadystatechange = function () {
+        var payload = null;
+
+        if (request.readyState !== 4) {
+          return;
+        }
+
+        if (request.status === 304) {
+          resolve({
+            status: 304,
+            payload: null,
+            etag: cleanOptionalText(request.getResponseHeader("ETag")),
+          });
+          return;
+        }
+
+        if (request.status >= 200 && request.status < 300) {
+          try {
+            payload = request.responseText ? JSON.parse(request.responseText) : null;
+          } catch (error) {
+            reject(error);
+            return;
+          }
+
+          resolve({
+            status: request.status,
+            payload: payload,
+            etag: cleanOptionalText(request.getResponseHeader("ETag")),
+          });
+          return;
+        }
+
+        reject(new Error("Falha ao carregar " + path));
+      };
+      request.onerror = function () {
+        reject(new Error("Falha ao carregar " + path));
+      };
+      request.send();
+    });
+  }
+
   function ensureRuntimeConfig(config) {
     var runtime = config && config.runtime ? config.runtime : {};
     config.runtime = {
@@ -1912,6 +1987,7 @@
 
   function startDataVersionPolling(map, appState, config) {
     var currentVersion = config.runtime && config.runtime.dataVersion;
+    var currentMetaEtag = currentVersion ? '"' + currentVersion + '"' : "";
     var metaPath = (config.runtime && config.runtime.metaPath) || API_META_PATH;
     var requestInFlight = false;
 
@@ -1925,9 +2001,20 @@
       }
 
       requestInFlight = true;
-      fetchJson(metaPath)
-        .then(function (meta) {
-          var nextVersion = cleanOptionalText(meta && meta.dataVersion);
+      fetchJsonWithMetadata(metaPath, {
+        headers: currentMetaEtag ? { "If-None-Match": currentMetaEtag } : {},
+      })
+        .then(function (result) {
+          var meta;
+          var nextVersion;
+
+          if (result.status === 304) {
+            return;
+          }
+
+          meta = result.payload || {};
+          currentMetaEtag = cleanOptionalText(result.etag) || currentMetaEtag;
+          nextVersion = cleanOptionalText(meta && meta.dataVersion);
 
           if (!nextVersion || nextVersion === currentVersion) {
             return;

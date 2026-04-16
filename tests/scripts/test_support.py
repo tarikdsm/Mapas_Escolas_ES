@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import http.client
 import json
 import sqlite3
@@ -139,6 +140,8 @@ class BackendServerTestCase(unittest.TestCase):
             "STATIC_CONFIG_PATH": backend_server.STATIC_CONFIG_PATH,
             "DATABASE_PATH": backend_server.DATABASE_PATH,
         }
+        self.real_database_path = Path(self._original_globals["DATABASE_PATH"])
+        self.real_database_signature = self._file_signature(self.real_database_path)
 
         self._build_temp_public_root()
         backend_server.PUBLIC_ROOT = self.public_root
@@ -156,10 +159,24 @@ class BackendServerTestCase(unittest.TestCase):
         self.server.shutdown()
         self.server.server_close()
         self.server_thread.join(timeout=5)
+        backend_server.cancel_scheduled_export_flush()
+        with backend_server.WRITE_LOCK:
+            pass
         backend_server.PUBLIC_ROOT = self._original_globals["PUBLIC_ROOT"]
         backend_server.STATIC_CONFIG_PATH = self._original_globals["STATIC_CONFIG_PATH"]
         backend_server.DATABASE_PATH = self._original_globals["DATABASE_PATH"]
+        self.assertEqual(self._file_signature(self.real_database_path), self.real_database_signature)
         self.temp_dir.cleanup()
+
+    def _file_signature(self, path: Path) -> tuple[int, str] | None:
+        if not path.exists():
+            return None
+
+        digest = hashlib.sha256()
+        with path.open("rb") as handle:
+            for chunk in iter(lambda: handle.read(65_536), b""):
+                digest.update(chunk)
+        return path.stat().st_size, digest.hexdigest()
 
     def _build_temp_public_root(self) -> None:
         source_public = PROJECT_ROOT / "public"
@@ -261,3 +278,25 @@ class BackendServerTestCase(unittest.TestCase):
     def read_export_dataset(self, dataset_name: str) -> list[dict[str, Any]]:
         export_path = self.public_root / "data" / "schools" / dataset_name
         return json.loads(export_path.read_text(encoding="utf-8"))
+
+    def flush_exports(self) -> Any:
+        status, _, payload = self.request_json("POST", "/api/exports/flush")
+        self.assertEqual(status, 200)
+        self.assertEqual(payload["flushed"], True)
+        return payload
+
+    def fetch_school_row(self, school_id: str) -> dict[str, Any] | None:
+        connection = backend_server.get_connection()
+        try:
+            row = backend_server.fetch_school_by_id(connection, school_id)
+        finally:
+            connection.close()
+        return row
+
+    def count_schools(self) -> int:
+        connection = backend_server.get_connection()
+        try:
+            row = connection.execute("SELECT COUNT(*) AS total FROM schools").fetchone()
+            return int(row["total"])
+        finally:
+            connection.close()

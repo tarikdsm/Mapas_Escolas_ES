@@ -27,7 +27,14 @@ DATABASE_PATH = PROJECT_ROOT / "backend" / "data" / "schools.sqlite3"
 HOST = os.environ.get("ESCOLAS_HOST", "127.0.0.1")
 PORT = int(os.environ.get("ESCOLAS_PORT", "8765"))
 WRITE_LOCK = threading.Lock()
+EXPORT_SCHEDULE_LOCK = threading.Lock()
 MAX_REQUEST_BODY_BYTES = 262_144
+EXPORT_DEBOUNCE_SECONDS = 0.5
+EXPORT_TIMER: threading.Timer | None = None
+EXPORT_GENERATION = 0
+LOCAL_BIND_HOSTS = {"127.0.0.1", "localhost", "::1"}
+SOURCE_OF_TRUTH = "sqlite"
+SNAPSHOT_IMPORT_SOURCE = "static-snapshot-bootstrap"
 
 NETWORKS = (
     {
@@ -86,6 +93,38 @@ SCHOOL_COLUMNS = (
     "created_at",
     "updated_at",
 )
+
+
+class SchoolNotFoundError(LookupError):
+    """Raised when an update/delete operation targets a missing school."""
+
+
+def get_configured_host() -> str:
+    return clean_text(os.environ.get("ESCOLAS_HOST", HOST)) or "127.0.0.1"
+
+
+def get_configured_port() -> int:
+    raw = clean_text(os.environ.get("ESCOLAS_PORT", str(PORT))) or str(PORT)
+    try:
+        return int(raw)
+    except ValueError:
+        return PORT
+
+
+def is_local_bind_host(host: str) -> bool:
+    return clean_text(host).lower() in LOCAL_BIND_HOSTS
+
+
+def ensure_remote_bind_is_allowed(host: str) -> None:
+    normalized = clean_text(host)
+    if is_local_bind_host(normalized):
+        return
+    if clean_text(os.environ.get("ESCOLAS_ALLOW_REMOTE")) == "1":
+        print(f"AVISO: bind remoto habilitado explicitamente em {normalized}.")
+        return
+
+    print(f"AVISO: bind remoto solicitado em {normalized}, mas ESCOLAS_ALLOW_REMOTE != 1.")
+    raise SystemExit("Bind remoto bloqueado. Defina ESCOLAS_ALLOW_REMOTE=1 para continuar.")
 
 
 def utc_now() -> str:
@@ -286,8 +325,12 @@ def load_json_file(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def load_frontend_school_records(dataset_name: str) -> list[dict[str, Any]]:
-    dataset_path = PUBLIC_ROOT / "data" / "schools" / f"{dataset_name}.json"
+def load_frontend_school_records(
+    dataset_name: str,
+    public_root: Path | None = None,
+) -> list[dict[str, Any]]:
+    public_root = public_root or PUBLIC_ROOT
+    dataset_path = public_root / "data" / "schools" / f"{dataset_name}.json"
     if not dataset_path.exists():
         return []
 
@@ -352,7 +395,7 @@ def build_import_row_from_frontend_record(
         "display_type": "",
         "institution": "",
         "acronym": "",
-        "georef_source": "frontend-static-export",
+        "georef_source": SNAPSHOT_IMPORT_SOURCE,
         "phone_primary": phone_primary,
         "email": email,
         "teacher_count": clean_int(record.get("Numero_professores")),
@@ -369,12 +412,13 @@ def build_import_row_from_frontend_record(
     }
 
 
-def build_import_rows() -> list[dict[str, Any]]:
+def build_import_rows(public_root: Path | None = None) -> list[dict[str, Any]]:
+    public_root = public_root or PUBLIC_ROOT
     now = utc_now()
     rows: list[dict[str, Any]] = []
 
     for network in NETWORKS:
-        records = load_frontend_school_records(network["dataset_name"])
+        records = load_frontend_school_records(network["dataset_name"], public_root=public_root)
         for index, record in enumerate(records):
             normalized = build_import_row_from_frontend_record(network["id"], record, index, now)
             if normalized is not None:
@@ -384,8 +428,12 @@ def build_import_rows() -> list[dict[str, Any]]:
     return rows
 
 
-def import_static_school_data(connection: sqlite3.Connection) -> None:
-    rows = build_import_rows()
+def import_static_school_data(
+    connection: sqlite3.Connection,
+    public_root: Path | None = None,
+) -> None:
+    public_root = public_root or PUBLIC_ROOT
+    rows = build_import_rows(public_root=public_root)
     if not rows:
         raise RuntimeError("Nao foi possivel importar nenhuma escola da base estatica atual.")
 
@@ -437,6 +485,69 @@ def write_static_exports(connection: sqlite3.Connection) -> None:
         output_path = PUBLIC_ROOT / "data" / "schools" / f"{network['dataset_name']}.json"
         output_path.parent.mkdir(parents=True, exist_ok=True)
         output_path.write_bytes(json_bytes(list_frontend_dataset(connection, network["id"])))
+
+
+def flush_static_exports(
+    connection_factory: Any | None = None,
+    exporter: Any | None = None,
+) -> None:
+    connection_factory = connection_factory or get_connection
+    exporter = exporter or write_static_exports
+
+    with WRITE_LOCK:
+        connection = connection_factory()
+        try:
+            exporter(connection)
+        finally:
+            connection.close()
+
+
+def _run_scheduled_export_flush(generation: int) -> None:
+    global EXPORT_TIMER
+
+    with EXPORT_SCHEDULE_LOCK:
+        if generation != EXPORT_GENERATION:
+            return
+        EXPORT_TIMER = None
+
+    try:
+        flush_static_exports()
+    except Exception as error:  # pragma: no cover - fallback operacional
+        print(f"Erro ao regravar exports estaticos: {error}")
+        traceback.print_exc()
+
+
+def schedule_static_exports_flush(delay_seconds: float | None = None) -> None:
+    global EXPORT_TIMER, EXPORT_GENERATION
+
+    delay_seconds = EXPORT_DEBOUNCE_SECONDS if delay_seconds is None else delay_seconds
+    with EXPORT_SCHEDULE_LOCK:
+        EXPORT_GENERATION += 1
+        generation = EXPORT_GENERATION
+        if EXPORT_TIMER is not None:
+            EXPORT_TIMER.cancel()
+
+        timer = threading.Timer(delay_seconds, _run_scheduled_export_flush, args=(generation,))
+        timer.daemon = True
+        EXPORT_TIMER = timer
+        timer.start()
+
+
+def cancel_scheduled_export_flush() -> None:
+    global EXPORT_TIMER, EXPORT_GENERATION
+
+    with EXPORT_SCHEDULE_LOCK:
+        EXPORT_GENERATION += 1
+        timer = EXPORT_TIMER
+        EXPORT_TIMER = None
+
+    if timer is not None:
+        timer.cancel()
+
+
+def flush_scheduled_export_flush() -> None:
+    cancel_scheduled_export_flush()
+    flush_static_exports()
 
 
 def validate_network_type(network_type: str) -> str:
@@ -503,11 +614,19 @@ def normalize_school_payload(payload: dict[str, Any], existing_id: str | None = 
     return normalized
 
 
-def upsert_school(payload: dict[str, Any], school_id: str | None = None) -> dict[str, Any]:
+def upsert_school(
+    payload: dict[str, Any],
+    school_id: str | None = None,
+    *,
+    require_existing: bool = False,
+    connection_factory: Any = get_connection,
+) -> dict[str, Any]:
     with WRITE_LOCK:
-        connection = get_connection()
+        connection = connection_factory()
         try:
             existing = fetch_school_by_id(connection, school_id) if school_id else None
+            if require_existing and school_id and existing is None:
+                raise SchoolNotFoundError("Escola nao encontrada.")
             normalized = normalize_school_payload(payload, existing_id=school_id)
 
             if existing is None:
@@ -539,35 +658,40 @@ def upsert_school(payload: dict[str, Any], school_id: str | None = None) -> dict
                 )
 
             touch_data_version(connection)
-            write_static_exports(connection)
             connection.commit()
             saved = fetch_school_by_id(connection, normalized["id"])
             if saved is None:
                 raise RuntimeError("Falha ao recarregar a escola salva.")
+            schedule_static_exports_flush()
             return saved
         finally:
             connection.close()
 
 
-def delete_school(school_id: str) -> bool:
+def delete_school(school_id: str, connection_factory: Any = get_connection) -> bool:
     with WRITE_LOCK:
-        connection = get_connection()
+        connection = connection_factory()
         try:
             cursor = connection.execute("DELETE FROM schools WHERE id = ?", (school_id,))
             if cursor.rowcount <= 0:
                 connection.rollback()
                 return False
             touch_data_version(connection)
-            write_static_exports(connection)
             connection.commit()
+            schedule_static_exports_flush()
             return True
         finally:
             connection.close()
 
 
-def build_runtime_config(base_url: str) -> dict[str, Any]:
-    config = load_json_file(STATIC_CONFIG_PATH)
-    connection = get_connection()
+def build_runtime_config(
+    base_url: str,
+    *,
+    config_loader: Any = load_json_file,
+    connection_factory: Any = get_connection,
+) -> dict[str, Any]:
+    config = config_loader(STATIC_CONFIG_PATH)
+    connection = connection_factory()
     try:
         version = get_meta(connection, "data_version", "")
     finally:
@@ -602,8 +726,11 @@ def parse_offset(value: str, default: int = 0) -> int:
     return max(0, parsed)
 
 
-def build_school_list_response(query_params: dict[str, list[str]]) -> dict[str, Any]:
-    connection = get_connection()
+def build_school_list_response(
+    query_params: dict[str, list[str]],
+    connection_factory: Any = get_connection,
+) -> dict[str, Any]:
+    connection = connection_factory()
     try:
         network_type = clean_text((query_params.get("network_type") or [""])[0])
         municipio = clean_text((query_params.get("municipio") or [""])[0])
@@ -658,8 +785,8 @@ def build_school_list_response(query_params: dict[str, list[str]]) -> dict[str, 
         connection.close()
 
 
-def build_options_response() -> dict[str, Any]:
-    connection = get_connection()
+def build_options_response(connection_factory: Any = get_connection) -> dict[str, Any]:
+    connection = connection_factory()
     try:
         municipality_variants: dict[str, str] = {}
         for row in connection.execute(
@@ -715,12 +842,14 @@ def build_options_response() -> dict[str, Any]:
         connection.close()
 
 
-def build_meta_response() -> dict[str, Any]:
-    connection = get_connection()
+def build_meta_response(connection_factory: Any = get_connection) -> dict[str, Any]:
+    connection = connection_factory()
     try:
         total = connection.execute("SELECT COUNT(*) AS total FROM schools").fetchone()["total"]
         return {
             "status": "ok",
+            "sourceOfTruth": SOURCE_OF_TRUTH,
+            "snapshotExportsEnabled": True,
             "dataVersion": get_meta(connection, "data_version", ""),
             "updatedAt": get_meta(connection, "updated_at", ""),
             "schoolCount": int(total),
@@ -731,14 +860,27 @@ def build_meta_response() -> dict[str, Any]:
         connection.close()
 
 
-def ensure_database_ready() -> None:
+def build_etag(value: str) -> str:
+    text = clean_text(value).replace('"', "")
+    return f'"{text}"'
+
+
+def etag_matches(header_value: str, expected_etag: str) -> bool:
+    candidates = [item.strip() for item in clean_text(header_value).split(",") if item.strip()]
+    return "*" in candidates or expected_etag in candidates
+
+
+def ensure_database_ready(
+    connection_factory: Any = get_connection,
+    importer: Any = import_static_school_data,
+) -> None:
     DATABASE_PATH.parent.mkdir(parents=True, exist_ok=True)
-    connection = get_connection()
+    connection = connection_factory()
     try:
         create_schema(connection)
         count = connection.execute("SELECT COUNT(*) AS total FROM schools").fetchone()["total"]
         if int(count) == 0:
-            import_static_school_data(connection)
+            importer(connection, public_root=PUBLIC_ROOT)
     finally:
         connection.close()
 
@@ -761,7 +903,12 @@ class EscolasRequestHandler(BaseHTTPRequestHandler):
                 return
 
             if path == "/api/meta":
-                self._send_json(build_meta_response())
+                meta = build_meta_response()
+                etag = build_etag(meta.get("dataVersion", ""))
+                if etag_matches(self.headers.get("If-None-Match", ""), etag):
+                    self._send_status(HTTPStatus.NOT_MODIFIED, extra_headers={"ETag": etag})
+                    return
+                self._send_json(meta, extra_headers={"ETag": etag})
                 return
 
             if path == "/api/options":
@@ -769,7 +916,7 @@ class EscolasRequestHandler(BaseHTTPRequestHandler):
                 return
 
             if path == "/api/config":
-                base_url = f"http://{self.headers.get('Host', f'{HOST}:{PORT}')}"
+                base_url = f"http://{self.headers.get('Host', f'{get_configured_host()}:{get_configured_port()}')}"
                 self._send_json(build_runtime_config(base_url))
                 return
 
@@ -815,6 +962,22 @@ class EscolasRequestHandler(BaseHTTPRequestHandler):
 
     def do_POST(self) -> None:
         parsed = urlparse(self.path)
+        if not self._is_mutation_request_allowed():
+            return
+
+        if parsed.path == "/api/exports/flush":
+            try:
+                flush_scheduled_export_flush()
+                self._send_json({"flushed": True})
+            except Exception as error:  # pragma: no cover - fallback operacional
+                print(f"Erro interno em POST {self.path}: {error}")
+                traceback.print_exc()
+                self._send_json(
+                    {"error": "Falha ao regravar exports estaticos."},
+                    status=HTTPStatus.INTERNAL_SERVER_ERROR,
+                )
+            return
+
         if parsed.path != "/api/schools":
             self._send_json({"error": "Rota nao encontrada."}, status=HTTPStatus.NOT_FOUND)
             return
@@ -835,6 +998,9 @@ class EscolasRequestHandler(BaseHTTPRequestHandler):
 
     def do_PUT(self) -> None:
         parsed = urlparse(self.path)
+        if not self._is_mutation_request_allowed():
+            return
+
         if not parsed.path.startswith("/api/schools/"):
             self._send_json({"error": "Rota nao encontrada."}, status=HTTPStatus.NOT_FOUND)
             return
@@ -842,8 +1008,10 @@ class EscolasRequestHandler(BaseHTTPRequestHandler):
         school_id = unquote(parsed.path[len("/api/schools/") :])
         try:
             payload = self._read_json_body()
-            saved = upsert_school(payload, school_id=school_id)
+            saved = upsert_school(payload, school_id=school_id, require_existing=True)
             self._send_json(saved)
+        except SchoolNotFoundError as error:
+            self._send_json({"error": str(error)}, status=HTTPStatus.NOT_FOUND)
         except ValueError as error:
             self._send_json({"error": str(error)}, status=HTTPStatus.BAD_REQUEST)
         except Exception as error:  # pragma: no cover - fallback operacional
@@ -856,6 +1024,9 @@ class EscolasRequestHandler(BaseHTTPRequestHandler):
 
     def do_DELETE(self) -> None:
         parsed = urlparse(self.path)
+        if not self._is_mutation_request_allowed():
+            return
+
         if not parsed.path.startswith("/api/schools/"):
             self._send_json({"error": "Rota nao encontrada."}, status=HTTPStatus.NOT_FOUND)
             return
@@ -883,6 +1054,7 @@ class EscolasRequestHandler(BaseHTTPRequestHandler):
     def _read_json_body(self) -> dict[str, Any]:
         length = int(self.headers.get("Content-Length", "0") or "0")
         if length > MAX_REQUEST_BODY_BYTES:
+            self._discard_request_body(length)
             raise ValueError("Corpo da requisicao excede o limite permitido.")
         raw = self.rfile.read(length) if length > 0 else b"{}"
         try:
@@ -893,21 +1065,129 @@ class EscolasRequestHandler(BaseHTTPRequestHandler):
             raise ValueError("O corpo precisa ser um objeto JSON.")
         return payload
 
-    def _send_default_headers(self, content_type: str, content_length: int | None = None) -> None:
+    def _discard_request_body(self, length: int) -> None:
+        remaining = max(0, length)
+        while remaining > 0:
+            chunk = self.rfile.read(min(65_536, remaining))
+            if not chunk:
+                break
+            remaining -= len(chunk)
+
+    def _default_request_port(self) -> int:
+        return int(self.server.server_address[1])
+
+    def _parse_host_header(self) -> tuple[str, int | None]:
+        raw_host = clean_text(self.headers.get("Host"))
+        if not raw_host:
+            return "", None
+
+        parsed = urlparse(f"//{raw_host}")
+        hostname = clean_text(parsed.hostname).lower()
+        port = parsed.port or self._default_request_port()
+        return hostname, port
+
+    def _parse_origin(self) -> tuple[str, int | None] | None:
+        raw_origin = clean_text(self.headers.get("Origin"))
+        if not raw_origin:
+            return None
+
+        parsed = urlparse(raw_origin)
+        hostname = clean_text(parsed.hostname).lower()
+        if not hostname:
+            return None
+
+        if parsed.port is not None:
+            port = parsed.port
+        elif parsed.scheme == "https":
+            port = 443
+        else:
+            port = 80
+        return hostname, port
+
+    def _hosts_match(self, left: str, right: str) -> bool:
+        if left == right:
+            return True
+        return left in LOCAL_BIND_HOSTS and right in LOCAL_BIND_HOSTS
+
+    def _origin_matches_request_host(self) -> bool:
+        origin = self._parse_origin()
+        if origin is None:
+            return False
+
+        request_host, request_port = self._parse_host_header()
+        if not request_host or request_port is None:
+            return False
+
+        origin_host, origin_port = origin
+        return self._hosts_match(origin_host, request_host) and origin_port == request_port
+
+    def _is_mutation_request_allowed(self) -> bool:
+        origin = clean_text(self.headers.get("Origin"))
+        if not origin:
+            return True
+        if self._origin_matches_request_host():
+            return True
+
+        self._send_json(
+            {"error": "Origem nao autorizada para operacoes de escrita."},
+            status=HTTPStatus.FORBIDDEN,
+        )
+        return False
+
+    def _get_cors_allow_origin(self) -> str | None:
+        if self.command == "GET":
+            return "*"
+
+        if self.command in {"POST", "PUT", "DELETE", "OPTIONS"} and self._origin_matches_request_host():
+            return clean_text(self.headers.get("Origin"))
+
+        return None
+
+    def _send_default_headers(
+        self,
+        content_type: str,
+        content_length: int | None = None,
+        extra_headers: dict[str, str] | None = None,
+    ) -> None:
         self.send_header("Content-Type", content_type)
         self.send_header("Cache-Control", "no-store, max-age=0")
         self.send_header("Pragma", "no-cache")
         self.send_header("Expires", "0")
-        self.send_header("Access-Control-Allow-Origin", "*")
+        allow_origin = self._get_cors_allow_origin()
+        if allow_origin:
+            self.send_header("Access-Control-Allow-Origin", allow_origin)
         self.send_header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
         self.send_header("Access-Control-Allow-Headers", "Content-Type")
+        self.send_header("Vary", "Origin")
+        for key, value in (extra_headers or {}).items():
+            self.send_header(key, value)
         if content_length is not None:
             self.send_header("Content-Length", str(content_length))
 
-    def _send_json(self, payload: Any, status: HTTPStatus = HTTPStatus.OK) -> None:
+    def _send_status(
+        self,
+        status: HTTPStatus,
+        *,
+        content_type: str = "application/json; charset=utf-8",
+        extra_headers: dict[str, str] | None = None,
+    ) -> None:
+        self.send_response(status)
+        self._send_default_headers(content_type, 0, extra_headers=extra_headers)
+        self.end_headers()
+
+    def _send_json(
+        self,
+        payload: Any,
+        status: HTTPStatus = HTTPStatus.OK,
+        extra_headers: dict[str, str] | None = None,
+    ) -> None:
         body = json_bytes(payload)
         self.send_response(status)
-        self._send_default_headers("application/json; charset=utf-8", len(body))
+        self._send_default_headers(
+            "application/json; charset=utf-8",
+            len(body),
+            extra_headers=extra_headers,
+        )
         self.end_headers()
         self.wfile.write(body)
 
@@ -952,16 +1232,20 @@ class EscolasRequestHandler(BaseHTTPRequestHandler):
 
 
 def main() -> int:
+    host = get_configured_host()
+    port = get_configured_port()
+    ensure_remote_bind_is_allowed(host)
     ensure_database_ready()
-    server = ThreadingHTTPServer((HOST, PORT), EscolasRequestHandler)
-    print(f"Servidor iniciado em http://{HOST}:{PORT}")
-    print(f"Mapa: http://{HOST}:{PORT}/")
-    print(f"Painel administrativo: http://{HOST}:{PORT}/admin/")
+    server = ThreadingHTTPServer((host, port), EscolasRequestHandler)
+    print(f"Servidor iniciado em http://{host}:{port}")
+    print(f"Mapa: http://{host}:{port}/")
+    print(f"Painel administrativo: http://{host}:{port}/admin/")
     try:
         server.serve_forever()
     except KeyboardInterrupt:
         print("\nServidor encerrado.")
     finally:
+        cancel_scheduled_export_flush()
         server.server_close()
     return 0
 

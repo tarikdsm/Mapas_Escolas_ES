@@ -48,3 +48,13 @@ class StaticPagesTestCase(BackendServerTestCase):
         self.assertIn(".sheet-note-popover {", css)
         self.assertIn("position: fixed;", css)
         self.assertIn("max-height: calc(100vh - 24px);", css)
+
+    def test_published_admin_bundle_does_not_hardcode_local_backend_urls(self) -> None:
+        status, headers, body = self.request("GET", "/assets/js/admin.js")
+        js = body.decode("utf-8")
+
+        self.assertEqual(status, 200)
+        self.assertIn("javascript", headers["Content-Type"])
+        self.assertNotIn("http://127.0.0.1", js)
+        self.assertNotIn("localhost", js)
+        self.assertNotIn(":8765", js)

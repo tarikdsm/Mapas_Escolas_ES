@@ -1,6 +1,6 @@
 [
   {
-    "Nome_escola": "EEEM SAO FRANCISCO",
+    "Nome_escola": "EEEM - SÃO FRANCISCO",
     "Endereco": "RUA PEDRO RIBEIRO, 177, SAO FRANCISCO",
     "Municipio": "Afonso Claudio",
     "CEP": "29600-000",
@@ -12,7 +12,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEPEF FAZENDA SANTO ANTONIO",
+    "Nome_escola": "EEPEF - FAZENDA SANTO ANTONIO",
     "Endereco": "FAZENDA SANTO ANTONIO",
     "Municipio": "Afonso Claudio",
     "CEP": "29604-000",
@@ -24,7 +24,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEUEF PATRIMONIO DOS GONCALVES",
+    "Nome_escola": "EEUEF - PATRIMONIO DOS GONCALVES",
     "Endereco": "RUA PATRIMONIO DOS GONCALVES, IBICABA",
     "Municipio": "Afonso Claudio",
     "CEP": "29612-000",
@@ -36,7 +36,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM CEEFMTI AFONSO CLAUDIO",
+    "Nome_escola": "PRÉ-ENEM CEEFMTI AFONSO CLAUDIO",
     "Endereco": "RUA UTE AMELIA GASTIN PADUA, 50124, SAO TARCISIO",
     "Municipio": "Afonso Claudio",
     "CEP": "29600-000",
@@ -109,7 +109,7 @@
   },
   {
     "Nome_escola": "EEEFM MARIA DE ABREU ALVIM",
-    "Endereco": "AVENIDA FRANCISCO TOSTA, SN, FAZENDA GUANDU, FAZENDA GUANDU",
+    "Endereco": "AVENIDA FRANCISCO TOSTA, SN, FAZENDA GUANDU",
     "Municipio": "Afonso Cláudio",
     "CEP": "29609-000",
     "telefone": "",
@@ -121,7 +121,7 @@
   },
   {
     "Nome_escola": "EEEM MATA FRIA",
-    "Endereco": "CORREGO FRANCISCO CORREA, SN, DISTRITO MATA FRIA, MATA FRIA",
+    "Endereco": "CORREGO FRANCISCO CORREA, SN, DISTRITO MATA FRIA",
     "Municipio": "Afonso Cláudio",
     "CEP": "29600-000",
     "telefone": "(27) 99570-0072",
@@ -132,7 +132,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEFM PROFESSORA ANA MARIA CARLETTI QUIUQUI",
+    "Nome_escola": "PRÉ-ENEM EEEFM PROFESSORA ANA MARIA CARLETTI QUIUQUI",
     "Endereco": "RUA JORGE ELIAS HITTI, 220, CENTRO",
     "Municipio": "Aguia Branca",
     "CEP": "29795-000",
@@ -156,7 +156,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEEF PROFESSOR LELLIS",
+    "Nome_escola": "EEEF - PROFESSOR LELLIS",
     "Endereco": "RUA DR OLIVIO CORREA PEDROSA, 178, CENTRO",
     "Municipio": "Alegre",
     "CEP": "29500-000",
@@ -204,18 +204,6 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEEFM PROFA CELIA TEIXEIRA DO CARMO",
-    "Endereco": "RUA THEODORO PINTO DE SOUZA, SN, CENTRO, RIVE",
-    "Municipio": "Alegre",
-    "CEP": "29520-000",
-    "telefone": "(28) 3552-8022",
-    "email": "escolaceliacarmo@sedu.es.gov.br",
-    "Latitude": -20.756702,
-    "Longitude": -41.459112,
-    "Numero_professores": 36,
-    "Numero_alunos": null
-  },
-  {
     "Nome_escola": "EEEFM PROFESSOR PEDRO SIMAO",
     "Endereco": "RUA CARMOSINA DIAS DO NASCIMENTO, SN, ANTIGO LUCIANO DUART, CLERIO MOULIN",
     "Municipio": "Alegre",
@@ -225,6 +213,18 @@
     "Latitude": -20.766468,
     "Longitude": -41.545898,
     "Numero_professores": 30,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEEFM PROFª CELIA TEIXEIRA DO CARMO",
+    "Endereco": "RUA THEODORO PINTO DE SOUZA, SN, CENTRO, RIVE",
+    "Municipio": "Alegre",
+    "CEP": "29520-000",
+    "telefone": "(28) 3552-8022",
+    "email": "escolaceliacarmo@sedu.es.gov.br",
+    "Latitude": -20.756702,
+    "Longitude": -41.459112,
+    "Numero_professores": 36,
     "Numero_alunos": null
   },
   {
@@ -337,7 +337,7 @@
   },
   {
     "Nome_escola": "EEEFM PASTOR ANTONIO NUNES DE CARVALHO",
-    "Endereco": "RUA PAULO BRUNO, 76, 76, CENTRO",
+    "Endereco": "RUA PAULO BRUNO, 76, CENTRO",
     "Municipio": "Alto Rio Novo",
     "CEP": "29760-000",
     "telefone": "(27) 3746-1641",
@@ -384,7 +384,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE OLIVANIA MEPES",
+    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE OLIVANIA - MEPES",
     "Endereco": "AVENIDA MARIANA DAMAZIO FLORES, SN, ANCHIETA",
     "Municipio": "Anchieta",
     "CEP": "29230-000",
@@ -396,7 +396,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEFM CORONEL GOMES DE OLIVEIRA",
+    "Nome_escola": "PRÉ-ENEM EEEFM CORONEL GOMES DE OLIVEIRA",
     "Endereco": "ESTRADA DE RODAGEM ESTADUAL ANCHIETA X JABAQUARA, 1078, NOVA ESPERANCA",
     "Municipio": "Anchieta",
     "CEP": "29230-000",
@@ -408,7 +408,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEEM GODOFREDO POSSI",
+    "Nome_escola": "EEEM - GODOFREDO POSSI",
     "Endereco": "RUA JOSE PUPPIN, SNº, BONSUCESSO",
     "Municipio": "Apiaca",
     "CEP": "29450-000",
@@ -528,18 +528,6 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM CEEMTI MONSENHOR GUILHERME SCHMITZ",
-    "Endereco": "RUA ARISTIDES BITTI, 350, DE CARLI",
-    "Municipio": "Aracruz",
-    "CEP": "29194-006",
-    "telefone": "3256-1637",
-    "email": "zanonangela@gmail.com",
-    "Latitude": -19.822111,
-    "Longitude": -40.282789,
-    "Numero_professores": 5,
-    "Numero_alunos": null
-  },
-  {
     "Nome_escola": "PRE ENEM EEEFM MISAEL PINTO NETO",
     "Endereco": "RUA GENERAL ARISTIDES GUARANA, 38, CENTRO",
     "Municipio": "Aracruz",
@@ -549,6 +537,18 @@
     "Latitude": -19.82014,
     "Longitude": -40.274367,
     "Numero_professores": 4,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "PRÉ-ENEM CEEMTI MONSENHOR GUILHERME SCHMITZ",
+    "Endereco": "RUA ARISTIDES BITTI, 350, DE CARLI",
+    "Municipio": "Aracruz",
+    "CEP": "29194-006",
+    "telefone": "3256-1637",
+    "email": "zanonangela@gmail.com",
+    "Latitude": -19.822111,
+    "Longitude": -40.282789,
+    "Numero_professores": 5,
     "Numero_alunos": null
   },
   {
@@ -636,7 +636,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEUEF BARRA DA LAGOA PRETA",
+    "Nome_escola": "EEUEF - BARRA DA LAGOA PRETA",
     "Endereco": "RUA BARRA DA LAGOA PRETA, ZONA RURAL",
     "Municipio": "Baixo Guandu",
     "CEP": "29742-000",
@@ -648,7 +648,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEUEF BARRA DO CRISCIUMA",
+    "Nome_escola": "EEUEF - BARRA DO CRISCIUMA",
     "Endereco": "RUA BARRA DO CRISCIÚMA, ZONA RURAL",
     "Municipio": "Baixo Guandu",
     "CEP": "29740-000",
@@ -660,7 +660,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEUEF CABECEIRA DO DEZ",
+    "Nome_escola": "EEUEF - CABECEIRA DO DEZ",
     "Endereco": "CORREGO KM 10, ZONA RURAL",
     "Municipio": "Baixo Guandu",
     "CEP": "29730-000",
@@ -672,7 +672,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEUEF CORREGO DO BATUTA",
+    "Nome_escola": "EEUEF - CORREGO DO BATUTA",
     "Endereco": "RUA CÓRREGO DO BATUTA, CENTRO",
     "Municipio": "Baixo Guandu",
     "CEP": "29735-000",
@@ -684,7 +684,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEUEF DOIS IRMAOS",
+    "Nome_escola": "EEUEF - DOIS IRMAOS",
     "Endereco": "CORREGO DOIS IRMAOS, CENTRO",
     "Municipio": "Baixo Guandu",
     "CEP": "29740-000",
@@ -696,7 +696,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEUEF KM 20 DO MUTUM",
+    "Nome_escola": "EEUEF - KM 20 DO MUTUM",
     "Endereco": "RUA KM 20 DO MUTUM, ZONA RURAL",
     "Municipio": "Baixo Guandu",
     "CEP": "29735-000",
@@ -708,7 +708,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEUEF KM 8 DO MUTUM",
+    "Nome_escola": "EEUEF - KM 8 DO MUTUM",
     "Endereco": "RUA KM 8 DO MUTUM, ZONA RURAL",
     "Municipio": "Baixo Guandu",
     "CEP": "29735-000",
@@ -720,7 +720,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEUEF VARJAO",
+    "Nome_escola": "EEUEF - VARJÃO",
     "Endereco": "RUA CÓRREGO DO VARJÃO, ZONA RURAL",
     "Municipio": "Baixo Guandu",
     "CEP": "29740-000",
@@ -744,7 +744,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEFM JOSE DAMASCENO FILHO",
+    "Nome_escola": "PRÉ-ENEM EEEFM JOSE DAMASCENO FILHO",
     "Endereco": "RUA QUINTINO BOCAIUVA, 442, SAPUCAIA",
     "Municipio": "Baixo Guandu",
     "CEP": "29730-000",
@@ -792,7 +792,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEUEF BOA ESPERANCA BARRA DE SAO FRANCISCO",
+    "Nome_escola": "EEUEF BOA ESPERANCA - BARRA DE SAO FRANCISCO",
     "Endereco": "RUA FORTALEZA, SN, CORREGO",
     "Municipio": "Barra de Sao Francisco",
     "CEP": "29800-000",
@@ -828,7 +828,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEUEF ITAUNINHAS BARRA DE SAO FRANCISCO",
+    "Nome_escola": "EEUEF ITAUNINHAS - BARRA DE SAO FRANCISCO",
     "Endereco": "RUA ITAUNAS, SN, ITAUNINHAS",
     "Municipio": "Barra de Sao Francisco",
     "CEP": "29800-000",
@@ -864,8 +864,8 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EE PRBSF PENITENCIARIA REGIONAL DE B S FRANCISCO",
-    "Endereco": "RUA PENITENCIÁRIA DE BARRA DE SÃO FRANCISCO, VILA LUCIENE",
+    "Nome_escola": "EE - PRBSF - PENITENCIARIA REGIONAL DE B S FRANCISCO",
+    "Endereco": "RUA PENITENCIÁRIA DE BARRA DE SÃO FRANCISCO, PENITENCIÁRIA, VILA LUCIENE",
     "Municipio": "Barra de São Francisco",
     "CEP": "29800-000",
     "telefone": "",
@@ -948,7 +948,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEUEF BARRA DA CAMBEVA",
+    "Nome_escola": "EEUEF - BARRA DA CAMBEVA",
     "Endereco": "CORREGO RIO DO CAMPO, MONTE SINAI",
     "Municipio": "Barra de São Francisco",
     "CEP": "29800-000",
@@ -956,6 +956,30 @@
     "email": "",
     "Latitude": -18.501103,
     "Longitude": -40.878774,
+    "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEUEF - BARRA DA PIPOCA",
+    "Endereco": "RUA BARRA DA PIPOCA, MONTE SINAI",
+    "Municipio": "Barra de São Francisco",
+    "CEP": "29800-000",
+    "telefone": "",
+    "email": "",
+    "Latitude": -18.538522,
+    "Longitude": -40.890552,
+    "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEUEF - CABECEIRA CORREGO SAO PAULO",
+    "Endereco": "CORREGO SAO PAULO, SANTO ANTONIO",
+    "Municipio": "Barra de São Francisco",
+    "CEP": "29800-000",
+    "telefone": "",
+    "email": "",
+    "Latitude": -18.795775,
+    "Longitude": -40.806986,
     "Numero_professores": null,
     "Numero_alunos": null
   },
@@ -972,18 +996,6 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEUEF BARRA DA PIPOCA",
-    "Endereco": "RUA BARRA DA PIPOCA, MONTE SINAI",
-    "Municipio": "Barra de São Francisco",
-    "CEP": "29800-000",
-    "telefone": "",
-    "email": "",
-    "Latitude": -18.538522,
-    "Longitude": -40.890552,
-    "Numero_professores": null,
-    "Numero_alunos": null
-  },
-  {
     "Nome_escola": "EEUEF BARRA DO ALECRIM",
     "Endereco": "BARRA DP ALECRIM",
     "Municipio": "Barra de São Francisco",
@@ -992,18 +1004,6 @@
     "email": "",
     "Latitude": -18.754521,
     "Longitude": -40.891928,
-    "Numero_professores": null,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "EEUEF CABECEIRA CORREGO SAO PAULO",
-    "Endereco": "CORREGO SAO PAULO, SANTO ANTONIO",
-    "Municipio": "Barra de São Francisco",
-    "CEP": "29800-000",
-    "telefone": "",
-    "email": "",
-    "Latitude": -18.795775,
-    "Longitude": -40.806986,
     "Numero_professores": null,
     "Numero_alunos": null
   },
@@ -1044,7 +1044,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEFM ANTONIO DOS SANTOS NEVES",
+    "Nome_escola": "PRÉ-ENEM EEEFM ANTONIO DOS SANTOS NEVES",
     "Endereco": "AVENIDA DEMOCRATA, 845, CENTRO",
     "Municipio": "Boa Esperanca",
     "CEP": "29845-000",
@@ -1129,7 +1129,7 @@
   },
   {
     "Nome_escola": "EEEFM LEOGILDO SEVERIANO DE SOUZA",
-    "Endereco": "FAZENDA LEOGILDO, ZONA RURAL, RURAL SN, ZONA RURAL",
+    "Endereco": "FAZENDA LEOGILDO, ZONA RURAL, RURAL SN",
     "Municipio": "Brejetuba",
     "CEP": "29630-000",
     "telefone": "(27) 99914-8320",
@@ -1188,7 +1188,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "CEEJA DE CACHOEIRO DE ITAPEMIRIM",
+    "Nome_escola": "CEEJA - DE CACHOEIRO DE ITAPEMIRIM",
     "Endereco": "RUA MOREIRA, 215, CORONEL BORGES",
     "Municipio": "Cachoeiro de Itapemirim",
     "CEP": "29306-320",
@@ -1200,7 +1200,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EE CPFCI CENTRO PRISIONAL FEMININO DE CACHOEIRO DE ITAPEMIRIM",
+    "Nome_escola": "EE - CPFCI - CENTRO PRISIONAL FEMININO DE CACHOEIRO DE ITAPEMIRIM",
     "Endereco": "RUA PROFESSOR QUINTILIANO DE AZEVEDO, 31, GUANDU",
     "Municipio": "Cachoeiro de Itapemirim",
     "CEP": "29300-020",
@@ -1212,7 +1212,19 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EE EEE AUDITIVA LIONS PROF NAPOLEAO ALBUQUERQUE",
+    "Nome_escola": "EE - PRCI - PENITENCIÁRIA REGIONAL DE CACHOEIRO DE ITAPEMIRIM",
+    "Endereco": "RUA PROFESSOR QUINTILIANO DE AZEVEDO, 31, GUANDU",
+    "Municipio": "Cachoeiro de Itapemirim",
+    "CEP": "29300-020",
+    "telefone": "(28) 3524-2308",
+    "email": "",
+    "Latitude": -20.847563,
+    "Longitude": -41.118851,
+    "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EE EEE AUDITIVA LIONS PROF NAPOLEÃO ALBUQUERQUE",
     "Endereco": "RUA DR DEOLINDO, 104, BAIMINAS",
     "Municipio": "Cachoeiro de Itapemirim",
     "CEP": "29305-436",
@@ -1224,14 +1236,86 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EE PRCI PENITENCIARIA REGIONAL DE CACHOEIRO DE ITAPEMIRIM",
-    "Endereco": "RUA PROFESSOR QUINTILIANO DE AZEVEDO, 31, GUANDU",
+    "Nome_escola": "EEEF - CLUBE DO BOSQUE",
+    "Endereco": "RUA JORGE MARCONDES DE SOUZA, 12, PRESIDENTE ARTHUR DA COSTA E SILVA",
     "Municipio": "Cachoeiro de Itapemirim",
-    "CEP": "29300-020",
-    "telefone": "(28) 3524-2308",
-    "email": "",
-    "Latitude": -20.847563,
-    "Longitude": -41.118851,
+    "CEP": "29305-811",
+    "telefone": "(28) 3518-1255",
+    "email": "clubedobosque@sedu.es.gov.br",
+    "Latitude": -20.861669,
+    "Longitude": -41.108274,
+    "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEEF - CORAMARA",
+    "Endereco": "AVENIDA JORGE SIMAO, 27, CORAMARA",
+    "Municipio": "Cachoeiro de Itapemirim",
+    "CEP": "29313-367",
+    "telefone": "",
+    "email": "escolacoramara@sedu.es.gov.br",
+    "Latitude": -20.831184,
+    "Longitude": -41.15273,
+    "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEEF - COUTINHO",
+    "Endereco": "RUA CARLOS VIANA, COUTINHO",
+    "Municipio": "Cachoeiro de Itapemirim",
+    "CEP": "29300-982",
+    "telefone": "",
+    "email": "escolacoutinho@sedu.es.gov.br",
+    "Latitude": -20.754661,
+    "Longitude": -41.193096,
+    "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEEF - DONA MARIA SANTANA",
+    "Endereco": "RUA JACINTO PASTRO, 14, BASILEIA",
+    "Municipio": "Cachoeiro de Itapemirim",
+    "CEP": "29302-848",
+    "telefone": "(28) 3511-9892",
+    "email": "escoladonamaria@sedu.es.gov.br",
+    "Latitude": -20.850651,
+    "Longitude": -41.123731,
+    "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEEF - ELISEU LOFEGO",
+    "Endereco": "RUA MATEUS, RUI PINTO BANDEIRA",
+    "Municipio": "Cachoeiro de Itapemirim",
+    "CEP": "29315-802",
+    "telefone": "(28) 3511-4361",
+    "email": "escolaelizeulofego@sedu.es.gov.br",
+    "Latitude": -20.838653,
+    "Longitude": -41.182934,
+    "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEEF - JOSE TAVEIRA DOS SANTOS",
+    "Endereco": "RUA OLGA CONTARINI, ABELARDO FERREIRA MACHADO",
+    "Municipio": "Cachoeiro de Itapemirim",
+    "CEP": "29309-257",
+    "telefone": "(28) 3515-1187",
+    "email": "escolajosetaveira@sedu.es.gov.br",
+    "Latitude": -20.837745,
+    "Longitude": -41.110912,
+    "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEEF - ROTARY",
+    "Endereco": "RUA NELSON BORELLI, 6, OTTON MARINS",
+    "Municipio": "Cachoeiro de Itapemirim",
+    "CEP": "29301-822",
+    "telefone": "(28) 3522-3542",
+    "email": "escolarotary@sedu.es.gov.br",
+    "Latitude": -20.84807,
+    "Longitude": -41.132041,
     "Numero_professores": null,
     "Numero_alunos": null
   },
@@ -1248,54 +1332,6 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEEF CLUBE DO BOSQUE",
-    "Endereco": "RUA JORGE MARCONDES DE SOUZA, 12, PRESIDENTE ARTHUR DA COSTA E SILVA",
-    "Municipio": "Cachoeiro de Itapemirim",
-    "CEP": "29305-811",
-    "telefone": "(28) 3518-1255",
-    "email": "clubedobosque@sedu.es.gov.br",
-    "Latitude": -20.861669,
-    "Longitude": -41.108274,
-    "Numero_professores": null,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "EEEF CORAMARA",
-    "Endereco": "AVENIDA JORGE SIMAO, 27, CORAMARA",
-    "Municipio": "Cachoeiro de Itapemirim",
-    "CEP": "29313-367",
-    "telefone": "",
-    "email": "escolacoramara@sedu.es.gov.br",
-    "Latitude": -20.831184,
-    "Longitude": -41.15273,
-    "Numero_professores": null,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "EEEF COUTINHO",
-    "Endereco": "RUA CARLOS VIANA, COUTINHO",
-    "Municipio": "Cachoeiro de Itapemirim",
-    "CEP": "29300-982",
-    "telefone": "",
-    "email": "escolacoutinho@sedu.es.gov.br",
-    "Latitude": -20.754661,
-    "Longitude": -41.193096,
-    "Numero_professores": null,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "EEEF DONA MARIA SANTANA",
-    "Endereco": "RUA JACINTO PASTRO, 14, BASILEIA",
-    "Municipio": "Cachoeiro de Itapemirim",
-    "CEP": "29302-848",
-    "telefone": "(28) 3511-9892",
-    "email": "escoladonamaria@sedu.es.gov.br",
-    "Latitude": -20.850651,
-    "Longitude": -41.123731,
-    "Numero_professores": null,
-    "Numero_alunos": null
-  },
-  {
     "Nome_escola": "EEEF DR ARISTIDES ALEXANDRE CAMPOS",
     "Endereco": "AVENIDA MONTE CASTELO, SN, INDEPENDENCIA",
     "Municipio": "Cachoeiro de Itapemirim",
@@ -1305,18 +1341,6 @@
     "Latitude": -20.847942,
     "Longitude": -41.107268,
     "Numero_professores": 11,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "EEEF ELISEU LOFEGO",
-    "Endereco": "RUA MATEUS, RUI PINTO BANDEIRA",
-    "Municipio": "Cachoeiro de Itapemirim",
-    "CEP": "29315-802",
-    "telefone": "(28) 3511-4361",
-    "email": "escolaelizeulofego@sedu.es.gov.br",
-    "Latitude": -20.838653,
-    "Longitude": -41.182934,
-    "Numero_professores": null,
     "Numero_alunos": null
   },
   {
@@ -1332,18 +1356,6 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEEF JOSE TAVEIRA DOS SANTOS",
-    "Endereco": "RUA OLGA CONTARINI, ABELARDO FERREIRA MACHADO",
-    "Municipio": "Cachoeiro de Itapemirim",
-    "CEP": "29309-257",
-    "telefone": "(28) 3515-1187",
-    "email": "escolajosetaveira@sedu.es.gov.br",
-    "Latitude": -20.837745,
-    "Longitude": -41.110912,
-    "Numero_professores": null,
-    "Numero_alunos": null
-  },
-  {
     "Nome_escola": "EEEF PROF AMELIA TOLEDO DO ROSARIO",
     "Endereco": "CORREGO DOS MONOS, SN, ZONA RURAL",
     "Municipio": "Cachoeiro de Itapemirim",
@@ -1353,18 +1365,6 @@
     "Latitude": -20.868594,
     "Longitude": -41.207471,
     "Numero_professores": 22,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "EEEF ROTARY",
-    "Endereco": "RUA NELSON BORELLI, 6, OTTON MARINS",
-    "Municipio": "Cachoeiro de Itapemirim",
-    "CEP": "29301-822",
-    "telefone": "(28) 3522-3542",
-    "email": "escolarotary@sedu.es.gov.br",
-    "Latitude": -20.84807,
-    "Longitude": -41.132041,
-    "Numero_professores": null,
     "Numero_alunos": null
   },
   {
@@ -1596,7 +1596,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEPEF SANTA FE",
+    "Nome_escola": "EEPEF - SANTA FE",
     "Endereco": "RUA SANTA FE DE CIMA, 8, ZONA RURAL",
     "Municipio": "Cachoeiro de Itapemirim",
     "CEP": "29300-210",
@@ -1608,7 +1608,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEUEF BANCA DE AREIA",
+    "Nome_escola": "EEUEF - BANCA DE AREIA",
     "Endereco": "RUA BANCA DE AREIA, FAZ, ZONA RURAL",
     "Municipio": "Cachoeiro de Itapemirim",
     "CEP": "29300-130",
@@ -1620,7 +1620,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEUEF BARRA DE ITAOCA",
+    "Nome_escola": "EEUEF - BARRA DE ITAOCA",
     "Endereco": "RUA SALGADINHO(ITAÓCA)",
     "Municipio": "Cachoeiro de Itapemirim",
     "CEP": "29325-000",
@@ -1632,7 +1632,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEUEF BOA CONSERVA",
+    "Nome_escola": "EEUEF - BOA CONSERVA",
     "Endereco": "RUA BOA CONSERVA, ZONA RURAL",
     "Municipio": "Cachoeiro de Itapemirim",
     "CEP": "29327-000",
@@ -1644,7 +1644,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEUEF CAPOEIRAO",
+    "Nome_escola": "EEUEF - CAPOEIRAO",
     "Endereco": "RUA CAPOEIRAO, ZONA RURAL",
     "Municipio": "Cachoeiro de Itapemirim",
     "CEP": "29300-020",
@@ -1656,7 +1656,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEUEF COBICA",
+    "Nome_escola": "EEUEF - COBICA",
     "Endereco": "RUA COBICA, FAZ, ZONA RURAL",
     "Municipio": "Cachoeiro de Itapemirim",
     "CEP": "29321-000",
@@ -1664,6 +1664,42 @@
     "email": "",
     "Latitude": -20.80949,
     "Longitude": -41.069427,
+    "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEUEF - FAZENDA SANTA FE",
+    "Endereco": "RUA SANTA FE BAIXO, FAZ",
+    "Municipio": "Cachoeiro de Itapemirim",
+    "CEP": "29300-020",
+    "telefone": "",
+    "email": "",
+    "Latitude": -20.829228,
+    "Longitude": -41.205959,
+    "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEUEF - JABOTICABEIRA",
+    "Endereco": "RUA JABOTICABEIRA, GUANDU",
+    "Municipio": "Cachoeiro de Itapemirim",
+    "CEP": "29323-000",
+    "telefone": "(28) 3515-2716",
+    "email": "",
+    "Latitude": -20.680567,
+    "Longitude": -41.281817,
+    "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEUEF - RETIRO FREITAS",
+    "Endereco": "RUA RETIRO, FAZ, ZONA RURAL",
+    "Municipio": "Cachoeiro de Itapemirim",
+    "CEP": "29323-000",
+    "telefone": "",
+    "email": "",
+    "Latitude": -20.695095,
+    "Longitude": -41.275325,
     "Numero_professores": null,
     "Numero_alunos": null
   },
@@ -1704,18 +1740,6 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEUEF FAZENDA SANTA FE",
-    "Endereco": "RUA SANTA FE BAIXO, FAZ",
-    "Municipio": "Cachoeiro de Itapemirim",
-    "CEP": "29300-020",
-    "telefone": "",
-    "email": "",
-    "Latitude": -20.829228,
-    "Longitude": -41.205959,
-    "Numero_professores": null,
-    "Numero_alunos": null
-  },
-  {
     "Nome_escola": "EEUEF FURQUILHA",
     "Endereco": "FURQUILHA, ZONA, RURAL",
     "Municipio": "Cachoeiro de Itapemirim",
@@ -1728,18 +1752,6 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEUEF JABOTICABEIRA",
-    "Endereco": "RUA JABOTICABEIRA, GUANDU",
-    "Municipio": "Cachoeiro de Itapemirim",
-    "CEP": "29323-000",
-    "telefone": "(28) 3515-2716",
-    "email": "",
-    "Latitude": -20.680567,
-    "Longitude": -41.281817,
-    "Numero_professores": null,
-    "Numero_alunos": null
-  },
-  {
     "Nome_escola": "EEUEF MOITAOZINHO",
     "Endereco": "PRACA JERONYMO MONTEIRO, SN, , CENTRO",
     "Municipio": "Cachoeiro de Itapemirim",
@@ -1748,18 +1760,6 @@
     "email": "",
     "Latitude": -20.848492,
     "Longitude": -41.11253,
-    "Numero_professores": null,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "EEUEF RETIRO FREITAS",
-    "Endereco": "RUA RETIRO, FAZ, ZONA RURAL",
-    "Municipio": "Cachoeiro de Itapemirim",
-    "CEP": "29323-000",
-    "telefone": "",
-    "email": "",
-    "Latitude": -20.695095,
-    "Longitude": -41.275325,
     "Numero_professores": null,
     "Numero_alunos": null
   },
@@ -1788,7 +1788,19 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEFM PRESIDENTE GETULIO VARGAS",
+    "Nome_escola": "PRE ENEM LICEU MUNIZ FREIRE",
+    "Endereco": "RUA MOREIRA, 171, INDEPENDENCIA",
+    "Municipio": "Cachoeiro de Itapemirim",
+    "CEP": "29306-320",
+    "telefone": "(28) 3522-4881",
+    "email": "escolaliceu@sedu.es.gov.br",
+    "Latitude": -20.852809,
+    "Longitude": -41.106837,
+    "Numero_professores": 5,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "PRÉ-ENEM EEEFM PRESIDENTE GETULIO VARGAS",
     "Endereco": "RUA JOAO FRANKLIN MACHADO, 40, ABELARDO FERREIRA MACHADO",
     "Municipio": "Cachoeiro de Itapemirim",
     "CEP": "29309-274",
@@ -1800,7 +1812,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEM CEI ATTILA DE ALMEIDA MIRANDA",
+    "Nome_escola": "PRÉ-ENEM EEEM CEI ATTILA DE ALMEIDA MIRANDA",
     "Endereco": "AVENIDA NOSSA SENHORA DA CONSOLACAO, 176, VILA RICA",
     "Municipio": "Cachoeiro de Itapemirim",
     "CEP": "29301-080",
@@ -1809,18 +1821,6 @@
     "Latitude": -20.842353,
     "Longitude": -41.128638,
     "Numero_professores": 6,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "PRE ENEM LICEU MUNIZ FREIRE",
-    "Endereco": "RUA MOREIRA, 171, INDEPENDENCIA",
-    "Municipio": "Cachoeiro de Itapemirim",
-    "CEP": "29306-320",
-    "telefone": "(28) 3522-4881",
-    "email": "escolaliceu@sedu.es.gov.br",
-    "Latitude": -20.852809,
-    "Longitude": -41.106837,
-    "Numero_professores": 5,
     "Numero_alunos": null
   },
   {
@@ -1860,7 +1860,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EE HCTP HOSPITAL DE CUSTODIO E TRAT PSIQUIATRICO",
+    "Nome_escola": "EE - HCTP - HOSPITAL DE CUSTODIO E TRAT PSIQUIATRICO",
     "Endereco": "RODOVIA JOSE SETTE, ROCAS, VELHAS, CARIACICA",
     "Municipio": "Cariacica",
     "CEP": "29156-970",
@@ -1872,7 +1872,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EE IASES INSTITUTO DE ATEND SOCIO EDUCAT DO ESP SANTO",
+    "Nome_escola": "EE - IASES - INSTITUTO DE ATEND SOCIO EDUCAT DO ESP SANTO",
     "Endereco": "RODOVIA GOVERNADOR JOSÉ SETE, SN, SAO JOAO BATISTA",
     "Municipio": "Cariacica",
     "CEP": "29150-315",
@@ -1884,7 +1884,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EE PEF PENITENCIARIA ESTADUAL FEMININA DE TUCUM",
+    "Nome_escola": "EE - PEF - PENITENCIARIA ESTADUAL FEMININA DE TUCUM",
     "Endereco": "RODOVIA JOSE SETTE, SN, TUCUM",
     "Municipio": "Cariacica",
     "CEP": "29140-158",
@@ -1892,6 +1892,114 @@
     "email": "",
     "Latitude": -20.247353,
     "Longitude": -40.41857,
+    "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEEF - CELESTINO DE ALMEIDA",
+    "Endereco": "RUA BLUMENAU, BELA VISTA",
+    "Municipio": "Cariacica",
+    "CEP": "29142-296",
+    "telefone": "(27) 3316-5797",
+    "email": "escolacelestino@sedu.es.gov.br",
+    "Latitude": -20.369546,
+    "Longitude": -40.37163,
+    "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEEF - GENERAL TIBURCIO",
+    "Endereco": "RUA GABINO RIOS, PORTO DE SANTANA",
+    "Municipio": "Cariacica",
+    "CEP": "29153-010",
+    "telefone": "(27) 3343-3746",
+    "email": "escolatiburcio@sedu.es.gov.br",
+    "Latitude": -20.310258,
+    "Longitude": -40.36679,
+    "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEEF - GLADISTON REGIS BARBOSA",
+    "Endereco": "RUA A, 38, JARDIM BOTANICO",
+    "Municipio": "Cariacica",
+    "CEP": "29142-745",
+    "telefone": "",
+    "email": "escolagladiston@sedu.es.gov.br",
+    "Latitude": -20.394991,
+    "Longitude": -40.365947,
+    "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEEF - MANOEL PASCHOAL DE OLIVEIRA",
+    "Endereco": "AVENIDA NOVA CANAA, 289",
+    "Municipio": "Cariacica",
+    "CEP": "29153-425",
+    "telefone": "(27) 3236-8983",
+    "email": "escolamanoelpascoal@sedu.es.gov.br",
+    "Latitude": -20.285964,
+    "Longitude": -40.376089,
+    "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEEF - PRESIDENTE MÉDICI",
+    "Endereco": "RUA SEBASTIAO, PRESIDENTE MEDICI",
+    "Municipio": "Cariacica",
+    "CEP": "29153-650",
+    "telefone": "(27) 3396-4926",
+    "email": "escolamedici@sedu.es.gov.br",
+    "Latitude": -20.303063,
+    "Longitude": -40.369607,
+    "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEEF - PROF AUGUSTO CARVALHO",
+    "Endereco": "RUA IMACULADA CONCEIÇÃO, SN, ITACIBA",
+    "Municipio": "Cariacica",
+    "CEP": "29150-200",
+    "telefone": "(27) 3236-2871",
+    "email": "escolaprofaugusto@sedu.es.gov.br",
+    "Latitude": -20.323834,
+    "Longitude": -40.374634,
+    "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEEF - PROF MARIUZA SECHIN",
+    "Endereco": "RUA NOVENTA E CINCO, NOVA ROSA DA PENHA II",
+    "Municipio": "Cariacica",
+    "CEP": "29157-322",
+    "telefone": "(27) 3284-6212",
+    "email": "escolamariuza@sedu.es.gov.br",
+    "Latitude": -20.255643,
+    "Longitude": -40.378984,
+    "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEEF - PROFESSOR JOSE ZACCHI",
+    "Endereco": "AVENIDA NOSSA SENHORA DA PENHA, FLEXAL I",
+    "Municipio": "Cariacica",
+    "CEP": "29155-599",
+    "telefone": "",
+    "email": "",
+    "Latitude": -20.289669,
+    "Longitude": -40.378223,
+    "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEEF - TIRADENTES",
+    "Endereco": "RUA FERRO E ACO, BELA AURORA",
+    "Municipio": "Cariacica",
+    "CEP": "29141-550",
+    "telefone": "(27) 3369-6723",
+    "email": "escolatiradentes@sedu.es.gov.br",
+    "Latitude": -20.352363,
+    "Longitude": -40.366408,
     "Numero_professores": null,
     "Numero_alunos": null
   },
@@ -1944,18 +2052,6 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEEF CELESTINO DE ALMEIDA",
-    "Endereco": "RUA BLUMENAU, BELA VISTA",
-    "Municipio": "Cariacica",
-    "CEP": "29142-296",
-    "telefone": "(27) 3316-5797",
-    "email": "escolacelestino@sedu.es.gov.br",
-    "Latitude": -20.369546,
-    "Longitude": -40.37163,
-    "Numero_professores": null,
-    "Numero_alunos": null
-  },
-  {
     "Nome_escola": "EEEF DR SOUZA ARAUJO",
     "Endereco": "ESPIRITO SANTO, SN, PADRE MATHIAS",
     "Municipio": "Cariacica",
@@ -1965,30 +2061,6 @@
     "Latitude": -20.272978,
     "Longitude": -40.388996,
     "Numero_professores": 13,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "EEEF GENERAL TIBURCIO",
-    "Endereco": "RUA GABINO RIOS, PORTO DE SANTANA",
-    "Municipio": "Cariacica",
-    "CEP": "29153-010",
-    "telefone": "(27) 3343-3746",
-    "email": "escolatiburcio@sedu.es.gov.br",
-    "Latitude": -20.310258,
-    "Longitude": -40.36679,
-    "Numero_professores": null,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "EEEF GLADISTON REGIS BARBOSA",
-    "Endereco": "RUA A, 38, JARDIM BOTANICO",
-    "Municipio": "Cariacica",
-    "CEP": "29142-745",
-    "telefone": "",
-    "email": "escolagladiston@sedu.es.gov.br",
-    "Latitude": -20.394991,
-    "Longitude": -40.365947,
-    "Numero_professores": null,
     "Numero_alunos": null
   },
   {
@@ -2004,18 +2076,6 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEEF MANOEL PASCHOAL DE OLIVEIRA",
-    "Endereco": "AVENIDA NOVA CANAA, 289",
-    "Municipio": "Cariacica",
-    "CEP": "29153-425",
-    "telefone": "(27) 3236-8983",
-    "email": "escolamanoelpascoal@sedu.es.gov.br",
-    "Latitude": -20.285964,
-    "Longitude": -40.376089,
-    "Numero_professores": null,
-    "Numero_alunos": null
-  },
-  {
     "Nome_escola": "EEEF PAUTILA RODRIGUES XAVIER",
     "Endereco": "RUA AMAZONAS, SN, JARDIM AMERICA",
     "Municipio": "Cariacica",
@@ -2028,54 +2088,6 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEEF PRESIDENTE MEDICI",
-    "Endereco": "RUA SEBASTIAO, PRESIDENTE MEDICI",
-    "Municipio": "Cariacica",
-    "CEP": "29153-650",
-    "telefone": "(27) 3396-4926",
-    "email": "escolamedici@sedu.es.gov.br",
-    "Latitude": -20.303063,
-    "Longitude": -40.369607,
-    "Numero_professores": null,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "EEEF PROF AUGUSTO CARVALHO",
-    "Endereco": "RUA IMACULADA CONCEIÇÃO, SN, ITACIBA",
-    "Municipio": "Cariacica",
-    "CEP": "29150-200",
-    "telefone": "(27) 3236-2871",
-    "email": "escolaprofaugusto@sedu.es.gov.br",
-    "Latitude": -20.323834,
-    "Longitude": -40.374634,
-    "Numero_professores": null,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "EEEF PROF MARIUZA SECHIN",
-    "Endereco": "RUA NOVENTA E CINCO, NOVA ROSA DA PENHA II",
-    "Municipio": "Cariacica",
-    "CEP": "29157-322",
-    "telefone": "(27) 3284-6212",
-    "email": "escolamariuza@sedu.es.gov.br",
-    "Latitude": -20.255643,
-    "Longitude": -40.378984,
-    "Numero_professores": null,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "EEEF PROFESSOR JOSE ZACCHI",
-    "Endereco": "AVENIDA NOSSA SENHORA DA PENHA, FLEXAL I",
-    "Municipio": "Cariacica",
-    "CEP": "29155-599",
-    "telefone": "",
-    "email": "",
-    "Latitude": -20.289669,
-    "Longitude": -40.378223,
-    "Numero_professores": null,
-    "Numero_alunos": null
-  },
-  {
     "Nome_escola": "EEEF STELLITA RAMOS",
     "Endereco": "DONA CALOCHI, 121, PORTO NOVO",
     "Municipio": "Cariacica",
@@ -2085,18 +2097,6 @@
     "Latitude": -20.300917,
     "Longitude": -40.362543,
     "Numero_professores": 29,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "EEEF TIRADENTES",
-    "Endereco": "RUA FERRO E ACO, BELA AURORA",
-    "Municipio": "Cariacica",
-    "CEP": "29141-550",
-    "telefone": "(27) 3369-6723",
-    "email": "escolatiradentes@sedu.es.gov.br",
-    "Latitude": -20.352363,
-    "Longitude": -40.366408,
-    "Numero_professores": null,
     "Numero_alunos": null
   },
   {
@@ -2121,6 +2121,30 @@
     "Latitude": -20.305761,
     "Longitude": -40.386288,
     "Numero_professores": 4,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEEFM - EULALIA MOREIRA",
+    "Endereco": "RODOVIA JOSE SETTE KM 12, 176, PORTO DE CARIACICA",
+    "Municipio": "Cariacica",
+    "CEP": "29156-650",
+    "telefone": "(27) 3254-2415",
+    "email": "escolaeulalia@sedu.es.gov.br",
+    "Latitude": -20.247353,
+    "Longitude": -40.41857,
+    "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEEFM - ZAIRA MANHAES DE ANDRADE",
+    "Endereco": "RUA QUINZE, NOVA ROSA DA PENHA I",
+    "Municipio": "Cariacica",
+    "CEP": "29157-413",
+    "telefone": "(27) 9803-9066",
+    "email": "escolazaira@sedu.es.gov.br",
+    "Latitude": -20.263473,
+    "Longitude": -40.388729,
+    "Numero_professores": null,
     "Numero_alunos": null
   },
   {
@@ -2193,18 +2217,6 @@
     "Latitude": -20.366674,
     "Longitude": -40.374052,
     "Numero_professores": 75,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "EEEFM EULALIA MOREIRA",
-    "Endereco": "RODOVIA JOSE SETTE KM 12, 176, PORTO DE CARIACICA",
-    "Municipio": "Cariacica",
-    "CEP": "29156-650",
-    "telefone": "(27) 3254-2415",
-    "email": "escolaeulalia@sedu.es.gov.br",
-    "Latitude": -20.247353,
-    "Longitude": -40.41857,
-    "Numero_professores": null,
     "Numero_alunos": null
   },
   {
@@ -2364,7 +2376,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEEFM SAO JOAO BATISTA CARIACICA",
+    "Nome_escola": "EEEFM SAO JOAO BATISTA - CARIACICA",
     "Endereco": "RODOVIA JOSE SETTE, SN, SAO JOAO BATISTA",
     "Municipio": "Cariacica",
     "CEP": "29140-010",
@@ -2388,7 +2400,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEEFM TEOTONIO BRANDAO VILELA",
+    "Nome_escola": "EEEFM TEOTÔNIO BRANDÃO VILELA",
     "Endereco": "RUA CENTO E OITO, SN, NOVA ROSA DA PENHA II",
     "Municipio": "Cariacica",
     "CEP": "29157-288",
@@ -2409,18 +2421,6 @@
     "Latitude": -20.335391,
     "Longitude": -40.422968,
     "Numero_professores": 41,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "EEEFM ZAIRA MANHAES DE ANDRADE",
-    "Endereco": "RUA QUINZE, NOVA ROSA DA PENHA I",
-    "Municipio": "Cariacica",
-    "CEP": "29157-413",
-    "telefone": "(27) 9803-9066",
-    "email": "escolazaira@sedu.es.gov.br",
-    "Latitude": -20.263473,
-    "Longitude": -40.388729,
-    "Numero_professores": null,
     "Numero_alunos": null
   },
   {
@@ -2448,6 +2448,18 @@
     "Numero_alunos": null
   },
   {
+    "Nome_escola": "EEPEF - PROFESSORA ILDA MEIRELLES FREIRE",
+    "Endereco": "RUA PRINCIPAL, SN, ZONA RURAL",
+    "Municipio": "Cariacica",
+    "CEP": "29140-100",
+    "telefone": "",
+    "email": "",
+    "Latitude": -20.314764,
+    "Longitude": -40.446988,
+    "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
     "Nome_escola": "EEPEF DE LIMAO",
     "Endereco": "RUA SAO JORGE, SN, LIMAO",
     "Municipio": "Cariacica",
@@ -2460,19 +2472,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEPEF PROFESSORA ILDA MEIRELLES FREIRE",
-    "Endereco": "RUA PRINCIPAL, SN, ZONA RURAL",
-    "Municipio": "Cariacica",
-    "CEP": "29140-100",
-    "telefone": "",
-    "email": "",
-    "Latitude": -20.314764,
-    "Longitude": -40.446988,
-    "Numero_professores": null,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "EEPEF RODA DAGUA",
+    "Nome_escola": "EEPEF RODA DÁGUA",
     "Endereco": "RUA ESTRADA RODA DAGUA, SN, ZONA RURAL",
     "Municipio": "Cariacica",
     "CEP": "29140-100",
@@ -2481,6 +2481,18 @@
     "Latitude": -20.323697,
     "Longitude": -40.478243,
     "Numero_professores": 1,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEUEF - DESTACAMENTO",
+    "Endereco": "RUA PROJETADA",
+    "Municipio": "Cariacica",
+    "CEP": "29140-970",
+    "telefone": "",
+    "email": "",
+    "Latitude": -20.251504,
+    "Longitude": -40.379286,
+    "Numero_professores": null,
     "Numero_alunos": null
   },
   {
@@ -2496,30 +2508,6 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEUEF DESTACAMENTO",
-    "Endereco": "RUA PROJETADA",
-    "Municipio": "Cariacica",
-    "CEP": "29140-970",
-    "telefone": "",
-    "email": "",
-    "Latitude": -20.251504,
-    "Longitude": -40.379286,
-    "Numero_professores": null,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "PRE ENEM EEEFM HUNNEY EVEREST PIOVESAN",
-    "Endereco": "RUA CARLOS ROGERIO JESUS GOMES, SN, MORADA DE SANTA FE",
-    "Municipio": "Cariacica",
-    "CEP": "29143-738",
-    "telefone": "(27) 3336-0565",
-    "email": "escolahunney@sedu.es.gov.br",
-    "Latitude": -20.34665,
-    "Longitude": -40.386765,
-    "Numero_professores": 4,
-    "Numero_alunos": null
-  },
-  {
     "Nome_escola": "PRE ENEM EEEFM MARIA DE LOURDES POYARES LABUTO",
     "Endereco": "RUA PROFESSOR OSVALDO MENEGUEL, SN, TABAJARA",
     "Municipio": "Cariacica",
@@ -2529,18 +2517,6 @@
     "Latitude": -20.302679,
     "Longitude": -40.393623,
     "Numero_professores": 1,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "PRE ENEM EEEFM SAO JOAO BATISTA",
-    "Endereco": "RODOVIA JOSE SETTE, SN, SAO JOAO BATISTA",
-    "Municipio": "Cariacica",
-    "CEP": "29140-010",
-    "telefone": "3254-1519",
-    "email": "emersonfernandopin@hotmail.com",
-    "Latitude": -20.273839,
-    "Longitude": -40.413716,
-    "Numero_professores": 3,
     "Numero_alunos": null
   },
   {
@@ -2556,8 +2532,32 @@
     "Numero_alunos": null
   },
   {
+    "Nome_escola": "PRÉ ENEM EEEFM SÃO JOÃO BATISTA",
+    "Endereco": "RODOVIA JOSE SETTE, SN, SAO JOAO BATISTA",
+    "Municipio": "Cariacica",
+    "CEP": "29140-010",
+    "telefone": "3254-1519",
+    "email": "emersonfernandopin@hotmail.com",
+    "Latitude": -20.273839,
+    "Longitude": -40.413716,
+    "Numero_professores": 3,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "PRÉ-ENEM EEEFM HUNNEY EVEREST PIOVESAN",
+    "Endereco": "RUA CARLOS ROGERIO JESUS GOMES, SN, MORADA DE SANTA FE",
+    "Municipio": "Cariacica",
+    "CEP": "29143-738",
+    "telefone": "(27) 3336-0565",
+    "email": "escolahunney@sedu.es.gov.br",
+    "Latitude": -20.34665,
+    "Longitude": -40.386765,
+    "Numero_professores": 4,
+    "Numero_alunos": null
+  },
+  {
     "Nome_escola": "CEET EMILIO NEMER",
-    "Endereco": "RUA BERNARDINO MONTEIRO, 126, CENTRO, CENTRO",
+    "Endereco": "RUA BERNARDINO MONTEIRO, 126, CENTRO",
     "Municipio": "Castelo",
     "CEP": "29360-000",
     "telefone": "(28) 3542-5417",
@@ -2580,7 +2580,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEEM ESTRELA DO NORTE",
+    "Nome_escola": "EEEM - ESTRELA DO NORTE",
     "Endereco": "FAZENDA ESTRELA DO NORTE, CENTRO",
     "Municipio": "Castelo",
     "CEP": "29360-000",
@@ -2592,7 +2592,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEFM JOAO BLEY",
+    "Nome_escola": "PRÉ-ENEM EEEFM JOAO BLEY",
     "Endereco": "RUA OTTO VIEIRA MACHADO, Nº 150, BAIRRO SAO MIGUEL",
     "Municipio": "Castelo",
     "CEP": "29360-000",
@@ -2616,7 +2616,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "CEEJA PEDRO ANTONIO VITALI",
+    "Nome_escola": "CEEJA - PEDRO ANTONIO VITALI",
     "Endereco": "AVENIDA PEDRO VITALI, 209, FAZENDA VITALI",
     "Municipio": "Colatina",
     "CEP": "29707-015",
@@ -2628,7 +2628,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EE COMUNITARIA RURAL DE COLATINA",
+    "Nome_escola": "EE - COMUNITARIA RURAL DE COLATINA",
     "Endereco": "RUA EUCLIDES PRETTI, RETA GRANDE",
     "Municipio": "Colatina",
     "CEP": "29719-430",
@@ -2640,7 +2640,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EE PSMECOL PENITENCIARIA DE SEGURANCA MEDIA COLATINA",
+    "Nome_escola": "EE - PSMECOL-PENITENCIÁRIA DE SEGURANÇA MÉDIA COLATINA",
     "Endereco": "RUA CÓRREGO SANTA FÉ, CENTRO",
     "Municipio": "Colatina",
     "CEP": "29700-005",
@@ -2661,6 +2661,18 @@
     "Latitude": -19.310127,
     "Longitude": -40.68686,
     "Numero_professores": 9,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEEFM - LIONS CLUB DE COLATINA",
+    "Endereco": "AVENIDA ROSEIRAS, MOACIR BROTAS",
+    "Municipio": "Colatina",
+    "CEP": "29701-680",
+    "telefone": "(27) 3722-2677",
+    "email": "escolalions@sedu.es.gov.br",
+    "Latitude": -19.543402,
+    "Longitude": -40.628416,
+    "Numero_professores": null,
     "Numero_alunos": null
   },
   {
@@ -2712,18 +2724,6 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEEFM LIONS CLUB DE COLATINA",
-    "Endereco": "AVENIDA ROSEIRAS, MOACIR BROTAS",
-    "Municipio": "Colatina",
-    "CEP": "29701-680",
-    "telefone": "(27) 3722-2677",
-    "email": "escolalions@sedu.es.gov.br",
-    "Latitude": -19.543402,
-    "Longitude": -40.628416,
-    "Numero_professores": null,
-    "Numero_alunos": null
-  },
-  {
     "Nome_escola": "EEEFM PROF CAROLINA PICHLER",
     "Endereco": "RUA LUIZ MARANHAO, 225, ESCOLA, SAO PEDRO",
     "Municipio": "Colatina",
@@ -2760,7 +2760,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEEM ANTONIO EUGENIO ROSA",
+    "Nome_escola": "EEEM - ANTÔNIO EUGÊNIO ROSA",
     "Endereco": "RUA GALDENCIO SOUZA, 83, ITAPINA",
     "Municipio": "Colatina",
     "CEP": "29714-035",
@@ -2769,18 +2769,6 @@
     "Latitude": -19.533278,
     "Longitude": -40.81369,
     "Numero_professores": null,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "PRE ENEM EEEFM GERALDO VARGAS NOGUEIRA",
-    "Endereco": "AVENIDA BRASIL, SNº, LACE",
-    "Municipio": "Colatina",
-    "CEP": "29703-035",
-    "telefone": "(27) 3711-6554",
-    "email": "escolageraldovargas@sedu.es.gov.br",
-    "Latitude": -19.527333,
-    "Longitude": -40.632008,
-    "Numero_professores": 7,
     "Numero_alunos": null
   },
   {
@@ -2793,6 +2781,18 @@
     "Latitude": -19.522677,
     "Longitude": -40.636274,
     "Numero_professores": 6,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "PRÉ-ENEM EEEFM GERALDO VARGAS NOGUEIRA",
+    "Endereco": "AVENIDA BRASIL, SNº, LACE",
+    "Municipio": "Colatina",
+    "CEP": "29703-035",
+    "telefone": "(27) 3711-6554",
+    "email": "escolageraldovargas@sedu.es.gov.br",
+    "Latitude": -19.527333,
+    "Longitude": -40.632008,
+    "Numero_professores": 7,
     "Numero_alunos": null
   },
   {
@@ -3048,7 +3048,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEEM MELGACO",
+    "Nome_escola": "EEEM - MELGACO",
     "Endereco": "AVENIDA ADELSON PLASTER, KM 30, ZONA RURAL",
     "Municipio": "Domingos Martins",
     "CEP": "29276-000",
@@ -3072,7 +3072,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEFM TEOFILO PAULINO",
+    "Nome_escola": "PRÉ-ENEM EEEFM TEOFILO PAULINO",
     "Endereco": "ALAMEDA DOS PINHAIS, 1, CENTRO",
     "Municipio": "Domingos Martins",
     "CEP": "29260-000",
@@ -3096,7 +3096,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEEFM SAO JOSE DORES DO RIO PRETO",
+    "Nome_escola": "EEEFM SAO JOSE - DORES DO RIO PRETO",
     "Endereco": "AVENIDA VEREADOR JOSE MOREIRA DE LACERDA, 10, PEDRA MENINA",
     "Municipio": "Dores do Rio Preto",
     "CEP": "29580-000",
@@ -3192,7 +3192,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEUEF FAZENDA SANTOS",
+    "Nome_escola": "EEUEF - FAZENDA SANTOS",
     "Endereco": "CORREGO DO JABUTI",
     "Municipio": "Ecoporanga",
     "CEP": "29850-000",
@@ -3204,7 +3204,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM CEEFMTI DANIEL COMBONI",
+    "Nome_escola": "PRÉ-ENEM CEEFMTI DANIEL COMBONI",
     "Endereco": "RUA JOAQUIM DE SOUZA LIMA, 260, NOSSA SRA APARECIDA",
     "Municipio": "Ecoporanga",
     "CEP": "29850-000",
@@ -3216,7 +3216,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEEM OLIVIO JOAO BUZZO",
+    "Nome_escola": "EEEM - OLIVIO JOAO BUZZO",
     "Endereco": "RUA AMAPA, PRAIA GRANDE",
     "Municipio": "Fundao",
     "CEP": "29185-000",
@@ -3264,7 +3264,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM CEEFMTI NAIR MIRANDA",
+    "Nome_escola": "PRÉ-ENEM CEEFMTI NAIR MIRANDA",
     "Endereco": "RUA VICENTE FERNANDES DE OLIVEIRA, 38, CENTRO",
     "Municipio": "Fundão",
     "CEP": "29185-000",
@@ -3324,7 +3324,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEUEF BARRA DE SAO JOAO DO MOACIR",
+    "Nome_escola": "EEUEF - BARRA DE SÃO JOÃO DO MOACIR",
     "Endereco": "RUA BAIXO MOACIR",
     "Municipio": "Governador Lindenberg",
     "CEP": "29720-000",
@@ -3396,7 +3396,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEFM ANTONIO CARNEIRO RIBEIRO",
+    "Nome_escola": "PRÉ-ENEM EEEFM ANTONIO CARNEIRO RIBEIRO",
     "Endereco": "RUA JOSE VIEIRA DE SOUZA, SN, QUINCAS MACHADO",
     "Municipio": "Guacui",
     "CEP": "29560-000",
@@ -3408,7 +3408,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEEF CELITA BASTOS GARCIA",
+    "Nome_escola": "EEEF - CELITA BASTOS GARCIA",
     "Endereco": "PRACA CENTRAL DE UNA",
     "Municipio": "Guarapari",
     "CEP": "29222-540",
@@ -3420,7 +3420,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEEF SAO JOSE",
+    "Nome_escola": "EEEF - SAO JOSE",
     "Endereco": "RODOVIA JONES DOS SANTOS NEVES, SAO JOSE",
     "Municipio": "Guarapari",
     "CEP": "29200-260",
@@ -3432,19 +3432,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEEFM ANGELICA PAIXAO",
-    "Endereco": "RUA PROJETADA, SN, S, ITAPEBUSSU",
-    "Municipio": "Guarapari",
-    "CEP": "29210-210",
-    "telefone": "(27) 3261-0026",
-    "email": "escolaangelicapaixao@sedu.es.gov.br",
-    "Latitude": -20.66166,
-    "Longitude": -40.504225,
-    "Numero_professores": 45,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "EEEFM JOVENTINA SIMOES",
+    "Nome_escola": "EEEFM - JOVENTINA SIMOES",
     "Endereco": "RUA ERNESTINA VIEIRA SIMOES, OLARIA",
     "Municipio": "Guarapari",
     "CEP": "29202-552",
@@ -3453,6 +3441,18 @@
     "Latitude": -20.672585,
     "Longitude": -40.511186,
     "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEEFM ANGELICA PAIXAO",
+    "Endereco": "RUA PROJETADA, SN, ITAPEBUSSU",
+    "Municipio": "Guarapari",
+    "CEP": "29210-210",
+    "telefone": "(27) 3261-0026",
+    "email": "escolaangelicapaixao@sedu.es.gov.br",
+    "Latitude": -20.66166,
+    "Longitude": -40.504225,
+    "Numero_professores": 45,
     "Numero_alunos": null
   },
   {
@@ -3612,18 +3612,6 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEFM ANGELICA PAIXAO",
-    "Endereco": "RUA PROJETADA, SN, ITAPEBUSSU",
-    "Municipio": "Guarapari",
-    "CEP": "29210-210",
-    "telefone": "3261-0026",
-    "email": "petzum@hotmail.com",
-    "Latitude": -20.661729,
-    "Longitude": -40.504605,
-    "Numero_professores": 3,
-    "Numero_alunos": null
-  },
-  {
     "Nome_escola": "PRE ENEM EEEFM LEANDRO ESCOBAR",
     "Endereco": "RUA MANOEL ALVARENGA, SN, PEROCAO",
     "Municipio": "Guarapari",
@@ -3636,7 +3624,19 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEM GUARAPARI",
+    "Nome_escola": "PRÉ-ENEM EEEFM ANGELICA PAIXAO",
+    "Endereco": "RUA PROJETADA, SN, ITAPEBUSSU",
+    "Municipio": "Guarapari",
+    "CEP": "29210-210",
+    "telefone": "3261-0026",
+    "email": "petzum@hotmail.com",
+    "Latitude": -20.661729,
+    "Longitude": -40.504605,
+    "Numero_professores": 3,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "PRÉ-ENEM EEEM GUARAPARI",
     "Endereco": "RUA JOAQUIM DA SILVA LIMA, 58, CENTRO",
     "Municipio": "Guarapari",
     "CEP": "29200-260",
@@ -3660,7 +3660,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "CENTRO DE EDUCACAO DE JOVENS E ADULTOS CEEJA GUACUI",
+    "Nome_escola": "CENTRO DE EDUCACAO DE JOVENS E ADULTOS - CEEJA GUACUI",
     "Endereco": "RODOVIA PREFEITO NORIVAL COUZI, S, N KM 96, MORADA DAS PALMEIRAS",
     "Municipio": "Guaçuí",
     "CEP": "29560-000",
@@ -3696,7 +3696,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEFM PROF MARIA TRINDADE OLIVEIRA",
+    "Nome_escola": "PRÉ-ENEM EEEFM PROF MARIA TRINDADE OLIVEIRA",
     "Endereco": "AVENIDA AFONSO CLAUDIO, 440, CENTRO",
     "Municipio": "Ibatiba",
     "CEP": "29395-000",
@@ -3780,7 +3780,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEFM ANTONIO LEMOS JUNIOR",
+    "Nome_escola": "PRÉ-ENEM EEEFM ANTONIO LEMOS JUNIOR",
     "Endereco": "RUA CONCEIÇÃO MIRANDA VAILANT, 21 PD, CENTRO",
     "Municipio": "Ibitirama",
     "CEP": "29540-000",
@@ -3828,7 +3828,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEEM PASTOR ADILSON BENTO DE FREITAS",
+    "Nome_escola": "EEEM - PASTOR ADILSON BENTO DE FREITAS",
     "Endereco": "VILA DE SAO JOSE DE IRUPI, ZONA RURAL",
     "Municipio": "Irupi",
     "CEP": "29398-000",
@@ -3864,7 +3864,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEPEF FAZENDA QUINTILIANO MARTINELLI",
+    "Nome_escola": "EEPEF - FAZENDA QUINTILIANO MARTINELLI",
     "Endereco": "FAZENDA SÃO LUIZ GONZAGA, ZONA RURAL",
     "Municipio": "Itaguacu",
     "CEP": "29690-000",
@@ -3876,7 +3876,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEUEF PONTAL",
+    "Nome_escola": "EEUEF - PONTAL",
     "Endereco": "RUA PONTAL, DISTRITO DE ITAIMBE",
     "Municipio": "Itaguacu",
     "CEP": "29695-000",
@@ -3888,7 +3888,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEFM EURICO SALLES",
+    "Nome_escola": "PRÉ-ENEM EEEFM EURICO SALLES",
     "Endereco": "AVENIDA 17 DE FEVEREIRO, 160, CENTRO",
     "Municipio": "Itaguacu",
     "CEP": "29690-000",
@@ -3936,19 +3936,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEPEF ANTONIO CONSELHEIRO",
-    "Endereco": "VILA ASSENTAMENTO ITA, SN, ZONA RURAL",
-    "Municipio": "Itaguaçu",
-    "CEP": "29695-000",
-    "telefone": "",
-    "email": "mcengelhardt@sedu.es.gov.br",
-    "Latitude": -19.775,
-    "Longitude": -40.86417,
-    "Numero_professores": 0,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "EEPEF FAZENDA BOA SORTE",
+    "Nome_escola": "EEPEF - FAZENDA BOA SORTE",
     "Endereco": "FAZENDA BOA SORTE - SOBREIRO, ZONA RURAL",
     "Municipio": "Itaguaçu",
     "CEP": "29690-000",
@@ -3960,7 +3948,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEPEF FAZENDA GERMANO PETTER",
+    "Nome_escola": "EEPEF - FAZENDA GERMANO PETTER",
     "Endereco": "FAZENDA BEIRA RIO, ZONA RURAL",
     "Municipio": "Itaguaçu",
     "CEP": "29690-000",
@@ -3969,6 +3957,18 @@
     "Latitude": -19.67003,
     "Longitude": -40.821632,
     "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEPEF ANTONIO CONSELHEIRO",
+    "Endereco": "VILA ASSENTAMENTO ITA, SN, ZONA RURAL",
+    "Municipio": "Itaguaçu",
+    "CEP": "29695-000",
+    "telefone": "",
+    "email": "mcengelhardt@sedu.es.gov.br",
+    "Latitude": -19.775,
+    "Longitude": -40.86417,
+    "Numero_professores": 0,
     "Numero_alunos": null
   },
   {
@@ -4104,6 +4104,42 @@
     "Numero_alunos": null
   },
   {
+    "Nome_escola": "EEUEF - BARRA DO SOSSEGO",
+    "Endereco": "RUA BARRA DO SOSSEGO, ZONA RURAL",
+    "Municipio": "Itarana",
+    "CEP": "29620-000",
+    "telefone": "",
+    "email": "",
+    "Latitude": -19.851833,
+    "Longitude": -40.890414,
+    "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEUEF - FAZENDA CHIABAI",
+    "Endereco": "ALTO BARRA ENCOBERTA, ZONA RURAL",
+    "Municipio": "Itarana",
+    "CEP": "29620-000",
+    "telefone": "",
+    "email": "",
+    "Latitude": -19.986386,
+    "Longitude": -40.918637,
+    "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEUEF - JOÃO HARTWIG",
+    "Endereco": "ALTO BARRA ENCOBERTA, ZONA RURAL",
+    "Municipio": "Itarana",
+    "CEP": "29620-000",
+    "telefone": "",
+    "email": "",
+    "Latitude": -19.986386,
+    "Longitude": -40.918637,
+    "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
     "Nome_escola": "EEUEF ALTO LIMOEIRO JATIBOCAS",
     "Endereco": "ALTO LIMOEIRO JATIBOCAS, SN, ZONA RURAL",
     "Municipio": "Itarana",
@@ -4116,30 +4152,6 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEUEF BARRA DO SOSSEGO",
-    "Endereco": "RUA BARRA DO SOSSEGO, ZONA RURAL",
-    "Municipio": "Itarana",
-    "CEP": "29620-000",
-    "telefone": "",
-    "email": "",
-    "Latitude": -19.851833,
-    "Longitude": -40.890414,
-    "Numero_professores": null,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "EEUEF FAZENDA CHIABAI",
-    "Endereco": "ALTO BARRA ENCOBERTA, ZONA RURAL",
-    "Municipio": "Itarana",
-    "CEP": "29620-000",
-    "telefone": "",
-    "email": "",
-    "Latitude": -19.986386,
-    "Longitude": -40.918637,
-    "Numero_professores": null,
-    "Numero_alunos": null
-  },
-  {
     "Nome_escola": "EEUEF FAZENDA FRANZ STHUR",
     "Endereco": "RUA BARRA DE JATIBOCAS, SN, ZONA RURAL",
     "Municipio": "Itarana",
@@ -4149,18 +4161,6 @@
     "Latitude": -19.960644,
     "Longitude": -40.886413,
     "Numero_professores": 0,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "EEUEF JOAO HARTWIG",
-    "Endereco": "ALTO BARRA ENCOBERTA, ZONA RURAL",
-    "Municipio": "Itarana",
-    "CEP": "29620-000",
-    "telefone": "",
-    "email": "",
-    "Latitude": -19.986386,
-    "Longitude": -40.918637,
-    "Numero_professores": null,
     "Numero_alunos": null
   },
   {
@@ -4248,7 +4248,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM CEEFMTI HENRIQUE COUTINHO",
+    "Nome_escola": "PRÉ-ENEM CEEFMTI HENRIQUE COUTINHO",
     "Endereco": "RUA DES EPAMINONDAS AMARAL, 190, CENTRO",
     "Municipio": "Iúna",
     "CEP": "29390-000",
@@ -4296,7 +4296,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEM PEDRO PAULO GROBERIO",
+    "Nome_escola": "PRÉ-ENEM EEEM PEDRO PAULO GROBERIO",
     "Endereco": "AVENIDA 09 DE AGOSTO, SN, CENTRO",
     "Municipio": "Jaguaré",
     "CEP": "29950-000",
@@ -4344,7 +4344,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEFM JOAO NEIVA",
+    "Nome_escola": "PRÉ-ENEM EEEFM JOAO NEIVA",
     "Endereco": "RUA RUA LÚCIA COMETTI, 97, CENTRO",
     "Municipio": "João Neiva",
     "CEP": "29680-000",
@@ -4393,7 +4393,7 @@
   },
   {
     "Nome_escola": "EEUEF CORREGO BOA VISTA",
-    "Endereco": "CORREGO BOA VISTA, ZONA, RURAL, ZONA RURAL",
+    "Endereco": "CORREGO BOA VISTA, ZONA, RURAL",
     "Municipio": "Laranja da Terra",
     "CEP": "29615-000",
     "telefone": "",
@@ -4405,7 +4405,7 @@
   },
   {
     "Nome_escola": "EEUEF SAO DOMINGOS",
-    "Endereco": "CORREGO SAO DOMINGOS, 0, ZONA RURAL, ZONA RURAL",
+    "Endereco": "CORREGO SAO DOMINGOS, 0, ZONA RURAL",
     "Municipio": "Laranja da Terra",
     "CEP": "29615-000",
     "telefone": "",
@@ -4428,7 +4428,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "CEEJA CEEJA DE LINHARES",
+    "Nome_escola": "CEEJA - CEEJA DE LINHARES",
     "Endereco": "RUA MONSENHOR PEDRINHA, SN, CENTRO",
     "Municipio": "Linhares",
     "CEP": "29900-160",
@@ -4440,7 +4440,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEEF AUTO GUIMARAES E SOUZA",
+    "Nome_escola": "EEEF - AUTO GUIMARAES E SOUZA",
     "Endereco": "AVENIDA ARACRUZ, 153, SHELL",
     "Municipio": "Linhares",
     "CEP": "29901-520",
@@ -4452,7 +4452,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEEF LUIZ DE CAMOES",
+    "Nome_escola": "EEEF - LUIZ DE CAMÕES",
     "Endereco": "AVENIDA CELESTE FAE, 1218, NOSSA SENHORA DA CONCEICAO",
     "Municipio": "Linhares",
     "CEP": "29900-526",
@@ -4460,6 +4460,18 @@
     "email": "escolaluizcamoes@sedu.es.gov.br",
     "Latitude": -19.380282,
     "Longitude": -40.069134,
+    "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEEF - PRL - PENITENCIARIA REGIONAL DE LINHARES",
+    "Endereco": "RUA PROJETADA, CENTRO, JARDIM LAGUNA II",
+    "Municipio": "Linhares",
+    "CEP": "29900-010",
+    "telefone": "(27) 3373-4544",
+    "email": "",
+    "Latitude": -19.389732,
+    "Longitude": -40.038856,
     "Numero_professores": null,
     "Numero_alunos": null
   },
@@ -4476,19 +4488,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEEF PRL PENITENCIARIA REGIONAL DE LINHARES",
-    "Endereco": "RUA PROJETADA, CENTRO, JARDIM LAGUNA II",
-    "Municipio": "Linhares",
-    "CEP": "29900-010",
-    "telefone": "(27) 3373-4544",
-    "email": "",
-    "Latitude": -19.389732,
-    "Longitude": -40.038856,
-    "Numero_professores": null,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "EEEFM BAIXO QUARTEL",
+    "Nome_escola": "EEEFM - BAIXO QUARTEL",
     "Endereco": "RODOVIA LAGOA DO AGUIAR, ZONA RURAL",
     "Municipio": "Linhares",
     "CEP": "29915-510",
@@ -4524,7 +4524,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEEFM NOSSA SRA DA CONCEICAO",
+    "Nome_escola": "EEEFM NOSSA SRA DA CONCEIÇÃO",
     "Endereco": "AVENIDA SAO PAULO, 28, AVISO",
     "Municipio": "Linhares",
     "CEP": "29901-150",
@@ -4632,7 +4632,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEPEF FAZENDA SAO LUIZ",
+    "Nome_escola": "EEPEF - FAZENDA SAO LUIZ",
     "Endereco": "FAZENDA SAO LUIZ",
     "Municipio": "Linhares",
     "CEP": "29916-000",
@@ -4644,7 +4644,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEUEF CORREGO JACATIA",
+    "Nome_escola": "EEUEF - CORREGO JACATIA",
     "Endereco": "CORREGO JACATIA, SAO RAFAEL",
     "Municipio": "Linhares",
     "CEP": "29918-000",
@@ -4652,6 +4652,42 @@
     "email": "",
     "Latitude": -19.231664,
     "Longitude": -40.115359,
+    "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEUEF - LAGOA DO AGUIAR",
+    "Endereco": "RUA LAGOA DO AGUIAR, BEBEDOURO",
+    "Municipio": "Linhares",
+    "CEP": "29916-000",
+    "telefone": "",
+    "email": "",
+    "Latitude": -19.539548,
+    "Longitude": -40.089774,
+    "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEUEF - PONTAL DO OURO",
+    "Endereco": "RUA SEDE LINHARES, 8",
+    "Municipio": "Linhares",
+    "CEP": "29900-170",
+    "telefone": "",
+    "email": "",
+    "Latitude": -19.205033,
+    "Longitude": -40.169662,
+    "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEUEF - PREFEITO ANTENOR ELIAS",
+    "Endereco": "FAZENDA PIRAQUÊ, DESENGANO",
+    "Municipio": "Linhares",
+    "CEP": "29900-010",
+    "telefone": "(27) 3373-4544",
+    "email": "",
+    "Latitude": -19.4399,
+    "Longitude": -40.115028,
     "Numero_professores": null,
     "Numero_alunos": null
   },
@@ -4668,42 +4704,6 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEUEF LAGOA DO AGUIAR",
-    "Endereco": "RUA LAGOA DO AGUIAR, BEBEDOURO",
-    "Municipio": "Linhares",
-    "CEP": "29916-000",
-    "telefone": "",
-    "email": "",
-    "Latitude": -19.539548,
-    "Longitude": -40.089774,
-    "Numero_professores": null,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "EEUEF PONTAL DO OURO",
-    "Endereco": "RUA SEDE LINHARES, 8",
-    "Municipio": "Linhares",
-    "CEP": "29900-170",
-    "telefone": "",
-    "email": "",
-    "Latitude": -19.205033,
-    "Longitude": -40.169662,
-    "Numero_professores": null,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "EEUEF PREFEITO ANTENOR ELIAS",
-    "Endereco": "FAZENDA PIRAQUÊ, DESENGANO",
-    "Municipio": "Linhares",
-    "CEP": "29900-010",
-    "telefone": "(27) 3373-4544",
-    "email": "",
-    "Latitude": -19.4399,
-    "Longitude": -40.115028,
-    "Numero_professores": null,
-    "Numero_alunos": null
-  },
-  {
     "Nome_escola": "EEUEF SAO GERMANO",
     "Endereco": "FAZENDA SAO GERMANO",
     "Municipio": "Linhares",
@@ -4716,7 +4716,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEFM POLIVANETE DE LINHARES I",
+    "Nome_escola": "PRÉ-ENEM EEEFM POLIVANETE DE LINHARES I",
     "Endereco": "AVENIDA PRESIDENTE CAFE FILHO, 546, NOVO HORIZONTE",
     "Municipio": "Linhares",
     "CEP": "29903-350",
@@ -4728,7 +4728,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EMIR DE MACEDO GOMES",
+    "Nome_escola": "PRÉ-ENEM EMIR DE MACEDO GOMES",
     "Endereco": "AVENIDA SAO MATEUS, 1679, SHELL",
     "Municipio": "Linhares",
     "CEP": "29901-630",
@@ -4788,7 +4788,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEUEF OLGA BENARIO",
+    "Nome_escola": "EEUEF - OLGA BENARIO",
     "Endereco": "RUA ASSENTAMENTO FLORENCIO TOZZO",
     "Municipio": "Mantenópolis",
     "CEP": "29770-000",
@@ -4800,7 +4800,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEFM JOB PIMENTEL",
+    "Nome_escola": "PRÉ-ENEM EEEFM JOB PIMENTEL",
     "Endereco": "RUA JOAQUIM BATISTA DE SOUZA, SN, CENTRO",
     "Municipio": "Mantenópolis",
     "CEP": "29770-000",
@@ -4812,7 +4812,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEFM DOMINGOS JOSE MARTINS",
+    "Nome_escola": "PRÉ-ENEM EEEFM DOMINGOS JOSE MARTINS",
     "Endereco": "AVENIDA SIMAO SOARES, SN, BARRA DE ITAPEMIRIM",
     "Municipio": "Marataizes",
     "CEP": "29345-000",
@@ -4872,7 +4872,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEFM VICTORIO BRAVIM",
+    "Nome_escola": "PRÉ-ENEM EEEFM VICTORIO BRAVIM",
     "Endereco": "RUA PROJETADA, SN, ARAGUAYA",
     "Municipio": "Marechal Floriano",
     "CEP": "29258-000",
@@ -4884,7 +4884,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE MARILANDIA MEPES",
+    "Nome_escola": "ESCOLA FAMILIA AGRICOLA DE MARILANDIA - MEPES",
     "Endereco": "AVENIDA DOM BOSCO, 150, CENTRO",
     "Municipio": "Marilandia",
     "CEP": "29725-000",
@@ -4896,7 +4896,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEFM PADRE ANTONIO VOLKERS",
+    "Nome_escola": "PRÉ-ENEM EEEFM PADRE ANTONIO VOLKERS",
     "Endereco": "AVENIDA DOM BOSCO, 782, CENTRO",
     "Municipio": "Marilandia",
     "CEP": "29725-000",
@@ -4932,7 +4932,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEEF MONTEIRO DA SILVA",
+    "Nome_escola": "EEEF - MONTEIRO DA SILVA",
     "Endereco": "PRACA DARCY FRANCISCO PIRES, 56, CENTRO",
     "Municipio": "Mimoso do Sul",
     "CEP": "29400-000",
@@ -4944,7 +4944,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEEF PEDRO JOSE VIEIRA",
+    "Nome_escola": "EEEF - PEDRO JOSE VIEIRA",
     "Endereco": "RUA NAZLE ALBUT ACHA, CENTRO",
     "Municipio": "Mimoso do Sul",
     "CEP": "29400-000",
@@ -4980,7 +4980,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEEM ELIZABETE NAZARIO LAURENTINO",
+    "Nome_escola": "EEEM ELIZABETE NAZÁRIO LAURENTINO",
     "Endereco": "RUA CUSTODIO GONÇALVES FIGUEIRA, SN, SAO JOSE DAS TORRES",
     "Municipio": "Mimoso do Sul",
     "CEP": "29400-000",
@@ -5012,6 +5012,30 @@
     "email": "",
     "Latitude": -21.062531,
     "Longitude": -41.363271,
+    "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEUEF - FAZENDA CABECEIRA RETIRO",
+    "Endereco": "FAZENDA CABECEIRA DO RETIRO, FAZ, ZONA RURAL",
+    "Municipio": "Mimoso do Sul",
+    "CEP": "29400-000",
+    "telefone": "",
+    "email": "",
+    "Latitude": -20.892858,
+    "Longitude": -41.535597,
+    "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEUEF - MIGUELENSE",
+    "Endereco": "FAZENDA SANTA TEREZINHA, ZONA RURAL",
+    "Municipio": "Mimoso do Sul",
+    "CEP": "29400-000",
+    "telefone": "",
+    "email": "",
+    "Latitude": -21.065456,
+    "Longitude": -41.368317,
     "Numero_professores": null,
     "Numero_alunos": null
   },
@@ -5072,18 +5096,6 @@
     "email": "",
     "Latitude": -21.062531,
     "Longitude": -41.363271,
-    "Numero_professores": null,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "EEUEF FAZENDA CABECEIRA RETIRO",
-    "Endereco": "FAZENDA CABECEIRA DO RETIRO, ZONA RURAL",
-    "Municipio": "Mimoso do Sul",
-    "CEP": "29400-000",
-    "telefone": "",
-    "email": "",
-    "Latitude": -20.892858,
-    "Longitude": -41.535597,
     "Numero_professores": null,
     "Numero_alunos": null
   },
@@ -5180,18 +5192,6 @@
     "email": "",
     "Latitude": -21.068813,
     "Longitude": -41.358161,
-    "Numero_professores": null,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "EEUEF MIGUELENSE",
-    "Endereco": "FAZENDA SANTA TEREZINHA, ZONA RURAL",
-    "Municipio": "Mimoso do Sul",
-    "CEP": "29400-000",
-    "telefone": "",
-    "email": "",
-    "Latitude": -21.065456,
-    "Longitude": -41.368317,
     "Numero_professores": null,
     "Numero_alunos": null
   },
@@ -5377,7 +5377,7 @@
   },
   {
     "Nome_escola": "EEEFM DOM JOSE DALVIT",
-    "Endereco": "RUA LINHARES, 14, CENTRO, CENTRO",
+    "Endereco": "RUA LINHARES, 14, CENTRO",
     "Municipio": "Montanha",
     "CEP": "29890-000",
     "telefone": "(27) 3754-1249",
@@ -5460,7 +5460,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEFM DOM JOSE DALVIT",
+    "Nome_escola": "PRÉ-ENEM EEEFM DOM JOSE DALVIT",
     "Endereco": "RUA LINHARES, 14 PD, CENTRO",
     "Municipio": "Montanha",
     "CEP": "29890-000",
@@ -5496,7 +5496,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEFM DE MUCURICI",
+    "Nome_escola": "PRÉ-ENEM EEEFM DE MUCURICI",
     "Endereco": "RUA ROUXINOL, 6, PLANALTO",
     "Municipio": "Mucurici",
     "CEP": "29880-000",
@@ -5580,7 +5580,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM CEEFMTI BRAULIO FRANCO",
+    "Nome_escola": "PRÉ-ENEM CEEFMTI BRAULIO FRANCO",
     "Endereco": "RUA CAPITAO JOAO ALVES, 60, CENTRO",
     "Municipio": "Muniz Freire",
     "CEP": "29380-000",
@@ -5616,7 +5616,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM CEEFMTI SENADOR DIRCEU CARDOSO",
+    "Nome_escola": "PRÉ-ENEM CEEFMTI SENADOR DIRCEU CARDOSO",
     "Endereco": "RUA EDUARDO CARLOS CABRAL, SN, SÃO PEDRO",
     "Municipio": "Muqui",
     "CEP": "29480-000",
@@ -5628,7 +5628,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEF MARCONDES DE SOUZA",
+    "Nome_escola": "PRÉ-ENEM EEEF MARCONDES DE SOUZA",
     "Endereco": "RUA CIRO DUARTE, 91, CENTRO",
     "Municipio": "Muqui",
     "CEP": "29480-000",
@@ -5640,7 +5640,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEEM XAPH ABRAHAO DA COSTA",
+    "Nome_escola": "EEEM - XAPH ABRAHAO DA COSTA",
     "Endereco": "RUA BOA VISTA, 154, ELEOSIPO RODRIGUES DA CUNHA",
     "Municipio": "Nova Venecia",
     "CEP": "29830-000",
@@ -5652,7 +5652,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEM DOM DANIEL COMBONI",
+    "Nome_escola": "PRÉ-ENEM EEEM DOM DANIEL COMBONI",
     "Endereco": "AVENIDA MATEUS TOSCANO, 163, MUNICIPAL I",
     "Municipio": "Nova Venecia",
     "CEP": "29830-000",
@@ -5832,7 +5832,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEFM ARARIBOIA",
+    "Nome_escola": "PRÉ-ENEM EEEFM ARARIBOIA",
     "Endereco": "AVENIDA JOSE NUNES DE MIRANDA, 900, LIRIO DOS VALES",
     "Municipio": "Pancas",
     "CEP": "29750-000",
@@ -5928,7 +5928,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEPEF CANUDOS",
+    "Nome_escola": "EEPEF - CANUDOS",
     "Endereco": "RUA ASSENTAMENTO CASTRO ALVES",
     "Municipio": "Pedro Canário",
     "CEP": "29970-000",
@@ -6048,7 +6048,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEM NOSSA SENHORA DE LOURDES",
+    "Nome_escola": "PRÉ-ENEM EEEM NOSSA SENHORA DE LOURDES",
     "Endereco": "RUA EURICO REZENDE, 320, CENTRO",
     "Municipio": "Pinheiros",
     "CEP": "29980-000",
@@ -6109,7 +6109,7 @@
   },
   {
     "Nome_escola": "EEEFM PRESIDENTE KENNEDY",
-    "Endereco": "RUA MANOEL LUCIO GOMES, 20, CENTRO, CENTRO",
+    "Endereco": "RUA MANOEL LUCIO GOMES, 20, CENTRO",
     "Municipio": "Presidente Kennedy",
     "CEP": "29350-000",
     "telefone": "(28) 3535-1460",
@@ -6132,7 +6132,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEUEF PANORAMA",
+    "Nome_escola": "EEUEF - PANORAMA",
     "Endereco": "PANORAMA",
     "Municipio": "Rio Bananal",
     "CEP": "29920-000",
@@ -6180,7 +6180,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEFM WALDEMIRO HEMERLY",
+    "Nome_escola": "PRÉ-ENEM EEEFM WALDEMIRO HEMERLY",
     "Endereco": "RUA CAPITAO BLEY, 19, CENTRO",
     "Municipio": "Rio Novo do Sul",
     "CEP": "29290-000",
@@ -6229,7 +6229,7 @@
   },
   {
     "Nome_escola": "EEEFM FAZENDA EMILIO SCHROEDER",
-    "Endereco": "ALTO SANTA MARIA, 0, ZONA RURAL, ZONA RURAL",
+    "Endereco": "ALTO SANTA MARIA, 0, ZONA RURAL",
     "Municipio": "Santa Maria de Jetibá",
     "CEP": "29645-000",
     "telefone": "(27) 99842-7489",
@@ -6348,7 +6348,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEFM JOSE PINTO COELHO",
+    "Nome_escola": "PRÉ-ENEM EEEFM JOSE PINTO COELHO",
     "Endereco": "AVENIDA BARÃO ORLANDO BONFIM, 978, VILA NOVA",
     "Municipio": "Santa Teresa",
     "CEP": "29650-000",
@@ -6360,7 +6360,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEEF PROFESSOR CARLOS DIAS MIRANDA CUNHA",
+    "Nome_escola": "EEEF - PROFESSOR CARLOS DIAS MIRANDA CUNHA",
     "Endereco": "RUA JOSÉ ALVES, 22, POPULARES",
     "Municipio": "Sao Gabriel da Palha",
     "CEP": "29780-000",
@@ -6372,7 +6372,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEFM ILDA FERREIRA DA FONSECA MARTINS",
+    "Nome_escola": "PRÉ-ENEM EEEFM ILDA FERREIRA DA FONSECA MARTINS",
     "Endereco": "RUA 7 DE SETEMBRO, 427, CENTRO",
     "Municipio": "Sao Gabriel da Palha",
     "CEP": "29780-000",
@@ -6396,7 +6396,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEM CECILIANO ABEL DE ALMEIDA",
+    "Nome_escola": "PRÉ-ENEM EEEM CECILIANO ABEL DE ALMEIDA",
     "Endereco": "PRACA MESQUITA NETO, 269, CENTRO",
     "Municipio": "Sao Mateus",
     "CEP": "29930-270",
@@ -6429,6 +6429,18 @@
     "Latitude": -20.133639,
     "Longitude": -40.283048,
     "Numero_professores": 40,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEEF - PROF ANNA GOMES",
+    "Endereco": "RUA SABIA, SN, SERRA DOURADA III",
+    "Municipio": "Serra",
+    "CEP": "29171-416",
+    "telefone": "(27) 3341-2251",
+    "email": "escolaannagomes@sedu.es.gov.br",
+    "Latitude": -20.135827,
+    "Longitude": -40.253068,
+    "Numero_professores": null,
     "Numero_alunos": null
   },
   {
@@ -6501,18 +6513,6 @@
     "Latitude": -20.193883,
     "Longitude": -40.19293,
     "Numero_professores": 15,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "EEEF PROF ANNA GOMES",
-    "Endereco": "RUA SABIA, SN, SERRA DOURADA III",
-    "Municipio": "Serra",
-    "CEP": "29171-416",
-    "telefone": "(27) 3341-2251",
-    "email": "escolaannagomes@sedu.es.gov.br",
-    "Latitude": -20.135827,
-    "Longitude": -40.253068,
-    "Numero_professores": null,
     "Numero_alunos": null
   },
   {
@@ -6948,7 +6948,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEEFM ZUMBI DOS PALMARES SERRA",
+    "Nome_escola": "EEEFM ZUMBI DOS PALMARES - SERRA",
     "Endereco": "AVENIDA HONOLULU, SN, CIDADE CONTINENTAL SETOR OCEANIA",
     "Municipio": "Serra",
     "CEP": "29163-453",
@@ -6972,30 +6972,6 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEFM ANTONIO JOSE PEIXOTO MIGUEL",
-    "Endereco": "AVENIDA BELO HORIZONTE, SN, PRAIAMAR",
-    "Municipio": "Serra",
-    "CEP": "29182-295",
-    "telefone": "3253-2847",
-    "email": "clayton.patrocinio@educador.edu.es.gov.br",
-    "Latitude": -20.057111,
-    "Longitude": -40.204431,
-    "Numero_professores": 1,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "PRE ENEM EEEFM ARISTOBULO BARBOSA LEAO",
-    "Endereco": "AVENIDA DES MARIO DA SILVA NUNES, 1000, JARDIM LIMOEIRO",
-    "Municipio": "Serra",
-    "CEP": "29164-044",
-    "telefone": "(27) 3328-3613",
-    "email": "escolaaristobulo@sedu.es.gov.br",
-    "Latitude": -20.209143,
-    "Longitude": -40.262686,
-    "Numero_professores": 5,
-    "Numero_alunos": null
-  },
-  {
     "Nome_escola": "PRE ENEM EEEFM BELMIRO TEIXEIRA PIMENTA",
     "Endereco": "RUA DAS PERDIZES, SN, EURICO SALLES",
     "Municipio": "Serra",
@@ -7005,66 +6981,6 @@
     "Latitude": -20.237785,
     "Longitude": -40.276332,
     "Numero_professores": 13,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "PRE ENEM EEEFM CLOVIS BORGES MIGUEL",
-    "Endereco": "RUA ESTUDANTES, SN, SANTO ANTONIO",
-    "Municipio": "Serra",
-    "CEP": "29178-679",
-    "telefone": "3251-0764",
-    "email": "filos_joedson@yahoo.com",
-    "Latitude": -20.130839,
-    "Longitude": -40.308525,
-    "Numero_professores": 6,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "PRE ENEM EEEFM FRANCISCO NASCIMENTO",
-    "Endereco": "RUA E, 2015, CASTELANDIA",
-    "Municipio": "Serra",
-    "CEP": "29172-639",
-    "telefone": "3252-1762",
-    "email": "cristianofoletto@hotmail.com",
-    "Latitude": -20.158747,
-    "Longitude": -40.186804,
-    "Numero_professores": 6,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "PRE ENEM EEEFM PROF HILDA MIRANDA NASCIMENTO",
-    "Endereco": "AVENIDA BRASILIA, SN, PORTO CANOA",
-    "Municipio": "Serra",
-    "CEP": "29168-600",
-    "telefone": "3341-1068",
-    "email": "prof.quirino@hotmail.com",
-    "Latitude": -20.152284,
-    "Longitude": -40.251016,
-    "Numero_professores": 2,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "PRE ENEM EEEFM VILA NOVA DE COLARES",
-    "Endereco": "RUA ALFREDO GALENO, SN, VILA NOVA DE COLARES",
-    "Municipio": "Serra",
-    "CEP": "29172-835",
-    "telefone": "3245-5657",
-    "email": "andre.lmartins1@educador.edu.es.gov.br",
-    "Latitude": -20.178095,
-    "Longitude": -40.2123,
-    "Numero_professores": 3,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "PRE ENEM EEEFM ZUMBI DOS PALMARES SERRA",
-    "Endereco": "AVENIDA HONOLULU, SN, CIDADE CONTINENTAL SETOR OCEANIA",
-    "Municipio": "Serra",
-    "CEP": "29163-453",
-    "telefone": "3241-5455",
-    "email": "rute.jsilva@educador.es.edu.gov.br",
-    "Latitude": -20.213374,
-    "Longitude": -40.218672,
-    "Numero_professores": 3,
     "Numero_alunos": null
   },
   {
@@ -7080,7 +6996,91 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEEF ALEGRE",
+    "Nome_escola": "PRÉ-ENEM EEEFM ANTONIO JOSE PEIXOTO MIGUEL",
+    "Endereco": "AVENIDA BELO HORIZONTE, SN, PRAIAMAR",
+    "Municipio": "Serra",
+    "CEP": "29182-295",
+    "telefone": "3253-2847",
+    "email": "clayton.patrocinio@educador.edu.es.gov.br",
+    "Latitude": -20.057111,
+    "Longitude": -40.204431,
+    "Numero_professores": 1,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "PRÉ-ENEM EEEFM ARISTOBULO BARBOSA LEAO",
+    "Endereco": "AVENIDA DES MARIO DA SILVA NUNES, 1000, JARDIM LIMOEIRO",
+    "Municipio": "Serra",
+    "CEP": "29164-044",
+    "telefone": "(27) 3328-3613",
+    "email": "escolaaristobulo@sedu.es.gov.br",
+    "Latitude": -20.209143,
+    "Longitude": -40.262686,
+    "Numero_professores": 5,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "PRÉ-ENEM EEEFM CLOVIS BORGES MIGUEL",
+    "Endereco": "RUA ESTUDANTES, SN, SANTO ANTONIO",
+    "Municipio": "Serra",
+    "CEP": "29178-679",
+    "telefone": "3251-0764",
+    "email": "filos_joedson@yahoo.com",
+    "Latitude": -20.130839,
+    "Longitude": -40.308525,
+    "Numero_professores": 6,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "PRÉ-ENEM EEEFM FRANCISCO NASCIMENTO",
+    "Endereco": "RUA E, 2015, CASTELANDIA",
+    "Municipio": "Serra",
+    "CEP": "29172-639",
+    "telefone": "3252-1762",
+    "email": "cristianofoletto@hotmail.com",
+    "Latitude": -20.158747,
+    "Longitude": -40.186804,
+    "Numero_professores": 6,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "PRÉ-ENEM EEEFM PROF HILDA MIRANDA NASCIMENTO",
+    "Endereco": "AVENIDA BRASILIA, SN, PORTO CANOA",
+    "Municipio": "Serra",
+    "CEP": "29168-600",
+    "telefone": "3341-1068",
+    "email": "prof.quirino@hotmail.com",
+    "Latitude": -20.152284,
+    "Longitude": -40.251016,
+    "Numero_professores": 2,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "PRÉ-ENEM EEEFM VILA NOVA DE COLARES",
+    "Endereco": "RUA ALFREDO GALENO, SN, VILA NOVA DE COLARES",
+    "Municipio": "Serra",
+    "CEP": "29172-835",
+    "telefone": "3245-5657",
+    "email": "andre.lmartins1@educador.edu.es.gov.br",
+    "Latitude": -20.178095,
+    "Longitude": -40.2123,
+    "Numero_professores": 3,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "PRÉ-ENEM EEEFM ZUMBI DOS PALMARES SERRA",
+    "Endereco": "AVENIDA HONOLULU, SN, CIDADE CONTINENTAL SETOR OCEANIA",
+    "Municipio": "Serra",
+    "CEP": "29163-453",
+    "telefone": "3241-5455",
+    "email": "rute.jsilva@educador.es.edu.gov.br",
+    "Latitude": -20.213374,
+    "Longitude": -40.218672,
+    "Numero_professores": 3,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEEF - ALEGRE",
     "Endereco": "RUA BR 101 KM 126 CORREGO ALEGRE",
     "Municipio": "Sooretama",
     "CEP": "29927-000",
@@ -7092,7 +7092,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEEF REGINA BOLSSANELLO FORNAZIER",
+    "Nome_escola": "EEEF - REGINA BOLSSANELLO FORNAZIER",
     "Endereco": "RUA PRINCIPAL, JUNCADO",
     "Municipio": "Sooretama",
     "CEP": "29927-000",
@@ -7128,6 +7128,42 @@
     "Numero_alunos": null
   },
   {
+    "Nome_escola": "EEPEF - CORREGO RODRIGUES",
+    "Endereco": "CORREGO RODRIGUESS",
+    "Municipio": "Sooretama",
+    "CEP": "29927-000",
+    "telefone": "(27) 3372-7960",
+    "email": "",
+    "Latitude": -19.060667,
+    "Longitude": -40.229937,
+    "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEPEF - FAZENDA DOMINGOS CORREIA",
+    "Endereco": "CORREGO JUEIRANA B, JOEIRANA B",
+    "Municipio": "Sooretama",
+    "CEP": "29927-000",
+    "telefone": "(27) 3373-4544",
+    "email": "",
+    "Latitude": -19.098372,
+    "Longitude": -40.186213,
+    "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEPEF - JOEIRANA",
+    "Endereco": "RUA BR 101 KM 107, SN, JOEIRANA",
+    "Municipio": "Sooretama",
+    "CEP": "29927-000",
+    "telefone": "(27) 3372-7960",
+    "email": "",
+    "Latitude": -19.050898,
+    "Longitude": -40.029968,
+    "Numero_professores": null,
+    "Numero_alunos": null
+  },
+  {
     "Nome_escola": "EEPEF CORREGO CALCADO",
     "Endereco": "CORREGO CALCADO",
     "Municipio": "Sooretama",
@@ -7140,43 +7176,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEPEF CORREGO RODRIGUES",
-    "Endereco": "CORREGO RODRIGUESS",
-    "Municipio": "Sooretama",
-    "CEP": "29927-000",
-    "telefone": "(27) 3372-7960",
-    "email": "",
-    "Latitude": -19.060667,
-    "Longitude": -40.229937,
-    "Numero_professores": null,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "EEPEF FAZENDA DOMINGOS CORREIA",
-    "Endereco": "CORREGO JUEIRANA B, JOEIRANA B",
-    "Municipio": "Sooretama",
-    "CEP": "29927-000",
-    "telefone": "(27) 3373-4544",
-    "email": "",
-    "Latitude": -19.098372,
-    "Longitude": -40.186213,
-    "Numero_professores": null,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "EEPEF JOEIRANA",
-    "Endereco": "RUA BR 101 KM 107, SN, JOEIRANA",
-    "Municipio": "Sooretama",
-    "CEP": "29927-000",
-    "telefone": "(27) 3372-7960",
-    "email": "",
-    "Latitude": -19.050898,
-    "Longitude": -40.029968,
-    "Numero_professores": null,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "EEPEF OVIDIO CARLOS DE MIRANDA BRITO",
+    "Nome_escola": "EEPEF OVÍDIO CARLOS DE MIRANDA BRITO",
     "Endereco": "FAZENDA IMETAME, SN, CORREGO ALEGRE",
     "Municipio": "Sooretama",
     "CEP": "29927-000",
@@ -7188,7 +7188,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEUEF CORREGO PATIOBA",
+    "Nome_escola": "EEUEF - CORREGO PATIOBA",
     "Endereco": "FAZENDA PATIOBA, SOORETAMA",
     "Municipio": "Sooretama",
     "CEP": "29927-000",
@@ -7212,18 +7212,6 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEFM ARMANDO BARBOSA QUITIBA",
-    "Endereco": "RUA VITORIO BOBBIO, 412, CENTRO",
-    "Municipio": "Sooretama",
-    "CEP": "29927-000",
-    "telefone": "(27) 3273-1310",
-    "email": "escolaarmandobarbosa@sedu.es.gov.br",
-    "Latitude": -19.191438,
-    "Longitude": -40.096607,
-    "Numero_professores": 3,
-    "Numero_alunos": null
-  },
-  {
     "Nome_escola": "PRE ENEM EEEFM CANDIDO PORTINARI",
     "Endereco": "RODOVIA GERVASIO ROSA PORTO, 180, JUNCADO",
     "Municipio": "Sooretama",
@@ -7232,6 +7220,18 @@
     "email": "escolaportinari@sedu.es.gov.br",
     "Latitude": -19.089034,
     "Longitude": -40.138808,
+    "Numero_professores": 3,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "PRÉ-ENEM EEEFM ARMANDO BARBOSA QUITIBA",
+    "Endereco": "RUA VITORIO BOBBIO, 412, CENTRO",
+    "Municipio": "Sooretama",
+    "CEP": "29927-000",
+    "telefone": "(27) 3273-1310",
+    "email": "escolaarmandobarbosa@sedu.es.gov.br",
+    "Latitude": -19.191438,
+    "Longitude": -40.096607,
     "Numero_professores": 3,
     "Numero_alunos": null
   },
@@ -7309,7 +7309,7 @@
   },
   {
     "Nome_escola": "EEEFM CORREGO DA LAPA",
-    "Endereco": "SAO SEBASTIAO DO BARRA SECA, SN, ZONA RURAL, ZONA RURAL",
+    "Endereco": "SAO SEBASTIAO DO BARRA SECA, SN, ZONA RURAL",
     "Municipio": "São Gabriel da Palha",
     "CEP": "29780-000",
     "telefone": "(27) 9978-3730",
@@ -7365,6 +7365,18 @@
     "Latitude": -18.903882,
     "Longitude": -40.44809,
     "Numero_professores": 16,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "EEUEF - VALE ENCANTADO",
+    "Endereco": "CORREGO FARTURINHA, SN, ZONA RURAL",
+    "Municipio": "São Gabriel da Palha",
+    "CEP": "29780-000",
+    "telefone": "",
+    "email": "",
+    "Latitude": -18.964166,
+    "Longitude": -40.474504,
+    "Numero_professores": null,
     "Numero_alunos": null
   },
   {
@@ -7476,18 +7488,6 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEUEF VALE ENCANTADO",
-    "Endereco": "CORREGO FARTURINHA, SN, ZONA RURAL",
-    "Municipio": "São Gabriel da Palha",
-    "CEP": "29780-000",
-    "telefone": "",
-    "email": "",
-    "Latitude": -18.964166,
-    "Longitude": -40.474504,
-    "Numero_professores": null,
-    "Numero_alunos": null
-  },
-  {
     "Nome_escola": "EEEFM MERCES GARCIA VIEIRA",
     "Endereco": "AVENIDA RUI BARBOSA, 146, PREDIO, CENTRO",
     "Municipio": "São José do Calçado",
@@ -7513,7 +7513,7 @@
   },
   {
     "Nome_escola": "EEEF CORREGO MILANEZ",
-    "Endereco": "ESTRADA KM 29-SANTA LEOCARDIA, 29 NOVA VERONA",
+    "Endereco": "ESTRADA KM 29-SANTA LEOCARDIA, KM, 29 NOVA VERONA",
     "Municipio": "São Mateus",
     "CEP": "29947-115",
     "telefone": "",
@@ -7633,7 +7633,7 @@
   },
   {
     "Nome_escola": "EEEFM XIII DE SETEMBRO",
-    "Endereco": "ASSENTAMENTO CORREGO DA AREIA - XIII DE SETEMBRO, SN, SN, ZONA RURAL",
+    "Endereco": "ASSENTAMENTO CORREGO DA AREIA - XIII DE SETEMBRO, SN, ZONA RURAL",
     "Municipio": "São Mateus",
     "CEP": "29940-480",
     "telefone": "(27) 99993-5670",
@@ -7669,7 +7669,7 @@
   },
   {
     "Nome_escola": "EEPEF FAZENDA AYMORES",
-    "Endereco": "ESTRADA NOVA AIMORES-IMBAUBEIRA, AIMORES NOVA VERONA",
+    "Endereco": "ESTRADA NOVA AIMORES-IMBAUBEIRA, NOVA, AIMORES NOVA VERONA",
     "Municipio": "São Mateus",
     "CEP": "29947-025",
     "telefone": "",
@@ -7681,7 +7681,7 @@
   },
   {
     "Nome_escola": "EEPEF FAZENDA IOLANDA",
-    "Endereco": "ESTRADA NOVA AIMORES-IMBAUBEIRA, AIMORES NOVA VERONA",
+    "Endereco": "ESTRADA NOVA AIMORES-IMBAUBEIRA, NOVA, AIMORES NOVA VERONA",
     "Municipio": "São Mateus",
     "CEP": "29947-025",
     "telefone": "",
@@ -7693,7 +7693,7 @@
   },
   {
     "Nome_escola": "EEPEF FERRUGEM",
-    "Endereco": "ESTRADA CORREGO TABUAS-ESTIVA BARRA NOVA",
+    "Endereco": "ESTRADA CORREGO TABUAS-ESTIVA BARRA NOVA, TABUAS",
     "Municipio": "São Mateus",
     "CEP": "29945-855",
     "telefone": "",
@@ -7789,7 +7789,7 @@
   },
   {
     "Nome_escola": "EEUEF CABECEIRA DO RIO PRETO DA LINHA",
-    "Endereco": "ESTRADA BRACO NORTE DO RIO PRETO, PRETO DA RODOVIA",
+    "Endereco": "ESTRADA BRACO NORTE DO RIO PRETO, RIO, PRETO DA RODOVIA",
     "Municipio": "São Mateus",
     "CEP": "29940-810",
     "telefone": "",
@@ -7801,7 +7801,7 @@
   },
   {
     "Nome_escola": "EEUEF CABECEIRA TERRA FRESCA",
-    "Endereco": "ESTRADA KM 29-SANTA LEOCARDIA, 29 NOVA VERONA",
+    "Endereco": "ESTRADA KM 29-SANTA LEOCARDIA, KM, 29 NOVA VERONA",
     "Municipio": "São Mateus",
     "CEP": "29947-115",
     "telefone": "",
@@ -7825,7 +7825,7 @@
   },
   {
     "Nome_escola": "EEUEF CORREGO DO CHIADO",
-    "Endereco": "ESTRADA NOVA AIMORES-IMBAUBEIRA, AIMORES NOVA VERONA",
+    "Endereco": "ESTRADA NOVA AIMORES-IMBAUBEIRA, NOVA, AIMORES NOVA VERONA",
     "Municipio": "São Mateus",
     "CEP": "29947-025",
     "telefone": "",
@@ -7849,7 +7849,7 @@
   },
   {
     "Nome_escola": "EEUEF CORREGO DO PERDIDO",
-    "Endereco": "ESTRADA NOVA AIMORES-IMBAUBEIRA, AIMORES NOVA VERONA",
+    "Endereco": "ESTRADA NOVA AIMORES-IMBAUBEIRA, NOVA, AIMORES NOVA VERONA",
     "Municipio": "São Mateus",
     "CEP": "29947-025",
     "telefone": "",
@@ -7873,7 +7873,7 @@
   },
   {
     "Nome_escola": "EEUEF HUMBERTO DONATO",
-    "Endereco": "ESTRADA KM 29-SANTA LEOCARDIA, 29 NOVA VERONA",
+    "Endereco": "ESTRADA KM 29-SANTA LEOCARDIA, KM, 29 NOVA VERONA",
     "Municipio": "São Mateus",
     "CEP": "29947-115",
     "telefone": "",
@@ -7885,7 +7885,7 @@
   },
   {
     "Nome_escola": "EEUEF NATIVO DE BARRA NOVA",
-    "Endereco": "ESTRADA CORREGO TABUAS-NATIVO BARRA NOVA",
+    "Endereco": "ESTRADA CORREGO TABUAS-NATIVO BARRA NOVA, TABUAS",
     "Municipio": "São Mateus",
     "CEP": "29945-853",
     "telefone": "",
@@ -7932,7 +7932,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEFM DAVID ROLDI",
+    "Nome_escola": "PRÉ-ENEM EEEFM DAVID ROLDI",
     "Endereco": "RUA JOÃO GUERINI, 300, VILA VERDE",
     "Municipio": "São Roque do Canaã",
     "CEP": "29665-000",
@@ -7992,7 +7992,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEFM PRESIDENTE LUEBKE",
+    "Nome_escola": "PRÉ-ENEM EEEFM PRESIDENTE LUEBKE",
     "Endereco": "PRACA ALBERTO DO CARMO, 70, CENTRO",
     "Municipio": "Vargem Alta",
     "CEP": "29295-000",
@@ -8040,7 +8040,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEFM FIORAVANTE CALIMAN",
+    "Nome_escola": "PRÉ-ENEM EEEFM FIORAVANTE CALIMAN",
     "Endereco": "AVENIDA EVANDI AMERICO COMARELA, 675, CENTRO",
     "Municipio": "Venda Nova do Imigrante",
     "CEP": "29375-000",
@@ -8064,7 +8064,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EE PSMA I PENITENCIARIA DE SEGURANCA MAXIMA I",
+    "Nome_escola": "EE - PSMA I-PENITENCIARIA DE SEGURANÇA MAXIMA I",
     "Endereco": "RUA RODOV BR 262 KM 20, SN, CABRAL",
     "Municipio": "Viana",
     "CEP": "29135-000",
@@ -8076,7 +8076,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EE PSMA II PENITENCIARIA DE SEGURANCA MAXIMA II",
+    "Nome_escola": "EE - PSMA II-PENITENCIARIA DE SEGURANÇA MAXIMA II",
     "Endereco": "RUA BR 262 KM 18, SN, CABRAL",
     "Municipio": "Viana",
     "CEP": "29135-000",
@@ -8088,8 +8088,8 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EE PSME I PENITENCIARIA DE SEGURANCA MEDIA I",
-    "Endereco": "RODOVIA BR 262 KM 19, CABRAL, CABRAL",
+    "Nome_escola": "EE - PSME I PENITENCIARIA DE SEGURANCA MEDIA I",
+    "Endereco": "RODOVIA BR 262 KM 19, CABRAL",
     "Municipio": "Viana",
     "CEP": "29135-000",
     "telefone": "(27) 3255-2117",
@@ -8100,8 +8100,8 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EE PSME II PENITENCIARIA DE SEGURANCA MEDIA II",
-    "Endereco": "RODOVIA BR 262 KM 19, CABRAL, CABRAL",
+    "Nome_escola": "EE - PSME II - PENITENCIARIA DE SEGURANÇA MEDIA II",
+    "Endereco": "RODOVIA BR 262 KM 19, CABRAL",
     "Municipio": "Viana",
     "CEP": "29135-000",
     "telefone": "(27) 3255-2095",
@@ -8196,7 +8196,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEM IRMA DULCE LOPES PONTE",
+    "Nome_escola": "PRÉ-ENEM EEEM IRMA DULCE LOPES PONTE",
     "Endereco": "AVENIDA ESPIRITO SANTO, SN, MARCILIO DE NORONHA",
     "Municipio": "Viana",
     "CEP": "29135-508",
@@ -8376,7 +8376,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EE IRS INSTITUTO DE READAPTACAO SOCIAL",
+    "Nome_escola": "EE - IRS - INSTITUTO DE READAPTACAO SOCIAL",
     "Endereco": "RUA MESTRE GOMES, SN, GLORIA",
     "Municipio": "Vila Velha",
     "CEP": "29116-300",
@@ -8424,7 +8424,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEEF DESEMBARGADOR CANDIDO MARINHO",
+    "Nome_escola": "EEEF DESEMBARGADOR CÂNDIDO MARINHO",
     "Endereco": "AVENIDA SALGADO FILHO, SN, SOTECO",
     "Municipio": "Vila Velha",
     "CEP": "29106-010",
@@ -8436,7 +8436,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEEF DOMINGOS JOSE MARTINS VILA VELHA",
+    "Nome_escola": "EEEF DOMINGOS JOSÉ MARTINS - VILA VELHA",
     "Endereco": "RUA CAPRICORNIO, 154, ALVORADA",
     "Municipio": "Vila Velha",
     "CEP": "29117-340",
@@ -8688,18 +8688,6 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEFM FLORENTINO AVIDOS",
-    "Endereco": "AVENIDA VITORIA REGIA, SN, IBES",
-    "Municipio": "Vila Velha",
-    "CEP": "29108-660",
-    "telefone": "3319-0909",
-    "email": "moreiracarlos2006@yahoo.com.br",
-    "Latitude": -20.353264,
-    "Longitude": -40.317055,
-    "Numero_professores": 2,
-    "Numero_alunos": null
-  },
-  {
     "Nome_escola": "PRE ENEM EEEFM FRANCELINA CARNEIRO SETUBAL",
     "Endereco": "AVENIDA LEOPOLDINA, SN, COQUEIRAL DE ITAPARICA",
     "Municipio": "Vila Velha",
@@ -8709,30 +8697,6 @@
     "Latitude": -20.372583,
     "Longitude": -40.307677,
     "Numero_professores": 11,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "PRE ENEM EEEM GODOFREDO SCHNEIDER",
-    "Endereco": "RUA BERNARD SCHNEIDER, SN, CENTRO",
-    "Municipio": "Vila Velha",
-    "CEP": "29100-170",
-    "telefone": "(27) 3229-3036",
-    "email": "escolagodofredo@sedu.es.gov.br",
-    "Latitude": -20.329793,
-    "Longitude": -40.292725,
-    "Numero_professores": 5,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "PRE ENEM EEEM PROFESSOR AGENOR RORIS",
-    "Endereco": "AVENIDA JOAO MENDES, SN, ITAPARICA",
-    "Municipio": "Vila Velha",
-    "CEP": "29105-200",
-    "telefone": "3020-6222",
-    "email": "lena_lacerda@yahoo.com.br",
-    "Latitude": -20.37178,
-    "Longitude": -40.308062,
-    "Numero_professores": 4,
     "Numero_alunos": null
   },
   {
@@ -8748,7 +8712,43 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "CEET PROF FERNANDO DUARTE RABELO",
+    "Nome_escola": "PRÉ ENEM EEEM GODOFREDO SCHNEIDER",
+    "Endereco": "RUA BERNARD SCHNEIDER, SN, CENTRO",
+    "Municipio": "Vila Velha",
+    "CEP": "29100-170",
+    "telefone": "(27) 3229-3036",
+    "email": "escolagodofredo@sedu.es.gov.br",
+    "Latitude": -20.329793,
+    "Longitude": -40.292725,
+    "Numero_professores": 5,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "PRÉ-ENEM EEEFM FLORENTINO AVIDOS",
+    "Endereco": "AVENIDA VITORIA REGIA, SN, IBES",
+    "Municipio": "Vila Velha",
+    "CEP": "29108-660",
+    "telefone": "3319-0909",
+    "email": "moreiracarlos2006@yahoo.com.br",
+    "Latitude": -20.353264,
+    "Longitude": -40.317055,
+    "Numero_professores": 2,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "PRÉ-ENEM EEEM PROFESSOR AGENOR RORIS",
+    "Endereco": "AVENIDA JOAO MENDES, SN, ITAPARICA",
+    "Municipio": "Vila Velha",
+    "CEP": "29105-200",
+    "telefone": "3020-6222",
+    "email": "lena_lacerda@yahoo.com.br",
+    "Latitude": -20.37178,
+    "Longitude": -40.308062,
+    "Numero_professores": 4,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "CEET - PROF FERNANDO DUARTE RABELO",
     "Endereco": "RUA PRAÇA CRISTOVÃO JACQUES, 260",
     "Municipio": "Vitoria",
     "CEP": "29000-971",
@@ -8760,7 +8760,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EEEF ABERTA LAR D JOAO BATISTA",
+    "Nome_escola": "EEEF - ABERTA LAR D JOAO BATISTA",
     "Endereco": "PRACA UBALDO RAMALHETE",
     "Municipio": "Vitoria",
     "CEP": "29015-230",
@@ -8772,7 +8772,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEFM ALMIRANTE BARROSO",
+    "Nome_escola": "PRÉ-ENEM EEEFM ALMIRANTE BARROSO",
     "Endereco": "RUA DO ALMIRANTE, SN, GOIABEIRAS",
     "Municipio": "Vitoria",
     "CEP": "29075-180",
@@ -8784,7 +8784,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEM COLEGIO ESTADUAL DO ESPIRITO SANTO",
+    "Nome_escola": "PRÉ-ENEM EEEM COLEGIO ESTADUAL DO ESPIRITO SANTO",
     "Endereco": "AVENIDA VITORIA, 550, FORTE SAO JOAO",
     "Municipio": "Vitoria",
     "CEP": "29017-027",
@@ -8796,7 +8796,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEM PROF RENATO JOSE DA COSTA PACHECO",
+    "Nome_escola": "PRÉ-ENEM EEEM PROF RENATO JOSE DA COSTA PACHECO",
     "Endereco": "AV ENGº CHARLES BITRAN, 251, JARDIM CAMBURI",
     "Municipio": "Vitoria",
     "CEP": "29092-270",
@@ -8820,7 +8820,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "CEEJA DE VITORIA",
+    "Nome_escola": "CEEJA - DE VITORIA",
     "Endereco": "RUA SAO BENTO, 66, CENTRO",
     "Municipio": "Vitória",
     "CEP": "29016-290",
@@ -8856,7 +8856,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "EE NAAHS NUCLEO DE ATIVIDADES DE ALTAS HABILIDADES SUPERDOTACAO",
+    "Nome_escola": "EE NAAHS - NUCLEO DE ATIVIDADES DE ALTAS HABILIDADES SUPERDOTAÇÃO",
     "Endereco": "AVENIDA LEITAO DA SILVA, SN, DENTRO DA ESCOLA, PRAIA DO SUA",
     "Municipio": "Vitória",
     "CEP": "29052-110",
@@ -9036,7 +9036,19 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEFM ELZA LEMOS ANDREATTA",
+    "Nome_escola": "PRÉ ENEM EEEFM MARIA ORTIZ",
+    "Endereco": "RUA FRANCISCO ARAUJO, 35, CENTRO",
+    "Municipio": "Vitória",
+    "CEP": "29015-090",
+    "telefone": "3223-0282",
+    "email": "thieferson@ymail.com",
+    "Latitude": -20.321187,
+    "Longitude": -40.340113,
+    "Numero_professores": 2,
+    "Numero_alunos": null
+  },
+  {
+    "Nome_escola": "PRÉ-ENEM EEEFM ELZA LEMOS ANDREATTA",
     "Endereco": "RUA AMADEUS MUNIZ CORRÊA, 80, ILHA DAS CAIEIRAS",
     "Municipio": "Vitória",
     "CEP": "29032-120",
@@ -9048,7 +9060,7 @@
     "Numero_alunos": null
   },
   {
-    "Nome_escola": "PRE ENEM EEEFM MAJOR ALFREDO PEDRO RABAYOLLI",
+    "Nome_escola": "PRÉ-ENEM EEEFM MAJOR ALFREDO PEDRO RABAYOLLI",
     "Endereco": "AV DARIO LOURENÇO DE SOUZA, 752, MÁRIO CYPRESTE",
     "Municipio": "Vitória",
     "CEP": "29026-080",
@@ -9057,18 +9069,6 @@
     "Latitude": -20.315429,
     "Longitude": -40.35811,
     "Numero_professores": 6,
-    "Numero_alunos": null
-  },
-  {
-    "Nome_escola": "PRE ENEM EEEFM MARIA ORTIZ",
-    "Endereco": "RUA FRANCISCO ARAUJO, 35, CENTRO",
-    "Municipio": "Vitória",
-    "CEP": "29015-090",
-    "telefone": "3223-0282",
-    "email": "thieferson@ymail.com",
-    "Latitude": -20.321187,
-    "Longitude": -40.340113,
-    "Numero_professores": 2,
     "Numero_alunos": null
   },
   {
@@ -9109,7 +9109,7 @@
   },
   {
     "Nome_escola": "CEIER DE AGUIA BRANCA",
-    "Endereco": "CORREGO COMUNIDADE SAO PEDRO, SN, ZONA RURAL, ZONA RURAL",
+    "Endereco": "CORREGO COMUNIDADE SAO PEDRO, SN, ZONA RURAL",
     "Municipio": "Águia Branca",
     "CEP": "29795-000",
     "telefone": "(27) 9849-7136",

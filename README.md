@@ -2,11 +2,15 @@
 
 Repositorio com frontend do mapa, backend local em Python e banco SQLite unificado.
 
+O arquivo `backend/data/schools.sqlite3` e a fonte de verdade operacional do projeto no modo local. Os arquivos `public/data/schools/e_*.json` ficam como snapshots gerados para publicacao e fallback estatico.
+
 ## Como rodar localmente
 
 ```bash
 python3 backend/server.py
 ```
+
+O backend bloqueia bind remoto por padrao. Para subir fora de `127.0.0.1`/`localhost`/`::1`, use `ESCOLAS_ALLOW_REMOTE=1` junto com `ESCOLAS_HOST`.
 
 URLs locais:
 
@@ -26,18 +30,24 @@ Somente `public/` vai para o GitHub Pages. Scripts, docs, banco SQLite e backend
 - `public/data/`: camadas e configuracao consumidas pelo site
 - `scripts/`: geradores de camada e utilitarios do frontend
 - `docs/`: arquitetura, deploy e atualizacao
-- `experiments/`: prototipos e HTMLs locais
 
 ## Relacao entre frontend e backend
 
 O backend local:
 
-1. importa os snapshots atuais `public/data/schools/e_*.json` para um banco SQLite unico
+1. usa `backend/data/schools.sqlite3` como base unica para edicao, persistencia e leitura local
 2. expoe CRUD e consulta por API
 3. serve o mapa em `/` e o painel em `/admin/`
-4. regrava os arquivos `public/data/schools/e_*.json` sempre que uma escola e criada, alterada ou excluida
+4. confirma cada mutacao no SQLite e regrava os arquivos `public/data/schools/e_*.json` com debounce de 500 ms
+5. permite forcar a regravacao imediata via `POST /api/exports/flush`
+6. aceita CORS aberto apenas nas leituras `GET`; escritas exigem `Origin` compativel com o `Host` da requisicao
+7. responde `ETag/304` em `/api/meta`, deixando o polling de 15s bem mais leve quando nada mudou
+
+Se o banco local nao existir, `ensure_database_ready()` usa os snapshots `public/data/schools/e_*.json` apenas como bootstrap de recuperacao para recriar `backend/data/schools.sqlite3`.
 
 O frontend local tenta carregar `/api/config` primeiro. Quando a API existe, ele consome os datasets pela API. No GitHub Pages, sem backend, ele volta automaticamente para os arquivos estaticos publicados em `public/data/`.
+
+Esse endurecimento reduz risco em ambiente local e em exposicao acidental, mas nao substitui autenticacao. Em uma publicacao futura na AWS, o ideal e proteger as rotas de escrita com auth e restringir acesso de rede.
 
 ## GitHub Pages
 
@@ -58,6 +68,7 @@ Os datasets estaticos publicados e mantidos pelo backend sao:
 - `public/data/schools/e_privadas.json`
 
 Eles continuam separados por rede para o frontend saber o tipo da escola, e tambem servem como snapshot para o GitHub Pages e bootstrap da primeira carga do banco local.
+Eles nao sao a base editavel do projeto: sao snapshots publicados gerados a partir do SQLite local.
 
 ## Documentacao principal
 
@@ -92,6 +103,6 @@ python .\scripts\build_density_layer.py `
 
 ```powershell
 python .\scripts\build_state_boundary.py `
-  --input "..\..\backend\projects\escolas_estaduais_es\data\raw\geodata\ibge_municipios_es.geojson" `
+  --input "CAMINHO\PARA\ibge_municipios_es.geojson" `
   --output "public\data\boundaries\es_state.geojson"
 ```

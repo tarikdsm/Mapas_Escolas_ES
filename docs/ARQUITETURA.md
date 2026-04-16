@@ -34,7 +34,7 @@ Diretorio publicado e tambem servido localmente pelo backend.
 Servidor local em Python sem dependencias externas obrigatorias.
 
 - `backend/server.py`: servidor HTTP, API REST, importacao inicial e persistencia SQLite
-- `backend/data/*.sqlite3`: banco local
+- `backend/data/*.sqlite3`: banco local e fonte de verdade operacional; os snapshots `e_*.json` sao artefatos gerados e fallback de recuperacao
 
 ### `scripts/`
 
@@ -44,18 +44,17 @@ Ferramentas para transformar os exports do backend no contrato do site.
 
 Documentacao operacional do frontend.
 
-### `experiments/`
-
-Material local de apoio que nao deve ir ao ar.
-
 ## Fluxo local
 
 1. `python3 backend/server.py` sobe um servidor unico em `http://127.0.0.1:8765`
 2. o mapa abre em `/`
 3. o painel administrativo abre em `/admin/`
 4. a API responde em `/api/`
-5. o backend importa a base atual para o SQLite na primeira execucao
-6. edicoes no painel atualizam o banco e regravam os arquivos `public/data/schools/e_*.json`
+5. o SQLite e a base principal do modo local
+6. se o SQLite nao existir, o backend recria o banco a partir dos snapshots `public/data/schools/e_*.json`
+7. toda edicao passa pelo SQLite e so depois atualiza os snapshots publicados
+8. `POST /api/exports/flush` permite forcar a regravacao estatica quando necessario
+9. bind remoto so e permitido com `ESCOLAS_ALLOW_REMOTE=1`, e as rotas mutantes exigem `Origin` compativel com o `Host`
 
 ## Fluxo no GitHub Pages
 
@@ -72,6 +71,8 @@ Material local de apoio que nao deve ir ao ar.
 - privadas: `public/data/schools/e_privadas.json`
 
 A estrutura antiga com `tiles/`, `details/` e `index.json` por rede foi removida. O backend e o frontend local agora partem do mesmo contrato `e_*.json`.
+
+Os arquivos `e_*.json` continuam sendo o snapshot versionado e a base publicada no GitHub Pages. O SQLite local e a fonte de verdade do modo completo; os JSONs sao reexportados a partir dele.
 
 ## Contrato do frontend
 
